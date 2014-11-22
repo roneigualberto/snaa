@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_acidente_detalhado_subreport1" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4336bded-4256-4791-ab8f-68bd41a6fd89">
+	<property name="ireport.zoom" value="0.8264462809917354"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="17"/>
+	<subDataset name="dataset1" uuid="07ce6de4-b539-48c1-bca9-2f6464681bdc"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\tcc2\\workspace-svn\\snaa\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="acidente" class="br.edu.ifam.snaa.domain.notificacao.oficial.Acidente">
+		<fieldDescription><![CDATA[acidente]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="comentario" class="java.lang.String">
+		<fieldDescription><![CDATA[comentario]]></fieldDescription>
+	</field>
+	<field name="dataRegistro" class="java.util.Calendar">
+		<fieldDescription><![CDATA[dataRegistro]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="profissionalSaude" class="br.edu.ifam.snaa.domain.notificacao.oficial.ProfissionalSaude">
+		<fieldDescription><![CDATA[profissionalSaude]]></fieldDescription>
+	</field>
+	<field name="prontuario" class="br.edu.ifam.snaa.domain.notificacao.oficial.Prontuario">
+		<fieldDescription><![CDATA[prontuario]]></fieldDescription>
+	</field>
+	<field name="quadroSaida" class="br.edu.ifam.snaa.domain.notificacao.oficial.QuadroSaida">
+		<fieldDescription><![CDATA[quadroSaida]]></fieldDescription>
+	</field>
+	<field name="tratamento" class="br.edu.ifam.snaa.domain.notificacao.oficial.Tratamento">
+		<fieldDescription><![CDATA[tratamento]]></fieldDescription>
+	</field>
+	<field name="codigo" class="java.lang.String"/>
+	<group name="atendimento">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+		<groupHeader>
+			<band height="73">
+				<textField>
+					<reportElement uuid="86f0ad49-a796-4406-80d2-0ec9b08645a3" x="40" y="34" width="105" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="bba80695-df50-4695-b567-ea4ae2aa115c" x="564" y="34" width="150" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{profissionalSaude}.getUsuario().getNome()]]></textFieldExpression>
+				</textField>
+				<rectangle radius="8">
+					<reportElement uuid="dd5a0650-83ff-4624-8f90-3e178b936e0c" x="10" y="10" width="780" height="61" backcolor="#D8F0D8"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement uuid="0f1c350e-165e-4564-a335-9ca37d6fbacc" x="345" y="14" width="117" height="20"/>
+					<textElement>
+						<font isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Data do Registro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6fc73662-063a-4ae9-a805-82af840b8e36" x="40" y="14" width="129" height="20"/>
+					<textElement>
+						<font isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Número do Atendimento]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement uuid="f5094497-3581-49b1-ba1c-b7a4764a96ac" x="345" y="34" width="117" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{dataRegistro}.getTime()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="3ee19f02-c5fc-45b2-b829-09e343af35a7" x="564" y="14" width="187" height="20"/>
+					<textElement>
+						<font isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Profissional de Saúde Responsável]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement uuid="112c5761-6588-457d-b929-b69dd531c30e" x="40" y="34" width="117" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement uuid="682e119d-4663-43b2-b060-e1d1dabad16c" x="564" y="34" width="187" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{profissionalSaude}.getUsuario().getNome()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="209" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="0dc67e44-83fb-445d-87f0-e0b23c5ab1c1" x="424" y="56" width="368" height="39">
+					<printWhenExpression><![CDATA[!$F{prontuario}.getSintomasLocal().isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA["SINTOMAS LOCAIS"]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{prontuario}.getSintomasLocal())]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subrel_prontuario_sintomas.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="4039ff68-14a9-4c43-b777-b309cf1721a0" x="10" y="56" width="368" height="39">
+					<printWhenExpression><![CDATA[!$F{prontuario}.getSintomasSistemico().isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA["SINTOMAS SISTÊMICOS"]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{prontuario}.getSintomasSistemico())]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subrel_prontuario_sintomas.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement uuid="00832387-a297-44ef-830f-c6bfbb7ad554" positionType="Float" x="10" y="114" width="774" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="966d679a-1ca2-405a-a218-51f8ae67ebf4" x="10" y="10" width="780" height="20"/>
+				<box>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Prontuário]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="d1a059ba-54ae-4d61-b015-7962aaf960e2" x="246" y="142" width="368" height="39">
+					<printWhenExpression><![CDATA[!$F{prontuario}.getDoencas().isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{prontuario}.getDoencas())]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subrel_prontuario_doencas.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="aca5c8ab-f0c4-45f1-986b-6e2143aed022" x="246" y="122" width="360" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Doenças]]></text>
+			</staticText>
+			<break>
+				<reportElement uuid="8bdc8f8b-029b-4df6-aea3-c2dd0a678f9b" x="0" y="195" width="802" height="1"/>
+			</break>
+		</band>
+		<band height="539">
+			<rectangle radius="8">
+				<reportElement uuid="04951202-1c4c-4994-8098-508e5be501a4" x="40" y="206" width="728" height="61" backcolor="#D8F0D8"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="e9c61534-c1ac-486c-91d5-8d5ed6a3438b" x="14" y="10" width="780" height="20"/>
+				<box>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tratamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f599783d-351f-43ed-94b5-e95ced2e053d" x="40" y="58" width="728" height="20"/>
+				<box>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Medicamento Sistêmico]]></text>
+			</staticText>
+			<rectangle radius="8">
+				<reportElement uuid="3733264a-483e-4ab6-8fef-1f788e430c04" x="40" y="90" width="728" height="61" backcolor="#D8F0D8"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="5e3d71ab-3972-4998-bbf1-3b4cf97f39de" x="65" y="101" width="218" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tipo de Medicamento:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="b390c17d-51a6-4f76-8132-ee5c42467304" x="65" y="121" width="218" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tratamento}.getCategoriaSistemico().getDescricao()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5eba8312-224e-4460-bd10-81978e44d1b3" x="320" y="101" width="218" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Descrição:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="a3c33631-db96-4972-a2e8-2e536f4f5232" x="320" y="121" width="231" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tratamento}.getMedicamentoSistemico()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="faeb6f8e-0013-4dd4-93ce-e5d63b2ca327" x="40" y="168" width="728" height="20"/>
+				<box>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tratamento/Procedimento Local]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b2216dc-1a2b-454f-80e6-e3f9e366c571" x="65" y="217" width="218" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tipo de Medicamento:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="d8ee7212-61e0-4288-82d3-534dd43514c5" x="320" y="237" width="218" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tratamento}.getMedicamentoLocal()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="df30f8cf-1540-4272-be83-a926867601bc" x="320" y="217" width="218" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Descrição:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="52dc7191-34c3-4845-8bcb-3b86f78071d8" x="65" y="237" width="218" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tratamento}.getCategoriaLocal() == null ? "" : $F{tratamento}.getCategoriaLocal().getDescricao()]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="e8e31967-328d-43fb-a0dc-981bd51c21f0" x="40" y="317" width="728" height="39">
+					<printWhenExpression><![CDATA[!$F{tratamento}.getExames().isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{tratamento}.getExames())]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subrel_tratamento_exames.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

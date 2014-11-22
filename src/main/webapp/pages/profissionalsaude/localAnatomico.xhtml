@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+<script type="text/javascript">
+   
+
+   function escolherLocal(valor) {
+	   $("#tabView\\:formulario\\:localAnatomico").val(valor);
+   }
+
+   function selecionarLocal() {
+	   var valor = $("#tabView\\:formulario\\:localAnatomico").val();
+	   $("#" +valor).attr('checked',true);
+	   dlg.show();
+  }
+
+  
+</script>
+
+<style type="text/css">
+
+</style>
+<h:body style="background: white;">
+
+	<div
+		style="background: white; border-radius: 10px; margin-bottom: 20px; padding: 20px">
+		<h:inputHidden value="#{prontuarioBean.acidente.localAnatomico}"
+			id="localAnatomico" />
+		<div class="esquerda">
+			<div class="membro esquerdo pescoco">
+				<input type="radio" name="local" value="PESCOCO" id="PESCOCO"
+					onclick="escolherLocal(this.value)" /> <span>Pescoço</span>
+				<hr />
+			</div>
+			<div class="membro esquerdo ombro-esquerdo">
+				<input type="radio" name="local" value="OMBRO_ESQUERDO"
+					id="OMBRO_ESQUERDO" onclick="escolherLocal(this.value)" /> <span>Ombro
+					esquerdo</span>
+
+				<hr />
+			</div>
+
+			<div class="membro esquerdo braco-esquerdo">
+				<input type="radio" name="local" value="BRACO_ESQUERDO"
+					id="BRACO_ESQUERDO" onclick="escolherLocal(this.value)" /> <span>Braço
+					esquerdo</span>
+				<hr />
+			</div>
+			<div class="membro esquerdo antebraco-esquerdo">
+				<input type="radio" name="local" value="ANTEBRACO_ESQUERDO"
+					id="ANTEBRACO_ESQUERDO" onclick="escolherLocal(this.value)" /> <span>Antebraço
+					esquerdo</span>
+				<hr />
+			</div>
+
+			<div class="membro esquerdo mao-esquerda">
+				<input type="radio" name="local" value="MAO_ESQUERDA"
+					id="MAO_ESQUERDA" onclick="escolherLocal(this.value)" /> <span>Mão
+					esquerda</span>
+				<hr />
+			</div>
+
+			<div class="membro esquerdo coxa-esquerda">
+				<input type="radio" name="local" value="COXA_ESQUERDA"
+					id="COXA_ESQUERDA" onclick="escolherLocal(this.value)" /> <span>Coxa
+					esquerda</span>
+				<hr />
+			</div>
+
+			<div class="membro esquerdo perna-esquerda">
+				<input type="radio" name="local" value="PERNA_ESQUERDA"
+					id="PERNA_ESQUERDA" onclick="escolherLocal(this.value)" /> <span>Perna
+					esquerda</span>
+				<hr />
+			</div>
+			<div class="membro esquerdo pe-esquerdo">
+				<input type="radio" name="local" value="PE_ESQUERDO"
+					id="PE_ESQUERDO" onclick="escolherLocal(this.value)" /> <span>Pé
+					esquerdo</span>
+				<hr />
+			</div>
+		</div>
+		<div class="corpo" id="cabeca">
+			<img src="images/img_trans.gif" width="1" height="1" />
+		</div>
+		<div class="direita">
+			<div class="membro direito cabeca">
+				<input type="radio" name="local" value="CABECA" id="CABECA"
+					onclick="escolherLocal(this.value)" /> <span>Cabeça</span>
+				<hr />
+			</div>
+
+			<div class="membro direito ombro-direito">
+				<input type="radio" name="local" value="OMBRO_DIREITO"
+					id="OMBRO_DIREITO" onclick="escolherLocal(this.value)" /> <span>Ombro
+					direito</span>
+				<hr />
+			</div>
+
+
+
+			<div class="membro direito braco-direito">
+				<input type="radio" name="local" value="BRACO_DIREITO"
+					id="BRACO_DIREITO" onclick="escolherLocal(this.value)" /> <span>Braço
+					direito</span>
+				<hr />
+			</div>
+
+			<div class="membro direito antebraco-direito">
+				<input type="radio" name="local" value="ANTEBRACO_DIREITO"
+					id="ANTEBRACO_DIREITO" onclick="escolherLocal(this.value)" /> <span>Antebraço
+					direito</span>
+				<hr />
+			</div>
+
+			<div class="membro direito mao-direita">
+				<input type="radio" name="local" value="MAO_DIREITA"
+					id="MAO_DIREITA" onclick="escolherLocal(this.value)" /> <span>Mão
+					direita</span>
+				<hr />
+			</div>
+			<div class="membro direito coxa-direita">
+				<input type="radio" name="local" value="COXA_DIREITA"
+					id="COXA_DIREITA" onclick="escolherLocal(this.value)" /> <span>Coxa
+					direita</span>
+				<hr />
+			</div>
+
+			<div class="membro direito perna-direita">
+				<input type="radio" name="local" value="PERNA_DIREITA"
+					id="PERNA_DIREITA" onclick="escolherLocal(this.value)" /> <span>Perna
+					direita</span>
+				<hr />
+			</div>
+
+			<div class="membro direito pe-direito">
+				<input type="radio" name="local" value="PE_DIREITO"
+					onclick="escolherLocal(this.value)" /> <span>Pé direito</span>
+				<hr />
+			</div>
+
+
+		</div>
+		<div class="direita">
+			<p:commandButton id="btnFinalizar" value="Finalizar"
+				styleClass="btn-default" update="@form"
+				process=":tabView:formulario:localAnatomico"
+				oncomplete="dlg.hide();" action="#{prontuarioBean.escolherLocal}" />
+			<br />
+			<p:commandButton id="btnCancelar" value="Fechar"
+				styleClass="btn-default" update="@form" oncomplete="dlg.hide();"
+				action="#{prontuarioBean.desfazerLocal}" />
+		</div>
+		<div class="clear"></div>
+	</div>
+
+
+
+
+
+</h:body>
+</html>

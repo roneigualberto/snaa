@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<h:body>
+
+	<div class="conteudo">
+		<h:form id="relatorioForm" target="_blank">
+
+			<p:panel styleClass="panel-view">
+				<p:toolbar>
+					<p:toolbarGroup align="center">
+						<div style="margin: 8px; text-align: center;">
+							<span>CONSULTA DE DADOS ESTATÍSTICOS</span>
+						</div>
+					</p:toolbarGroup>
+
+
+				</p:toolbar>
+				<p:separator style="width: 0px" />
+				<div class="panel-campo panel_30 direita">
+					<div>
+						<p:outputLabel for="tipoNotificacao" value="Tipo de Notificação" />
+
+					</div>
+					<p:selectOneMenu id="tipoNotificacao" style="width:100%;"
+						value="#{relatorioAcidenteBean.acidenteDTO.tipoNotificacao}">
+						<f:selectItem itemLabel="#{messages['item.todos']}"
+							itemValue="" />
+						<f:selectItems var="tipoNotificacao"
+							value="#{tipoNotificacaoBean.list}" itemValue="#{sexo}"
+							itemLabel="#{tipoNotificacao.descricao}" />
+
+					</p:selectOneMenu>
+				</div>
+
+				<div class="panel-campo panel_30 direita">
+					<div>
+						<p:outputLabel for="municipio"
+							value="#{messages['acidente.municipio.label']}" />
+					</div>
+
+					<p:selectOneMenu id="municipio" style="width:100%;" filter="true"
+						filterMatchMode="startsWith"
+						value="#{relatorioAcidenteBean.acidenteDTO.municipio}"
+						converter="entityConverter">
+						<f:selectItem itemLabel="#{messages['item.todos']}"
+							itemvalue="0" />
+						<f:selectItems var="municipio"
+							value="#{municipioListBean.municipiosDoAmazonas}"
+							itemValue="#{municipio}" itemLabel="#{municipio.nome}" />
+
+					</p:selectOneMenu>
+					<p:message for="municipio" />
+
+
+				</div>
+				<div class="panel-campo panel_20 direita" style="margin-right: 0px">
+					<p:outputLabel for="dtInicio" styleClass="required"
+						value="Data Início: " />
+					<br />
+
+					<p:calendar styleClass="campo-data" id="dtInicio"
+						pattern="#{messages['data.pattern']}"
+						locale="#{messages['locale']}" showOn="button"
+						showButtonPanel="true" navigator="true"
+						value="#{relatorioAcidenteBean.acidenteDTO.dataInicio}">
+						<p:ajax event="dateSelect" update="dtFim" process="@this" />
+					</p:calendar>
+				</div>
+
+				<div class="panel-campo panel_20 direita" style="margin-right: 30px">
+					<p:outputLabel for="dtFim" value="Data Fim: " />
+
+					<p:calendar styleClass="campo-data" id="dtFim"
+						mindate="#{relatorioAcidenteBean.acidenteDTO.dataInicio}"
+						pattern="#{messages['data.pattern']}"
+						locale="#{messages['locale']}" showOn="button"
+						showButtonPanel="true" navigator="true"
+						value="#{relatorioAcidenteBean.acidenteDTO.dataFim}" />
+				</div>
+
+				<div class="panel-campo panel_40 direita">
+					<div>
+						<p:outputLabel for="tipoRelatorio" value="Tipo de Relatorio" />
+					</div>
+					<p:selectOneMenu id="tipoRelatorio" style="width:100%;"
+						value="#{relatorioAcidenteBean.relatorioEnum}" required="true">
+						<f:selectItem itemLabel="#{messages['item.selecione']}"
+							itemValue="" />
+						<f:selectItems var="relatorio"
+							value="#{relatorioAcidenteBean.listRelatorio}"
+							itemValue="#{relatorio}" itemLabel="#{relatorio.descricao}" />
+
+					
+					</p:selectOneMenu>
+					<p:message for="tipoRelatorio"></p:message>
+				</div>
+
+				<div class="clear"></div>
+				
+				<div class="direita panel_50" style="margin: auto">
+					<div class="input text grid_8">
+
+						<img src="#{request.contextPath}/captcha.image" id="captcha" ></img>
+						<a href="#" onclick="refreshCaptcha('captcha','#{request.contextPath}/captcha.image')"> <h:graphicImage library="imagens" name="Command-Refresh-32.png" /></a>
+						<p:outputLabel for="captcha"
+							value="Informe o código conforme a imagem acima:" />
+						<p:inputText id="captcha" required="true" autocomplete="false" 
+							requiredMessage="Informe o codigo de verificação"
+						>
+							<f:validator validatorId="captcha" />
+						</p:inputText>
+						<p:message for="captcha" />
+
+					</div>
+				</div>
+
+
+
+
+				<div class="clear"></div>
+
+				<div style="text-align: center">
+
+					<p:commandButton value="Imprimir" icon="ui-icon-print"
+						validateClient="true"
+						style="font-size:18px;margin-top:10px;padding:5px"
+						action="#{relatorioAcidenteBean.imprimir}" ajax="false" />
+				</div>
+
+
+
+			</p:panel>
+			<iframe name="render" width="100%"></iframe>
+		</h:form>
+	</div>
+
+
+</h:body>
+</html>

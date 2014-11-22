@@ -1,0 +1,369 @@
+html,body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	position: absolute;
+	height: 100%;
+	min-width: 100%;
+	font-size: 12px;
+	color: #000;
+	font-family: Helvetica, Arial, Sans-serif;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.ui-snaa-titulo {
+	float: left;
+	width: 50%;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 12px !important;
+}
+
+.container {
+	position: relative;
+	min-height: 100%;
+}
+
+.ui-outputlabel-rfi {
+	font-weight: bold;
+	color: red;
+}
+
+.cabecalho {
+	height: 45px;
+}
+
+.cabecalho h1 {
+	margin: 0;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: '.';
+	clear: both;
+	height: 0;
+}
+
+.principal {
+	padding-bottom: 100px;
+	min-height: 80%;
+	margin: 0 auto;
+}
+
+.conteudo {
+	margin: auto;
+	width: 960px;
+}
+
+.panel-view {
+	background: white;
+	margin-top: 3%;
+}
+
+.panel-view .panel-view-titulo {
+	margin: 8px;
+	text-align: center;
+}
+
+.panel-captcha {
+	text-align: center;
+	margin: auto;
+	width: 70%;
+	background: white;
+	margin-top: 10px;
+}
+
+.rodape {
+	position: absolute;
+	bottom: 0;
+	height: 35px;
+	width: 99.85%;
+	text-align: center;
+	color: white;
+}
+
+.panel-login .ui-fieldset {
+	width: 280px;
+	padding: 25px;
+	padding-top: 50px; 
+	float: right;
+}
+
+.panel-campo {
+	margin-bottom: 10px;
+}
+
+.direita {
+	float: left;
+	margin-right: 30px;
+}
+
+label {
+	display: block;
+	font-weight: bold;
+	margin: 0 0 4px 1px;
+}
+
+.panel-campo input[type="text"],.panel-campo input[type="password"] {
+	width: 100%;
+}
+
+.panel_60 {
+	width: 60%;
+}
+
+.panel_75 {
+	width: 75%;
+}
+
+.panel_30 {
+	width: 30%;
+}
+
+.panel_20 {
+	width: 15%;
+	margin-right: 5%;
+}
+
+.panel_10 {
+	width: 10%;
+	margin-right: 5%;
+}
+
+.panel_40 {
+	width: 35%;
+	margin-right: 5%;
+}
+
+.panel_45 {
+	width: 40%;
+	margin-right: 5%;
+}
+
+.panel_50 {
+	width: 45%;
+	margin-right: 5%;
+}
+
+.panel_25 {
+	width: 25%;
+	margin-bottom: 15px;
+}
+
+.panel_15 {
+	width: 15%;
+}
+
+.clear {
+	clear: both;
+}
+
+.ui-datatable-empty-message div.ui-dt-c {
+	text-align: center;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+fieldset.panel-filtro {
+	border-radius: 7px;
+	border: 2px #7AD377 solid;
+	padding: 20px;
+	margin-bottom: 5px;
+}
+
+/* TITULO */
+h2.titulo {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	color: #2B2926;
+	text-align: left;
+	height: auto;
+	margin-bottom: 18px;
+	border-bottom: 1px solid;
+	clear: both;
+	width: 100%;
+	text-align: center;
+}
+
+div.panel-acoes {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.panel-acoes button.btn-acao {
+	margin: 10px;
+}
+
+.par {
+	background-color: red;
+}
+
+.impar {
+	background: none repeat scroll 0 0 #DDDDDD;
+}
+
+.link-acoes {
+	margin-right: 8px;
+}
+
+span.required {
+	font-weight: bold;
+	color: red;
+}
+
+label.required {
+	display: inline;
+}
+
+span.campo-data .ui-inputfield {
+	width: 50%;
+}
+
+.panel-right {
+	float: right;
+	width: 85%;
+}
+
+.menu-usuario {
+	float: left;
+	width: 15%;
+}
+
+.menu-usuario .ui-menu {
+	width: 80%;
+}
+
+.menu-bar {
+	margin-bottom: 20px;
+}
+
+.field-select {
+	width: 100%;
+}
+
+.ui-toolbar-group-center {
+	text-align: center;
+}
+
+.tfSintoma input {
+	width: 65%;
+}
+
+.panel-perfil {
+	width: 850px;
+	margin: auto;
+	text-align: center;
+}
+
+.panel-btn-perfil {
+	width: 80%;
+	margin: auto;
+	text-align: center;
+}
+
+.btn-perfil {
+	float: left;
+	width: 310px;
+	margin-top: 40px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 12px;
+}
+
+.btn-perfil a:link {
+	text-decoration: none;
+	color: black;
+}
+
+.btn-perfil a:active {
+	text-decoration: none;
+}
+
+.btn-perfil a:visited {
+	text-decoration: none;
+	color: black
+}
+
+.btn-perfil a:hover {
+	text-decoration: none;
+}
+
+fieldset.panel-form {
+	background: white;
+}
+
+.ui-datatable .ui-datatable-data .even-row td {
+	background-color: #D8F0D8;
+	height: 30px;
+}
+
+.ui-datatable .ui-datatable-data .odd-row td {
+	background-color: #FFFFFF;
+	height: 30px;
+}
+
+.listArraia .ui-orderlist .ui-orderlist-list {
+	height: 430px;
+}
+
+.ui-wizard-step-title {
+	font-size: 17px !important;
+}
+
+.ui-accordion .ui-accordion-content {
+	background: white !important;
+	border: 1px solid #dfd9c3 !important;
+	border-radius: 2px;
+}
+
+.btn-default {
+	font-size: 18px !important;;
+	margin: 10px !important;;
+	padding: 5px !important;;
+}
+
+.panel-snaa {
+	background: #D8F0D8;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 2%;
+}
+
+.ui-selectonemenu-filter-container {
+	width: 93% !important;
+}
+
+.panel-index {
+	width: 960px; 
+	margin: auto; 
+	margin-top: 5%;
+	border-bottom: 1px solid green; 
+	border-top: 1px solid green; 
+	padding: 20px;
+}
+
+.panel-index-acoes {
+    text-align: right !important; 
+	margin: 10px !important;
+}
+
+.panel-index-btn {
+	width: 180px !important;
+	padding: 5px !important;
+}

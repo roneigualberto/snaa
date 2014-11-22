@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/template/_template.xhtml">
+
+	<ui:define name="corpo">
+	     
+		<h:graphicImage library="imagens" name="Doctor-32.png" />
+		<h2 style="display: inline;">Área do Administrador</h2>
+		<p:separator style="margin-bottom: 10px;" />
+		<div class="clear"></div>
+		<h:form>
+
+			<div class="menu-usuario">
+				<p:panelMenu>
+					<p:submenu label="Solicitações">
+						<p:menuitem value="Solicitações pendentes"
+							url="/pages/administrativo/solicitacaoList.jsf" />
+
+					</p:submenu>
+					<p:submenu label="Cadastros">
+
+						<p:menuitem value="Administrador"
+							url="/pages/administrativo/cadastros/administrador/administradorList.jsf" />
+
+
+						<p:menuitem value="Arraia"
+							url="/pages/administrativo/cadastros/arraia/arraiaList.jsf" />
+						<p:menuitem value="Doença" url="#{doencaListBean.previousView}" />
+						<p:menuitem value="Escolaridade"
+							url="#{escolaridadeListBean.previousView}" />
+						<p:submenu label="Endereçamento">
+							<p:menuitem value="Estado" url="#{estadoListBean.previousView}" />
+							<p:menuitem value="País"
+								url="/pages/administrativo/cadastros/endereco/pais/paisList.jsf" />
+						</p:submenu>
+						<p:menuitem value="Quadro de Saída"
+							url="#{quadroSaidaListBean.previousView}" />
+					</p:submenu>
+					
+					<p:submenu label="Administrador">
+						
+						<p:menuitem value="Alterar Senha" url="/pages/administrativo/alterarSenha.jsf" />
+
+
+					</p:submenu>
+
+				</p:panelMenu>
+
+			</div>
+		</h:form>
+		<div class="panel-right">
+			<ui:insert name="conteudo" />
+		</div>
+	</ui:define>
+</ui:composition>

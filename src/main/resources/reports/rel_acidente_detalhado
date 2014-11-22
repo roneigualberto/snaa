@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_acidentes_por_municipio" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f16717ea-0e57-4f7e-993a-ae00499299ad">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\tcc2\\workspace-svn\\snaa\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoNotificacao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idMunicipio" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtInicio" class="java.util.Date"/>
+	<parameter name="dtFim" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+ ret.idMunicipio,
+ ret.nmMunicipio,
+ count(*) as qtde
+
+ FROM (
+
+SELECT
+	 m.id as idMunicipio,
+	 m.nome as nmMunicipio
+
+
+FROM acidente ac
+	 INNER JOIN municipio m ON (m.id = ac.municipio_id)
+     INNER JOIN vitima    v ON (v.id = ac.vitima_id)
+WHERE ac.situacao = 'CONCLUIDO' and ( $P{tipoNotificacao} is null or $P{tipoNotificacao} = 'POR_UNIDADE_SAUDE')
+AND  ($P{idMunicipio} is null or m.id = $P{idMunicipio})
+AND  ( ($P{dtInicio} is null or $P{dtFim}) or (ac.data_ocorrencia  BETWEEN $P{dtInicio} AND $P{dtFim} ) )
+UNION ALL
+SELECT
+   m.id as idMunicipio,
+   m.nome as nmMunicipio
+FROM acidente_nao_oficial ac
+    INNER JOIN municipio m ON (m.id = ac.municipio_id)
+     INNER JOIN vitima    v ON (v.id = ac.vitima_id)
+ WHERE ($P{tipoNotificacao} is null or $P{tipoNotificacao} = 'NAO_OFICIAL')
+       AND ($P{idMunicipio} is null or m.id = $P{idMunicipio})
+AND  ( ($P{dtInicio} is null or $P{dtFim}) or (ac.data_ocorrencia  BETWEEN $P{dtInicio} AND $P{dtFim} ) )
+) ret
+
+
+group by ret.nmMunicipio]]>
+	</queryString>
+	<field name="idMunicipio" class="java.lang.Long"/>
+	<field name="nmMunicipio" class="java.lang.String"/>
+	<field name="qtde" class="java.lang.Long"/>
+	<group name="municipio" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{idMunicipio}]]></groupExpression>
+		<groupHeader>
+			<band height="171">
+				<rectangle radius="8">
+					<reportElement uuid="f3291bc1-3b1d-4a40-a95d-fe935d2debbd" x="6" y="76" width="544" height="83" backcolor="#D8F0D8"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement uuid="c4bc8a09-b5bd-4859-8e82-a1f06c1edeed" x="124" y="107" width="421" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{nmMunicipio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="766ab20a-b450-4493-b018-b7d352a7a730" x="18" y="107" width="106" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Município:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1a3dee6e-ff11-458a-b12c-cbcac520a303" x="18" y="127" width="106" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tota de Acidentes:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="414b2b66-64f8-4323-b8ba-99c3d1b37bc4" x="124" y="127" width="421" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{qtde}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="fe0a4825-1c3d-4f81-b701-3d69c0f383f4" x="0" y="10" width="555" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SNAA - SISTEMA DE NOTIFICAÇÃO DE ACIDENTES POR ARRAIA
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6e287479-9815-44f6-9b52-6684a664c3af" x="0" y="30" width="555" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RELATÓRIO ESTATÍSTICO DE ACIDENTES POR MUNICÍPIO
+]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="be895577-61d9-4435-8459-3796a6e0c518" x="124" y="87" width="155" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$P{tipoNotificacao} == null ? "TODAS" :
+$P{tipoNotificacao} == "POR_UNIDADE_SAUDE" ?
+"Por Unidade de Saúde" :"Não Oficial"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="05097960-40c7-42ff-a70b-1d1a9d307329" x="18" y="87" width="106" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo de Notificação:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ce7c9c24-8a95-4545-8dd4-ed5505dcfdf3" x="300" y="87" width="52" height="20"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Período:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="64b93044-a3a7-4317-93f7-453c1ae0485b" x="350" y="87" width="195" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[($P{dtInicio} == null ? "Não Informado"  :
+  new SimpleDateFormat("dd/MM/yyyy").format($P{dtInicio})
+  +" - "+
+   new SimpleDateFormat("dd/MM/yyyy").format($P{dtFim})
+ )]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="802" splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="185" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="16ac2882-da38-4f31-8310-2a18d8f88c1d" positionType="Float" x="6" y="0" width="222" height="31"/>
+				<subreportParameter name="dtInicio">
+					<subreportParameterExpression><![CDATA[$P{dtInicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idMunicipio">
+					<subreportParameterExpression><![CDATA[$F{idMunicipio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dtFim">
+					<subreportParameterExpression><![CDATA[$P{dtFim}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipoNotificacao">
+					<subreportParameterExpression><![CDATA[$P{tipoNotificacao}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rel_acidentes_por_municipio_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="5d6bff4a-5a0a-4b2d-a3cb-c00fe70f0b4d" positionType="Float" x="313" y="0" width="232" height="31"/>
+				<subreportParameter name="dtInicio">
+					<subreportParameterExpression><![CDATA[$P{dtInicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idMunicipio">
+					<subreportParameterExpression><![CDATA[$F{idMunicipio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dtFim">
+					<subreportParameterExpression><![CDATA[$P{dtFim}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipoNotificacao">
+					<subreportParameterExpression><![CDATA[$P{tipoNotificacao}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subrel_faixa_etaria.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement uuid="0577ce49-a2ef-4ea1-acdc-dd40438df326" positionType="Float" x="5" y="50" width="550" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</line>
+			<subreport>
+				<reportElement uuid="87e9ee89-7ecd-4e0e-951a-ec6b9953bd9a" positionType="Float" x="153" y="64" width="253" height="36"/>
+				<subreportParameter name="dtInicio">
+					<subreportParameterExpression><![CDATA[$P{dtInicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idMunicipio">
+					<subreportParameterExpression><![CDATA[$F{idMunicipio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dtFim">
+					<subreportParameterExpression><![CDATA[$P{dtFim}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipoNotificacao">
+					<subreportParameterExpression><![CDATA[$P{tipoNotificacao}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subrel_periodo.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="f382f61c-0ae8-4771-8b75-099c42160e7a" positionType="Float" x="153" y="122" width="253" height="40"/>
+				<subreportParameter name="dtInicio">
+					<subreportParameterExpression><![CDATA[$P{dtInicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idMunicipio">
+					<subreportParameterExpression><![CDATA[$F{idMunicipio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dtFim">
+					<subreportParameterExpression><![CDATA[$P{dtFim}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipoNotificacao">
+					<subreportParameterExpression><![CDATA[$P{tipoNotificacao}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subrel_ano.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement uuid="29c4ba84-8a67-4c54-88c2-f733f0b03e22" x="425" y="10" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="a4dbb1d9-6e31-430e-bbb7-c10b7bc1aa6b" x="505" y="10" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="dd70e65f-1d15-4606-8485-eb942d93ac9d" x="6" y="17" width="549" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nenhum acidente encontrado!]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

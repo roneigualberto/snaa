@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/template/_template.xhtml">
+
+	<ui:define name="corpo">
+		<h:outputScript library="js" name="snaa.js" />
+		<h:graphicImage library="imagens" name="Doctor-32.png" />
+		<h2 style="display: inline;">Área do Profissional de Saúde</h2>
+		<hr />
+		<h:form>
+
+			<div class="menu-usuario">
+				<p:panelMenu>
+					<p:submenu label="Acidentes">
+						<p:menuitem value="Pesquisa de Paciente"
+							url="/pages/profissionalsaude/vitimaList.jsf" />
+						<p:menuitem value="Cadastrar Acidente"
+							url="/pages/profissionalsaude/acidente/acidenteForm.jsf" />
+						<p:menuitem value="Atendimentos"
+							url="/pages/profissionalsaude/atendimentoList.jsf" />
+						<p:menuitem value="Consulta Dados Estatísticos"
+							url="/pages/profissionalsaude/dadosEstatisticos.jsf" />
+					</p:submenu>
+					<p:submenu label="Profissional de Saúde">
+					
+						<p:menuitem value="Alterar Senha" url="/pages/profissionalsaude/alterarSenha.jsf" />
+
+
+					</p:submenu>
+				</p:panelMenu>
+
+			</div>
+		</h:form>
+		<div class="panel-right">
+			<ui:insert name="conteudo" />
+		</div>
+	</ui:define>
+</ui:composition>

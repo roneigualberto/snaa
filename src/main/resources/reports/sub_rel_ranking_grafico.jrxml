@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_rel_ranking_grafico" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="03442a43-a232-4ca7-9189-8782876ca030">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="131"/>
+	<parameter name="tipoNotificacao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	ret.nmMunicipio as nmMunicipio,
+	count(*) as qtde
+
+from (SELECT
+	 m.id as idMunicipio,
+	 m.nome as nmMunicipio
+FROM acidente ac
+	 INNER JOIN municipio m ON (m.id = ac.municipio_id)
+     INNER JOIN vitima    v ON (v.id = ac.vitima_id)
+WHERE ac.situacao = 'CONCLUIDO' AND ( $P{tipoNotificacao} IS null OR $P{tipoNotificacao} = 'POR_UNIDADE_SAUDE')
+AND  ( ($P{dtInicio} is null or $P{dtFim} is null ) or (ac.data_ocorrencia  BETWEEN $P{dtInicio} AND $P{dtFim} ) )
+UNION ALL
+SELECT
+   m.id as idMunicipio,
+   m.nome as nmMunicipio
+FROM acidente_nao_oficial ac
+    INNER JOIN municipio m ON (m.id = ac.municipio_id)
+	INNER JOIN vitima    v ON (v.id = ac.vitima_id)
+ WHERE ($P{tipoNotificacao} IS NULL OR $P{tipoNotificacao} = 'NAO_OFICIAL')
+AND  ( ($P{dtInicio} is null or $P{dtFim} is null ) or (ac.data_ocorrencia  BETWEEN $P{dtInicio} AND $P{dtFim} ) )
+
+ ) ret
+
+
+GROUP BY ret.nmMunicipio
+ORDER BY qtde desc,nmMunicipio asc]]>
+	</queryString>
+	<field name="nmMunicipio" class="java.lang.String"/>
+	<field name="qtde" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="484" splitType="Stretch">
+			<barChart>
+				<chart isShowLegend="false">
+					<reportElement uuid="4c48f2b3-4d8b-449c-8058-79dd9eefc5b1" x="0" y="56" width="555" height="428"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<chartTitle position="Top">
+						<font size="18" isBold="true"/>
+						<titleExpression><![CDATA["Ranking de acidentes"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Top"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{nmMunicipio}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{nmMunicipio}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{qtde}]]></valueExpression>
+						<labelExpression><![CDATA[$F{qtde}.toString()]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot orientation="Horizontal"/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>

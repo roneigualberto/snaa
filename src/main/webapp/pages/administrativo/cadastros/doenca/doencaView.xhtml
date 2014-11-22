@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="doencaForm">
+
+
+
+				<p:panel style="background:white;">
+					<p:toolbar style="margin-bottom: 10px;">
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>CONSULTA DE DOENÇA</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:separator style="width: 0px" />
+					<p:messages globalOnly="true" />
+
+					<div
+						style="background: #D8F0D8; border-radius: 10px; margin-bottom: 20px; padding: 20px">
+						<h:panelGrid columns="2" cellspacing="10" style="font-size: 14px;">
+							<h:outputText value="Nome:" style="font-weight:bold" />
+							<h:outputText value="#{doencaBean.bean.nome}" />
+						</h:panelGrid>
+
+					</div>
+
+					<div style="text-align: center; margin-bottom: 20px">
+
+						<p:button id="linkEdit" value="Editar" icon="ui-icon-pencil"
+							styleClass="link-acoes btn-default"
+							outcome="#{doencaListBean.nextView}">
+							<f:param value="#{doencaBean.bean.id}" name="id" />
+						</p:button>
+
+						<p:commandButton value="Excluir"
+							styleClass="link-acoes btn-default" type="button"
+							onclick="PF('dialogExcluir').show();" />
+
+
+						<p:button outcome="#{doencaBean.previousView}" value="Voltar"
+							icon="ui-icon-arrowreturnthick-1-w" styleClass="btn-default" />
+					</div>
+
+
+					<p:confirmDialog header="Confirmação"
+						message="Deseja excluir essa doenca ? Nome: #{doencaBean.bean.nome}"
+						widgetVar="dialogExcluir">
+
+						<div style="text-align: center;">
+
+							<p:commandButton value="Sim" action="#{doencaBean.delete}"
+								styleClass="btn-default" update="@form"
+								oncomplete="PF('dialogExcluir').hide()" />
+							<p:commandButton value="Não" styleClass="btn-default"
+								onclick="PF('dialogExcluir').hide();" type="button" />
+
+						</div>
+
+
+
+
+					</p:confirmDialog>
+
+
+
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	
+	
+	<filter>
+		<filter-name>Demoiselle Servlet Filter</filter-name>
+		<filter-class>br.gov.frameworkdemoiselle.util.ServletFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Demoiselle Servlet Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>Imagem</servlet-name>
+		<servlet-class>br.edu.ifam.snaa.servlet.ImagemServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Imagem</servlet-name>
+		<url-pattern>/imagem/*</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>Primefaces fileupload</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+
+	<!-- <filter-mapping> <filter-name>Snaa Filter</filter-name> <url-pattern>*.jsf</url-pattern> 
+		</filter-mapping> <filter> <filter-name>Snaa Filter</filter-name> <filter-class>br.edu.ifam.snaa.filter.SnaaFilter</filter-class> 
+		</filter> -->
+
+	<filter-mapping>
+		<filter-name>Primefaces fileupload</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	
+
+
+	<servlet>
+		<servlet-name>SimpleCaptcha</servlet-name>
+		<servlet-class>nl.captcha.servlet.SimpleCaptchaServlet</servlet-class>
+		<init-param>
+			<param-name>captcha-width</param-name>
+			<param-value>250</param-value>
+		</init-param>
+		<init-param>
+			<param-name>captcha-height</param-name>
+			<param-value>75</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SimpleCaptcha</servlet-name>
+		<url-pattern>/captcha.image</url-pattern>
+	</servlet-mapping>
+
+
+
+	<security-constraint>
+		<display-name>Restrict raw XHTML Documents</display-name>
+		<web-resource-collection>
+			<web-resource-name>XHTML</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>south-street</param-value>
+	</context-param>
+
+
+
+	<context-param>
+		<param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+		<param-value>6LdqjuwSAAAAANFDAnzaUe0J1RYLY3i3zmslBmkn</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+		<param-value>6LdqjuwSAAAAAKUuyAmSiE1VJDbgOa3uxD729rdj</param-value>
+	</context-param>
+
+	<!-- <context-param>
+		<param-name>com.sun.faces.writeStateAtFormEnd</param-name>
+		<param-value>false</param-value>
+	</context-param> -->
+
+	<error-page>
+		<exception-type>br.gov.frameworkdemoiselle.security.AuthorizationException</exception-type>
+		<location>/login/login.jsf</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>javax.el.ELException</exception-type>
+		<location>/login/login.jsf</location>
+	</error-page>
+
+	<!-- <error-page> <exception-type>javax.faces.application.ViewExpiredException</exception-type> 
+		<location>/login/login.jsf</location> </error-page> -->
+
+
+
+	<context-param>
+		<param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+
+</web-app>

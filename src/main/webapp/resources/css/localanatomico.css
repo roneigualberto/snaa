@@ -1,0 +1,134 @@
+.direita {
+	float: left
+}
+
+;
+.quadrado {
+	background: red;
+	float: right;
+}
+
+.quadrado:hover {
+	background: blue;
+}
+
+.selecionado {
+	background: yellow;
+}
+
+.sprite { 43px; 43px;
+	background: url(/images/corpo_humano.png) 100px 0;
+}
+
+.corpo {
+	width: 255px;
+	height: 510px;
+	background: url("#{resource['imagens/corpo_humano.png']}") 0px 0px
+		no-repeat;
+	float: left
+}
+
+.membro hr {
+	background-color: #33CC33;
+	height: 1px;
+	border: solid 0px;
+}
+
+.membro {
+	width: 200px;
+	position: relative;
+	font-size: 12pt;
+	font-family: Verdana;
+	font-weight: bold;
+}
+
+.direito {
+	text-align: right;
+}
+
+.esquerdo {
+	text-align: left;
+}
+
+.cabeca {
+	right: 105px;
+}
+
+.pescoco {
+	left: 107px;
+	margin-top: 60px;
+}
+
+.ombro-esquerdo {
+	left: 60px;
+	margin-top: 10px;
+}
+
+.braco-esquerdo {
+	left: 60px;
+	margin-top: 23px;
+}
+
+.antebraco-esquerdo {
+	left: 40px;
+	margin-top: 55px;
+}
+
+.mao-esquerda {
+	left: 30px;
+	margin-top: 35px;
+}
+
+.coxa-esquerda {
+	left: 95px;
+	margin-top: 35px;
+}
+
+.perna-esquerda {
+	left: 95px;
+	margin-top: 80px;
+}
+
+.pe-esquerdo {
+	left: 104px;
+	margin-top: 30px;
+}
+
+.ombro-direito {
+	right: 65px;
+	margin-top: 66px;
+}
+
+.braco-direito {
+	right: 60px;
+	margin-top: 23px;
+}
+
+.antebraco-direito {
+	right: 60px;
+	margin-top: 55px;
+}
+
+.mao-direita {
+	right: 23px;
+	margin-top: 40px;
+}
+
+.coxa-direita {
+	right: 95px;
+	margin-top: 35px;
+}
+
+.perna-direita {
+	right: 95px;
+	margin-top: 80px;
+}
+
+.pe-direito {
+	right: 105px;
+	margin-top:30px;
+}
+
+.esquerda {
+	float: left;
+}

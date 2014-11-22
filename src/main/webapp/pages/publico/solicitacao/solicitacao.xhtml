@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/_template.xhtml">
+
+
+	<ui:define name="corpo">
+		<h:outputStylesheet library="css" name="style.css" />
+		<h:outputScript library="js" name="snaa.js" />
+		<h:form id="solicitacaoForm" enctype="multipart/form-data">
+			<p:growl id="growl" />
+			<div class="conteudo">
+				<p:panel styleClass="panel-view">
+					<p:toolbar>
+						<p:toolbarGroup align="left">
+							<div style="margin: 8px; text-align: center;">
+								<span>#{messages['solicitacao.titulo']}</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+					<p:accordionPanel multiple="true" cache="true"
+						id="solicitacaoAccordion">
+
+						<p:tab title="#{messages['solicitacao.tab.unidade']}"
+							id="tabUnidade">
+							<ui:include src="/pages/publico/solicitacao/tab/tabUnidade.xhtml" />
+						</p:tab>
+
+
+						<p:tab title="#{messages['solicitacao.tab.representante']}"
+							id="tabRepresentante">
+							<ui:include
+								src="/pages/publico/solicitacao/tab/tabRepresentante.xhtml" />
+						</p:tab>
+
+
+
+					</p:accordionPanel>
+					<p:panel id="panel-captcha" styleClass="panel-captcha">
+						<div class="direita panel_50">
+							<div class="input text grid_8">
+
+								<img src="#{request.contextPath}/captcha.image" id="captcha" class="captcha"></img>
+								<a href="#" onclick="refreshCaptcha('captcha','#{request.contextPath}/captcha.image')"> <h:graphicImage library="imagens" name="Command-Refresh-32.png" /></a>
+								<p:outputLabel for="captcha"
+									value="Informe o código conforme a imagem acima:" />
+								<p:inputText id="captcha" required="true" autocomplete="false" styleClass="captcha">
+									<f:validator validatorId="captcha" />
+								</p:inputText>
+								<p:message for="captcha" />
+
+							</div>
+						</div>
+						<div class="direita panel_30">
+							<p:commandButton
+								value="#{messages['solicitacao.enviar']}"
+								ajax="false" styleClass="btn-default"
+								actionListener="#{solicitacaoContaBean.salvar}"
+								onclick="PF('statusDialog').show();" />
+							<p:button value="#{messages['voltar.pagina.inicial']}"
+								outcome="/login/login.jsf" styleClass="btn-default" />
+						</div>
+						<div class="clear"></div>
+					</p:panel>
+
+				</p:panel>
+
+			</div>
+			
+			<script type="text/javascript">
+					$(".captcha").val('');
+			</script>
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

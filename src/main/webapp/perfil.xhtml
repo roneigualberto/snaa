@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/_template.xhtml">
+
+
+	<ui:define name="corpo">
+
+		<div class="panel-perfil">
+			<h1>
+				#{messages['snaa.perfil.titulo']} 
+				<h:outputText value="#{usuarioSessao.usuario.nome}"
+					 />
+					!
+			</h1>
+			
+			<hr/>
+			<div class="panel-btn-perfil">
+				<h:panelGroup rendered="#{securityContext.hasRole('PROFISSIONAL_SAUDE')}" >
+				<div class="btn-perfil">
+					<h:link outcome="/pages/profissionalsaude/vitimaList.xhtml">
+						<h:graphicImage library="imagens" name="Doctor-128.png" />
+						<div class="clear"></div>
+						<p class="btn-home">#{messages['snaa.perfil.profissional']}</p>
+					</h:link>
+				</div>
+				</h:panelGroup>
+			
+				<h:panelGroup rendered="#{securityContext.hasRole('REPRESENTANTE_UNIDADE_SAUDE')}" >
+				<div class="btn-perfil">
+					<h:link outcome="/pages/unidadesaude/profissionalList.xhtml">
+						<h:graphicImage library="imagens" name="Hospital-128.png" />
+						<div class="clear"></div>
+						<p class="btn-home">#{messages['snaa.perfil.unidade']}</p>
+					</h:link>
+
+				</div>
+				</h:panelGroup>
+
+				<h:panelGroup rendered="#{securityContext.hasRole('ADMINISTRADOR')}" >
+				<div class="btn-perfil">
+					<h:link outcome="/pages/administrativo/solicitacaoList.xhtml">
+						<h:graphicImage library="imagens" name="Principal-01-128.png" />
+						<p class="btn-home">#{messages['snaa.perfil.administrador']}</p>
+						<div class="clear"></div>
+					</h:link>
+
+				</div>
+				</h:panelGroup>
+
+				<div class="btn-perfil">
+					<h:link outcome="/pages/publico/dadosEstatisticos.jsf">
+						<h:graphicImage library="imagens" name="Diagram-128.png" />
+						<p class="btn-home">#{messages['snaa.perfil.estatistica']}</p>
+						<div class="clear"></div>
+					</h:link>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>
+
+</html>

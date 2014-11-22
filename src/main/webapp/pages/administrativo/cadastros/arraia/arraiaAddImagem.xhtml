@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="form_arraia">
+
+
+
+				<p:panel style="background:white;">
+					<p:toolbar style="margin-bottom: 10px;">
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>CONSULTA DE ARRAIA</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:separator style="width: 0px" />
+					<p:messages globalOnly="true" />
+
+					<div
+						style="background: #D8F0D8; border-radius: 10px; margin-bottom: 20px; padding: 20px">
+						<h:panelGrid columns="2" cellspacing="10" style="font-size: 14px;">
+							<h:outputText value="Nome:" style="font-weight:bold" />
+							<h:outputText value="#{arraiaBean.bean.nome}" />
+							<h:outputText value="Nome Cientifico:" style="font-weight:bold" />
+							<h:outputText value="#{arraiaBean.bean.nomeCientifico}" />
+							<h:outputText value="Status:" style="font-weight:bold" />
+							<h:outputText value="#{arraiaBean.bean.status}" />
+
+						</h:panelGrid>
+
+					</div>
+
+
+
+
+
+					<div style="text-align: center; margin-bottom: 20px">
+
+						<p:button id="linkEdit" value="Editar" icon="ui-icon-pencil"
+							styleClass="link-acoes btn-default"
+							outcome="#{arraiaListBean.nextView}"
+							rendered="#{arraiaBean.bean.ativo}">
+							<f:param value="#{arraiaBean.bean.id}" name="id" />
+						</p:button>
+
+
+						<p:commandButton id="linkReativar" icon="ui-icon-circle-check"
+							rendered="#{!arraiaBean.bean.ativo}" update="@form"
+							action="#{arraiaListBean.reativar}" value="Reativar"
+							styleClass="link-acoes btn-default">
+							<f:setPropertyActionListener value="#{arraiaBean.bean}"
+								target="#{arraiaListBean.arraiaAtivacao}" />
+						</p:commandButton>
+						<p:commandButton id="btnInativar"
+							rendered="#{arraiaBean.bean.ativo}" update="@form"
+							icon="ui-icon-cancel" action="#{arraiaListBean.inativar}"
+							value="Inativar" styleClass="link-acoes btn-default">
+							<f:setPropertyActionListener value="#{arraiaBean.bean}"
+								target="#{arraiaListBean.arraiaAtivacao}" />
+						</p:commandButton>
+
+						<p:commandButton id="btnAddImagem"
+							rendered="#{arraiaBean.bean.ativo}" update="@form"
+							icon="ui-icon-circle-plus" action="#{arraiaListBean.inativar}"
+							value="Add. Imagem" styleClass="link-acoes btn-default">
+							<f:setPropertyActionListener value="#{arraiaBean.bean}"
+								target="#{arraiaListBean.arraiaAtivacao}" />
+						</p:commandButton>
+						<p:button outcome="#{arraiaBean.previousView}" value="Voltar"
+							icon="ui-icon-arrowreturnthick-1-w" styleClass="btn-default" />
+					</div>
+
+					
+
+
+
+
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

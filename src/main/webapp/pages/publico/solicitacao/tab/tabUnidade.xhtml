@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<script type="text/javascript">
+							$(document).ready(function(){
+		  					 configMaskData();
+	    				});
+						</script>
+
+
+	<div style="margin-top: 20px;">
+
+
+		<div class="panel-campo panel_40 direita">
+			<p:outputLabel styleClass="required" for="nomeUnidade"
+				value="#{messages['unidade.nome.label']}" />
+			<p:inputText id="nomeUnidade" required="true"
+				value="#{solicitacaoContaBean.solicitacaoConta.unidade.nome}"
+				label="Unidade de Saude" />
+			<p:message id="msgUnidade" for="nomeUnidade" />
+		</div>
+
+		<div class="panel-campo panel_20 direita">
+			<p:outputLabel styleClass="required" for="codigo"
+				value="#{messages['unidade.codigo.label']}" />
+			<p:inputText id="codigo" 
+				 required="true"
+				value="#{solicitacaoContaBean.solicitacaoConta.unidade.codigo}">
+				<f:validator validatorId="unidadeExistente" />
+			</p:inputText>
+			<p:message id="msgCodigo" for="codigo" />
+		</div>
+
+
+
+		<div class="panel-campo panel_30 direita">
+			<p:outputLabel for="dataCriacao" styleClass="required"
+				value="#{messages['unidade.dataCriacao.label']}" />
+			<br />
+
+			<p:calendar styleClass="campo-data" id="dataCriacao"
+				pattern="#{messages['data.pattern']}" locale="#{messages['locale']}"
+				value="#{solicitacaoContaBean.solicitacaoConta.unidade.dataCriacao}" showOn="button"
+				required="true" showButtonPanel="true" navigator="true" maxdate="#{dateUtil.currentDate}" />
+			<p:message id="msgDataCriacao" for="dataCriacao" />
+		</div>
+
+		<div class="clear"></div>
+		<p:fieldset legend="Cadastro de Endereço"
+			style="background: white;margin-top:15px;margin-right:2px;"
+			toggleable="true" toggleSpeed="500">
+
+			<div class="panel-campo panel_30 direita">
+				<div>
+					<p:outputLabel for="municipio"
+						value="#{messages['endereco.municipio.label']}"
+						styleClass="required" />
+				</div>
+
+				<p:selectOneMenu id="municipio" style="width:100%;" filter="true"
+					filterMatchMode="startsWith"
+					value="#{solicitacaoContaBean.solicitacaoConta.unidade.municipio}"
+					converter="entityConverter" required="true">
+					<f:selectItem itemLabel="#{messages['item.selecione']}"
+						itemvalue="0" />
+					<f:selectItems var="municipio"
+						value="#{municipioListBean.municipiosDoAmazonas}"
+						itemValue="#{municipio}" itemLabel="#{municipio.nome}" />
+					<p:ajax update="bairro" event="change"
+						listener="#{solicitacaoContaBean.changeMunicipio}" />
+
+				</p:selectOneMenu>
+				<p:message for="municipio" id="msgMunicipio" />
+
+
+			</div>
+
+			<div class="panel-campo panel_40 direita">
+				<div>
+					<p:outputLabel for="bairro"
+						value="#{messages['endereco.bairro.label']}" styleClass="required" />
+
+				</div>
+
+				<p:selectOneMenu id="bairro" style="width:100%;"
+					value="#{solicitacaoContaBean.solicitacaoConta.unidade.endereco.bairro}"
+					converter="entityConverter" required="true">
+					<f:selectItem itemLabel="#{messages['item.selecione']}"
+						itemvalue="0" />
+					<f:selectItems var="bairro"
+						value="#{solicitacaoContaBean.solicitacaoConta.bairros}"
+						itemValue="#{bairro}" itemLabel="#{bairro.nome}" />
+					<p:ajax update="msgBairro" process="@this" event="change" />
+					<p:ajax update="msgBairro" process="@this" event="select" />
+
+				</p:selectOneMenu>
+				<p:message id="msgBairro" for="bairro" />
+
+
+			</div>
+			<div class="clear"></div>
+			<div class="panel-campo panel_30 direita">
+				<div>
+					<p:outputLabel for="tipoLogradouro"
+						value="#{messages['endereco.tipoLogradouro.label']}" />
+
+				</div>
+				<p:selectOneMenu id="tipoLogradouro" style="width:100%;"
+					value="#{solicitacaoContaBean.tipoLogradouro}" required="true">
+					<f:selectItem itemLabel="#{messages['item.selecione']}"
+						itemValue="" />
+					<f:selectItems var="tipoLogradouro"
+						value="#{tipoLogradouroBean.list}" itemValue="#{tipoLogradouro}"
+						itemLabel="#{tipoLogradouro.descricao}" />
+
+
+				</p:selectOneMenu>
+				<p:message id="msgTipoLogradouro" for="tipoLogradouro" />
+			</div>
+
+			<div class="panel-campo panel_40 direita">
+				<p:outputLabel for="logradouro"
+					value="#{messages['endereco.logradouro.label']}" />
+				<p:autoComplete id="logradouro" required="true"
+					value="#{solicitacaoContaBean.solicitacaoConta.unidade.endereco.logradouro}"
+					minQueryLength="3" var="logradouro" itemValue="#{logradouro}"
+					completeMethod="#{solicitacaoContaBean.handleAutoCompleteLogradouro}"
+					converter="optionalAutoComplete"
+					itemLabel="#{logradouro.descricao}">
+				</p:autoComplete>
+				<p:message id="msgLogradouro" for="logradouro" />
+
+			</div>
+
+			<div class="panel-campo panel_20 direita">
+				<p:outputLabel for="cep" styleClass="required"
+					value="#{messages['endereco.cep.label']}" />
+				<p:inputMask id="cep" mask="#{messages['endereco.cep.mascara']}"
+					value="#{solicitacaoContaBean.solicitacaoConta.unidade.endereco.logradouro.cep}"
+					required="true">
+
+
+				</p:inputMask>
+				<p:message id="msgCep" for="cep" />
+
+			</div>
+			<div class="panel-campo panel_30 direita">
+				<p:outputLabel styleClass="required" for="numero"
+					value="#{messages['endereco.numero.label']}" />
+				<br />
+				<p:inputText id="numero" style="width: 50%;" required="true"
+					value="#{solicitacaoContaBean.solicitacaoConta.unidade.endereco.numero}">
+					<p:ajax event="blur" update="msgNumero" />
+				</p:inputText>
+				<p:message id="msgNumero" for="numero" />
+			</div>
+			<div class="panel-campo panel_40 direita">
+				<p:outputLabel for="complemento"
+					value="#{messages['endereco.complemento.label']}" />
+				<p:inputText id="complemento"
+					value="#{solicitacaoContaBean.solicitacaoConta.unidade.endereco.complemento}">
+				</p:inputText>
+
+				<p:message id="msgComplemento" for="complemento" />
+			</div>
+
+
+
+
+		</p:fieldset>
+
+
+		<p:fieldset legend="Cadastro de Telefone" id="panelTelefone"
+			styleClass="panel_50 direita"
+			style="background: white;margin-top:15px;margin-right:2px;"
+			toggleable="true" toggleSpeed="500">
+
+			<div class="panel-campo panel_30 direita">
+
+				<p:inputMask id="telefone" value="#{solicitacaoContaBean.telefone}"
+					mask="(99) 9999-9999" />
+
+				<p:message for="telefone" />
+
+			</div>
+			<div class="panel-campo panel_10 direita">
+				<p:commandLink action="#{solicitacaoContaBean.addTelefone}"
+					update="panelTelefone" process="@parent">
+					<h:graphicImage library="imagens" name="Add-New-32.png" />
+				</p:commandLink>
+
+			</div>
+			<div class="clear"></div>
+			<p:dataTable id="gridTelefones"
+				value="#{solicitacaoContaBean.solicitacaoConta.unidade.telefones.toArray()}"
+				var="telefone" emptyMessage="" rowIndexVar="rowIndex"
+				rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'even-row' : 'odd-row'}">
+
+				<p:column headerText="Telefone" style="width:75%">
+					<h:outputText value="#{telefone}" />
+				</p:column>
+				<p:column headerText="Ação" style="width:25%;text-align:center;">
+					<div style="text-align: center;">
+						<p:commandLink action="#{solicitacaoContaBean.removeTelefone}"
+							styleClass="link-acoes"
+							update=":solicitacaoForm:solicitacaoAccordion:panelTelefone"
+							immediate="true">
+							<f:setPropertyActionListener value="#{telefone}"
+								target="#{solicitacaoContaBean.telefone}" />
+							<h:graphicImage library="imagens" name="Close-24.png" />
+
+						</p:commandLink>
+
+
+					</div>
+
+
+				</p:column>
+
+			</p:dataTable>
+
+
+		</p:fieldset>
+		<div class="clear"></div>
+
+
+
+	</div>
+</h:body>
+
+</html>

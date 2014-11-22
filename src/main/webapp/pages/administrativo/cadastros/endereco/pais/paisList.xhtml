@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="form_arraia">
+
+				<p:panel style="background:white;">
+					<p:toolbar>
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>PESQUISA DE PAÍSES</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+
+					<p:separator style="width: 0px" />
+					<p:messages />
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="nome" value="Nome:" />
+						<p:inputText id="nome" value="#{paisListBean.pais.nome}" />
+					</div>
+
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel for="sigla" value="Sigla:" />
+						<p:inputText id="sigla" value="#{paisListBean.pais.sigla}" />
+					</div>
+
+					<div class="clear"></div>
+
+					<div style="text-align: center; margin-bottom: 20px">
+						<p:commandButton value="Pesquisar" styleClass="btn-default"
+							icon="ui-icon-search" action="#{paisListBean.pesquisar}"
+							update="@form" id="btnPesquisar" process="@form" />
+						<p:button value="Cadastrar" styleClass="btn-default"
+							icon="ui-icon-document" outcome="#{paisListBean.nextView}"
+							id="btnCadastrar" />
+					</div>
+
+
+					<p:blockUI block="gridPais" trigger="gridPais btnPesquisar">
+						#{messages['snaa.carregando']}
+					</p:blockUI>
+
+					<p:dataTable value="#{paisListBean.paises}" var="bean"
+						paginator="true" id="gridPais" first="#{messages['page.first']}"
+						rows="#{messages['page.rows']}"
+						pageLinks="#{messages['page.max.links']}"
+						emptyMessage="#{messages['grid.vazio']}" rowIndexVar="rowIndex"
+						rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'odd-row' : 'even-row'}">
+
+						<p:column headerText="#{messages['grid.label.id']}"
+							style="width: 5%;text-align:center">
+							<h:outputText value="#{bean.id}" />
+						</p:column>
+
+						<p:column headerText="Nome" style="width:35%;text-align:center;">
+							<h:outputText value="#{bean.nome}" />
+						</p:column>
+
+						<p:column headerText="Sigla" style="width:15%;">
+							<h:outputText value="#{bean.sigla}" />
+						</p:column>
+
+						<p:column headerText="Nacionalidade" style="width:15%;">
+							<h:outputText value="#{bean.nacionalidade}" />
+						</p:column>
+						
+						<p:column headerText="Situacao do Registro" style="width:10%;">
+							<h:outputText value="#{bean.status.descricao}" />
+						</p:column>
+
+
+
+						<p:column headerText="#{messages['grid.label.acao']}"
+							style="text-align:center;width:25%;">
+
+							<h:link id="linkVisualizar" styleClass="link-acoes"
+								outcome="/pages/administrativo/cadastros/endereco/pais/paisView.jsf">
+								<h:graphicImage library="imagens" name="Search-Find-32.png" />
+								<f:param name="id" value="#{bean.id}" />
+								
+							</h:link>
+							<p:tooltip for="linkVisualizar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Search-Find-32.png" />
+									<label>Consultar</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+
+
+							<h:link id="linkEdit" styleClass="link-acoes"
+								outcome="#{paisListBean.nextView}" rendered="#{bean.ativo}">
+								<f:param value="#{bean.id}" name="id" />
+								<h:graphicImage library="imagens" name="Edit-32.png" />
+
+
+							</h:link>
+
+							<p:tooltip for="linkEdit">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Edit-32.png" />
+									<label>Editar</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+							<p:commandLink id="linkReativar" rendered="#{!bean.ativo}"
+								update="@form" action="#{paisListBean.reativar}"
+								styleClass="link-acoes">
+
+								<f:setPropertyActionListener value="#{bean}"
+									target="#{paisListBean.paisAtivacao}" />
+								<h:graphicImage library="imagens" name="Check-32.png" />
+
+							</p:commandLink>
+							<p:tooltip for="linkReativar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Check-32.png" />
+									<label>Reativar</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+							<h:commandLink id="linkInativar" rendered="#{bean.ativo}"
+								action="#{paisListBean.inativar}" styleClass="link-acoes">
+								<f:setPropertyActionListener value="#{bean}"
+									target="#{paisListBean.paisAtivacao}" />
+
+								<h:graphicImage library="imagens" name="inativar.png" />
+
+							</h:commandLink>
+							<p:tooltip for="linkInativar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="inativar.png" />
+									<label>Inativar</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+
+						</p:column>
+					</p:dataTable>
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

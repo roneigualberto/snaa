@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_acidentes_por_municipio_subreport1" pageWidth="229" pageHeight="597" whenNoDataType="NoDataSection" columnWidth="229" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8402a8bf-5b24-4a74-abe3-a011beca12d9">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idMunicipio" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoNotificacao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+ ret.periodo,
+ count(*) as qtde
+ FROM (
+SELECT
+ac.periodo
+FROM acidente ac
+	 INNER JOIN vitima v ON (v.id = ac.vitima_id)
+WHERE
+	ac.situacao = 'CONCLUIDO'
+	and ($P{idMunicipio} is null or ac.municipio_id = $P{idMunicipio})
+	and ($P{tipoNotificacao} is null or $P{tipoNotificacao}  = 'POR_UNIDADE_SAUDE')
+	AND  ( ($P{dtInicio} is null) or (ac.data_ocorrencia  BETWEEN 	$P{dtInicio} AND $P{dtFim} ) )
+
+UNION ALL
+SELECT
+ac.periodo
+FROM acidente_nao_oficial ac
+	 INNER JOIN vitima_nao_oficial v ON (v.id = ac.vitima_id)
+WHERE
+	($P{idMunicipio} is null or ac.municipio_id = $P{idMunicipio})
+	and ($P{tipoNotificacao} is null or $P{tipoNotificacao}  = 'NAO_OFICIAL')
+AND  ( ($P{dtInicio} is null) or (ac.data_ocorrencia  BETWEEN $P{dtInicio} AND $P{dtFim} ) )
+) ret
+
+GROUP BY ret.periodo]]>
+	</queryString>
+	<field name="periodo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtde" class="java.lang.Long"/>
+	<variable name="periodo" class="java.lang.String" resetType="Column">
+		<variableExpression><![CDATA["MANHA".equals($F{periodo}) ? "Manhã" :
+"TARDE".equals($F{periodo}) ? "Tarde" :
+"NOITE".equals($F{periodo}) ? "Noite" :
+"MADRUGADA".equals($F{periodo}) ? "Madrugada": null]]></variableExpression>
+	</variable>
+	<variable name="total" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtde}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b8970d5b-34e2-4ff5-899c-9636f5564b5b" x="0" y="20" width="91" height="30"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Período do Dia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8445ac14-5ed8-4621-b176-fbbd374d63dd" x="91" y="20" width="81" height="30" isPrintWhenDetailOverflows="true"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Número de
+ Acidentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fdb2143d-8800-4f09-9c93-531dbac32a99" x="0" y="0" width="229" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PERÍODO DO DIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ddde280-133b-4a1b-8a5f-60dae78bd6ed" x="172" y="20" width="57" height="30"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="53f87f35-6594-4dd4-a857-399ee21ade98" x="0" y="0" width="91" height="20"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="840bdc7c-e0c0-411c-86f0-4c47488a9970" x="91" y="0" width="81" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qtde}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="#,##0.00">
+				<reportElement uuid="f0f1867c-4595-484d-958e-f9f74d9c31b0" x="172" y="0" width="57" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[($F{qtde}*100.0)/$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="145" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement uuid="4afa3bca-ea17-4b76-98e0-fad63f27cb6b" x="0" y="0" width="229" height="145"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$V{periodo}]]></keyExpression>
+					<valueExpression><![CDATA[$F{qtde}]]></valueExpression>
+					<labelExpression><![CDATA[$F{qtde}.toString()]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="846a0285-ceb5-40bc-addc-8f501fcfbca0" x="51" y="15" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Não possui acidentes!]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

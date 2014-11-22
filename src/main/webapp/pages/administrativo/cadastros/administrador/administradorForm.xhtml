@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+			<h:outputScript library="js" name="snaa.js" />
+			<h:form id="profissionalForm">
+
+				<p:panel style="background:white;">
+					<p:toolbar style="margin-bottom: 10px;">
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>CADASTRO DE ADMINISTRADOR</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+					<p:messages globalOnly="true" />
+
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel for="cpf" value="#{messages['vitima.cpf.label']}"
+							styleClass="required" />
+						<p:inputMask id="cpf" converter="cpf" required="true"
+							mask="#{messages['cpf.mascara']}"
+							disabled="#{administradorBean.updateMode || administradorBean.existeUsuario}"
+							value="#{administradorBean.bean.usuario.cpf}"
+							validator="#{administradorBean.validateCpf}">
+							<f:validator validatorId="cpf" />
+							<p:ajax event="blur"
+								listener="#{administradorBean.handleBuscarUsuario}"
+								update="@form" process="@this" oncomplete="configMaskData()" />
+						</p:inputMask>
+						<h:link value="Desfazer"
+							outcome="#{administradorListBean.nextView}"
+							rendered="#{!administradorBean.updateMode and administradorBean.existeUsuario}" />
+						<p:message for="cpf" />
+					</div>
+
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel for="rg" value="#{messages['vitima.rg.label']}"
+							styleClass="required" />
+						<p:inputText id="rg" mask="#{messages['cpf.mascara']}"
+							value="#{administradorBean.bean.usuario.rg}" />
+
+					</div>
+
+
+					<div class="clear"></div>
+
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="nome" styleClass="required"
+							value="#{messages['vitima.nome.label']}" />
+
+						<p:inputText id="nome" required="true"
+							value="#{administradorBean.bean.usuario.nome}" />
+						<p:message for="nome" />
+					</div>
+
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel for="dataNascimento" styleClass="required"
+							value="#{messages['vitima.dataNascimento.label']}" />
+
+						<p:calendar styleClass="campo-data" id="dataNascimento"
+							required="true" pattern="#{messages['data.pattern']}"
+							locale="#{messages['locale']}" showOn="button"
+							value="#{administradorBean.bean.usuario.dataNascimento}"
+							showButtonPanel="true" navigator="true" />
+
+						<p:message for="dataNascimento" />
+					</div>
+
+
+					<div class="panel-campo panel_20 direita">
+						<div>
+							<p:outputLabel for="sexo"
+								value="#{messages['vitima.sexo.label']}" />
+
+						</div>
+						<p:selectOneMenu id="sexo" style="width:100%;" required="true"
+							value="#{administradorBean.bean.usuario.sexo}">
+							<f:selectItem itemLabel="#{messages['item.selecione']}"
+								itemValue="" />
+							<f:selectItems var="sexo" value="#{sexoBean.list}"
+								itemValue="#{sexo}" itemLabel="#{sexo.sexo}" />
+
+						</p:selectOneMenu>
+						<p:message for="sexo" />
+					</div>
+					<div class="clear"></div>
+
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel styleClass="required" for="email" value="E-mail:" />
+						<p:inputText id="email" required="true"
+							value="#{administradorBean.bean.usuario.email}" />
+						<p:message for="email" />
+					</div>
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel styleClass="required" for="telefone"
+							value="Telefone" />
+						<p:inputMask mask="(99) 9999-9999" required="true" id="telefone"
+							value="#{administradorBean.bean.usuario.telefone}" />
+						<p:message for="telefone" />
+					</div>
+					<div class="clear"></div>
+
+					<div class="panel-campo panel_25 direita">
+						<h:panelGroup
+							rendered="#{!administradorBean.updateMode and  !administradorBean.existeUsuario}">
+							<p:outputLabel styleClass="required" for="senha"
+								value="Senha de Acesso" />
+							<p:password id="senha" required="true" match="confirmacaoSenha"
+								feedback="true"
+								strongLabel="#{messages['password.strongLabel']}"
+								goodLabel="#{messages['password.goodLabel']}"
+								weakLabel="#{messages['password.weakLabel']}"
+								promptLabel="#{messages['password.promptLabel']}"
+								validatorMessage="Senha e Confirmação não coincidem"
+								value="#{administradorBean.bean.usuario.senha}" />
+							<p:message for="senha" />
+
+						</h:panelGroup>
+
+					</div>
+					<div class="clear"></div>
+
+					<div class="panel-campo panel_25 direita">
+						<h:panelGroup
+							rendered="#{!administradorBean.updateMode and  !administradorBean.existeUsuario}">
+							<p:outputLabel styleClass="required" for="confirmacaoSenha"
+								value="Confirmação de Senha" />
+							<p:password id="confirmacaoSenha" required="true" feedback="true"
+								strongLabel="#{messages['password.strongLabel']}"
+								goodLabel="#{messages['password.goodLabel']}"
+								weakLabel="#{messages['password.weakLabel']}"
+								promptLabel="#{messages['password.promptLabel']}"
+								value="#{administradorBean.confirmacaoSenha}" />
+							<p:message for="confirmacaoSenha" />
+						</h:panelGroup>
+					</div>
+
+					<div class="clear"></div>
+
+
+					<div style="text-align: center; margin-bottom: 20px">
+						<p:commandButton value="Salvar" styleClass="btn-default"
+							rendered="#{!administradorBean.updateMode}"
+							action="#{administradorBean.insert}" update="@form"
+							id="btnSalvar" icon="ui-icon-disk" />
+						<p:commandButton value="Alterar" styleClass="btn-default"
+							rendered="#{administradorBean.updateMode}"
+							action="#{administradorBean.update}" update="@form"
+							id="btnAlterar" icon="ui-icon-disk" />
+						<p:button outcome="#{administradorBean.previousView}"
+							value="Voltar" icon="ui-icon-arrowreturnthick-1-w"
+							styleClass="btn-default" />
+
+					</div>
+
+
+
+
+
+
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

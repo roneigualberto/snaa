@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="solicitacaoForm">
+				<p:panel style="background:white;">
+
+					<p:toolbar>
+						<p:toolbarGroup align="left">
+							<div style="margin: 8px; text-align: center;">
+								<span>SOLICITAÇÕES PENDENTES</span>
+							</div>
+
+
+						</p:toolbarGroup>
+
+						<p:toolbarGroup align="right">
+							<div></div>
+
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:growl globalOnly="true" />
+
+
+					<p:blockUI block="gridSolicitacao" trigger="gridSolicitacao">
+						#{messages['snaa.carregando']}
+					</p:blockUI>
+					<p:dataTable value="#{solicitacaoContaListBean.pendentes}"
+						var="solicitacao" paginator="true" rows="15" id="gridSolicitacao"
+						lazy="true" rowIndexVar="rowIndex"
+						rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'odd-row' : 'even-row'}"
+						emptyMessage="#{messages['grid.vazio']}">
+
+						<p:column headerText="Código da Solicatação" style="width: 10%;text-align: center;">
+							<h:outputText value="#{solicitacao.codigo}" />
+						</p:column>
+
+						<p:column headerText="Data de envio"
+							style="width: 25%;text-align: center;">
+							<h:outputText value="#{solicitacao.dataEnvio}">
+								<f:convertDateTime pattern="#{messages['data.pattern']}" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Unidade de Saúde" style="width: 30%;">
+							<h:outputText value="#{solicitacao.unidade.nome}" />
+						</p:column>
+						<p:column headerText="Representante" style="width: 30%;">
+							<h:outputText value="#{solicitacao.representante.nome}" />
+						</p:column>
+
+
+						<p:column headerText="#{messages['grid.label.acao']}"
+							style="text-align:center;width: 5%">
+							<div style="text-align: center;">
+								<p:commandLink styleClass="link-acoes" update="@form" id="linkAvaliar"
+									oncomplete="PF('avaliacaoDialog').show()">
+									<h:graphicImage library="imagens" name="validacao.png" />
+									<f:setPropertyActionListener value="#{solicitacao}"
+										target="#{solicitacaoContaListBean.solicitacao}" />
+								</p:commandLink>
+							</div>
+							<p:tooltip for="linkAvaliar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="validacao.png" />
+									<label>Avaliar Solicitação</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+
+				<ui:include src="/pages/administrativo/solicitacaoView.xhtml" />
+			</h:form>
+
+
+
+
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

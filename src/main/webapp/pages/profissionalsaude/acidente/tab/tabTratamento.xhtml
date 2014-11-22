@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<h:form id="tratamentoForm">
+			<p:growl globalOnly="true" />
+		<h:outputStylesheet library="css" name="localanatomico.css" />
+		<p:fieldset legend="Medicamento Sistêmico"
+			styleClass="panel_50 direita"
+			style="background:white;margin-top: 15px;margin-right:2px"
+			toggleable="true" toggleSpeed="500">
+			<h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+
+				<label>Tipo de Medicamento<span class="ui-outputlabel-rfi">*</span></label>
+				<p:selectOneRadio id="tipoMedicamentoSistemico"
+					value="#{tratamentoBean.tratamento.categoriaSistemico}"
+					layout="grid" columns="3">
+					<f:selectItems value="#{categoriaMedicamentoBean.list}" var="c"
+						itemLabel="#{c.descricao}" itemValue="#{c}" />
+				</p:selectOneRadio>
+				<p:message for="tipoMedicamentoSistemico" />
+				<label>Medicamento:</label>
+				<p:inputTextarea cols="85" style="width:100%"
+					id="medicamentoSistemico"
+					value="#{tratamentoBean.tratamento.medicamentoSistemico}" />
+				<p:message for="medicamentoSistemico" />
+
+
+
+			</h:panelGrid>
+		</p:fieldset>
+		<p:fieldset legend="Tratamento/Procedimento Local"
+			styleClass="panel_50 direita"
+			style="background: white;margin-top:15px;margin-right:2px;float:right"
+			toggleable="true" toggleSpeed="500">
+
+
+			<h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+				<label>Tipo do Medicamento</label>
+				<p:selectOneRadio id="tipoMedicamentoLocal"
+					value="#{tratamentoBean.tratamento.categoriaLocal}" layout="grid"
+					columns="3">
+					<f:selectItems value="#{categoriaMedicamentoBean.list}" var="c"
+						itemLabel="#{c.descricao}" itemValue="#{c}" />
+				</p:selectOneRadio>
+				<p:message for="tipoMedicamentoLocal" />
+
+				<label>Medicamento:</label>
+				<p:inputTextarea cols="85" style="width:100%" id="medicamentoLocal"
+					value="#{tratamentoBean.tratamento.medicamentoLocal}" />
+
+			</h:panelGrid>
+		</p:fieldset>
+		<div class="clear"></div>
+
+		<p:fieldset legend="Internação" styleClass="panel_50 direita"
+			style="background:white;margin-top: 15px;margin-right:2px"
+			toggleable="true" toggleSpeed="500">
+			<div class="panel-campo panel_40 direita">
+				<label>Paciente foi internado?<span
+					class="ui-outputlabel-rfi">*</span></label>
+				<p:selectOneRadio id="internado"
+					value="#{tratamentoBean.tratamento.internado}">
+					<f:selectItems value="#{internadoBean.list}" var="i"
+						itemLabel="#{i.descricao}" itemValue="#{i}" />
+					<p:ajax event="change" update="tempo" process="internado"/>
+					<p:ajax event="select" update="tempo" process="internado"/>
+				
+				</p:selectOneRadio>
+				<p:message for="internado" />
+
+			</div>
+
+			<div class=" panel_30 direita">
+				<label
+					style="font-weight: bold; display: block; margin-bottom: 5px;">Tempo (Dias):<span
+					class="ui-outputlabel-rfi">*</span></label>
+				<p:spinner id="tempo" value="#{tratamentoBean.tratamento.dias}" disabled="#{!tratamentoBean.tratamento.ficouInternado}"
+					size="5" min="0" />
+					<p:message for="tempo" />
+
+			</div>
+		</p:fieldset>
+		<div class="clear"></div>
+
+		<p:fieldset legend="Exames Realizados"
+			style="background:white;margin-top: 15px;margin-right:2px"
+			toggleable="true" toggleSpeed="500">
+			<div class="panel-campo panel_25 direita">
+				<label>Tipo do Exame: <span class="ui-outputlabel-rfi">*</span></label>
+				<p:selectOneMenu id="tipoExame" style="width:100%;"
+					value="#{tratamentoBean.exame.tipoExame}"
+					requiredMessage="#{messages['campo.obrigatorio']}">
+					<f:selectItem itemLabel="#{messages['item.selecione']}"
+						itemValue="" />
+					<f:selectItems var="exame" value="#{tratamentoBean.listTipoExame}"
+						itemValue="#{exame}" itemLabel="#{exame.descricao}" />
+
+				</p:selectOneMenu>
+				<p:message for="tipoExame" />
+			</div>
+
+			<div class="panel-campo panel_20 direita">
+				<label>Estado do Exame: <span class="ui-outputlabel-rfi">*</span></label>
+				<p:selectOneMenu id="estadoExame" style="width:100%;"
+					value="#{tratamentoBean.exame.estadoExame}"
+					requiredMessage="#{messages['campo.obrigatorio']}">
+					<f:selectItem itemLabel="#{messages['item.selecione']}"
+						itemValue="" />
+					<f:selectItems var="exame" value="#{estadoExameBean.list}"
+						itemValue="#{exame}" itemLabel="#{exame.descricao}" />
+						<p:ajax event="change" update="nivelAlteracao,valorAlteracao "/>
+
+				</p:selectOneMenu>
+				<p:message for="estadoExame" />
+			</div>
+			<label style="display: block; font-weight: bold;">Nível de
+				Alteração<span class="ui-outputlabel-rfi">*</span>
+			</label>
+			<p:fieldset styleClass="panel_35 direita"
+				style="background:white;margin-right:2px">
+				<div class="panel-campo panel_35 direita">
+
+					<p:selectOneRadio  value="#{tratamentoBean.exame.nivelAlteracao}" disabled="#{!tratamentoBean.habilitaValorAlteracao}"
+						id="nivelAlteracao">
+						<f:selectItems var="n" itemLabel="#{n.descricao}"
+							value="#{nivelAlteracaoBean.list}" />
+					</p:selectOneRadio>
+					<p:message for="nivelAlteracao" />
+
+				</div>
+
+				<div class="direita">
+					<label></label>
+					<p:spinner value="#{tratamentoBean.exame.valor}" size="5" disabled="#{!tratamentoBean.habilitaValorAlteracao}"
+						id="valorAlteracao" />
+					<p:message for="valorAlteracao" />
+
+				</div>
+
+			</p:fieldset>
+
+			<div style="margin: 10px; text-align: center;">
+				<p:commandLink action="#{tratamentoBean.adicionarExame}"
+					update="@form">
+					<h:graphicImage library="imagens" name="Add-New-32.png" />
+				</p:commandLink>
+
+			</div>
+			<p:dataTable value="#{tratamentoBean.tratamento.exames}"
+				style="margin-top: 30px;" var="exame" rowIndexVar="rowIndex"
+				rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'odd-row' : 'even-row'}"
+				emptyMessage="#{messages['grid.vazio']}">
+
+				<p:column headerText="Exame">
+					<h:outputText value="#{exame.tipoExame.descricao}" />
+				</p:column>
+				<p:column headerText="Estado">
+					<h:outputText value="#{exame.estadoExame.descricao}" />
+				</p:column>
+				<p:column headerText="Nível de Alteração">
+					<h:outputText value="#{exame.nivelAlteracao.descricao}" rendered="#{exame.alterado}" />
+					<h:outputText value=" #{exame.valor}" rendered="#{exame.alterado}"/>
+				</p:column>
+
+
+
+				<p:column headerText="#{messages['grid.label.acao']}"
+					style="text-align:center;">
+					<div style="text-align: center;">
+						<p:commandLink action="#{tratamentoBean.removeExame}"
+							styleClass="link-acoes" update="@form">
+							<f:setPropertyActionListener value="#{exame}"
+								target="#{tratamentoBean.exame}" />
+							<h:graphicImage library="imagens" name="Close-24.png" />
+
+						</p:commandLink>
+
+
+					</div>
+
+
+				</p:column>
+
+			</p:dataTable>
+		</p:fieldset>
+
+		<div class="clear"></div>
+
+		<div style="text-align: center">
+			<p:commandButton value="Salvar" icon="ui-icon-disk" styleClass="btn-default"
+				action="#{tratamentoBean.update}" update="@form"
+				process="@form" />
+			<div class="clear"></div>
+
+
+		</div>
+
+
+
+	</h:form>
+
+
+	<div class="clear"></div>
+
+
+</h:body>
+
+</html>

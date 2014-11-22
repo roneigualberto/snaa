@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<h:body>
+
+	<div class="conteudo">
+		<h:form id="usuarioForm">
+			<p:panel styleClass="panel-view">
+				<p:toolbar>
+					<p:toolbarGroup align="center">
+						<div style="margin: 8px; text-align: center;">
+							<span>ALTERAR SENHA</span>
+						</div>
+					</p:toolbarGroup>
+
+
+				</p:toolbar>
+				<p:separator style="width: 0px" />
+				<p:messages globalOnly="true" />
+				<div class="panel-campo panel_30 direita">
+					<p:outputLabel styleClass="required" for="senhaAtual"
+						value="Senha Atual:" />
+					<p:password id="senhaAtual" value="#{usuarioBean.senhaAtual}"
+					required="true"
+						feedback="true" strongLabel="#{messages['password.strongLabel']}"
+						goodLabel="#{messages['password.goodLabel']}"
+						weakLabel="#{messages['password.weakLabel']}"
+						promptLabel="#{messages['password.promptLabel']}" />
+
+				</div>
+				<div class="clear"></div>
+
+				<div class="panel-campo panel_30 direita">
+					<p:outputLabel styleClass="required" for="novaSenha"
+						value="Nova Senha:" />
+					<p:password id="novaSenha" value="#{usuarioBean.novaSenha}"
+						feedback="true" strongLabel="#{messages['password.strongLabel']}"
+						goodLabel="#{messages['password.goodLabel']}"
+						weakLabel="#{messages['password.weakLabel']}"
+						promptLabel="#{messages['password.promptLabel']}" 
+						match="confirmacao" required="true"
+						validatorMessage="Senha e Confirmação não coincidem"
+						/>
+
+				</div>
+				<div class="clear"></div>
+
+				<div class="panel-campo panel_30 direita">
+					<p:outputLabel styleClass="required" for="confirmacao"
+						value="Confirmacao:"  />
+					<p:password id="confirmacao" required="true"
+						value="#{usuarioBean.confirmacaoSenha}" 
+						feedback="true"
+						strongLabel="#{messages['password.strongLabel']}"
+						goodLabel="#{messages['password.goodLabel']}"
+						weakLabel="#{messages['password.weakLabel']}"
+						promptLabel="#{messages['password.promptLabel']}"
+						/>
+
+				</div>
+				<div class="clear"></div>
+
+				<div style="text-align: center">
+
+					<p:commandButton value="Alterar" validateClient="true"
+						style="font-size:18px;margin-top:10px;padding:5px"
+						action="#{usuarioBean.alterarSenha}" update="@form" />
+				</div>
+
+
+
+			</p:panel>
+		</h:form>
+	</div>
+
+
+</h:body>
+</html>

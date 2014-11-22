@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<h:body>
+	<script type="text/javascript">
+		   $(document).ready(function(){
+			   configMaskData();
+		    });
+			
+		
+		</script>
+	<h:form id="formVitima" >
+		<div style="width: 90%; margin: auto;">
+
+			<p:panel style="background:white;">
+
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<div style="margin: 8px; text-align: center;">
+							<span>CADASTRO DE ACIDENTE</span>
+						</div>
+
+
+					</p:toolbarGroup>
+
+					<p:toolbarGroup align="right">
+						<div>
+							<p:separator />
+							<h:link outcome="/pages/profissionalsaude/vitimaList.jsf">
+								<h:graphicImage library="imagens" name="Row-32.png" />
+							</h:link>
+
+							<p:separator />
+						</div>
+
+					</p:toolbarGroup>
+
+				</p:toolbar>
+					
+`               
+					<p:blockUI block="wizard" trigger="wizard" blocked="">
+						#{messages['snaa.carregando']}<br />
+				</p:blockUI>
+
+				<p:wizard 
+					nextLabel="Próximo" backLabel="Anterior" id="wizard"
+					style="background:white;"  >
+
+					<p:tab title="#{messages['accordion.vitima.titulo']}"
+						id="tabVitima">
+						<ui:include
+							src="/pages/profissionalsaude/acidente/tab/tabVitima.xhtml" />
+					</p:tab>
+
+					<p:tab title="#{messages['accordion.acidente.titulo']}"
+						id="acidente">
+						<ui:include
+							src="/pages/profissionalsaude/acidente/tab/tabAcidente.xhtml" />
+					</p:tab>
+
+					<p:tab title="Conclusão">
+						<ui:include
+							src="/pages/profissionalsaude/acidente/tab/tabConclusaoParcial.xhtml" />
+					</p:tab>
+				</p:wizard>
+			</p:panel>
+
+		</div>
+	</h:form>
+</h:body>
+</html>

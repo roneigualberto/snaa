@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+
+<p:dialog header="Avaliar Solicitação" widgetVar="avaliacaoDialog"
+	resizable="false" id="avaliacaoDialog" style="background: white;"
+	modal="true">
+
+	<p:accordionPanel style="min-width: 780px;" activeIndex="3">
+		<p:tab title="Dados da unidade de saúde">
+			<div class="panel-snaa">
+
+				<div class="panel-campo panel_40 direita">
+					<p:outputLabel value="#{messages['unidade.nome.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.nome}" />
+				</div>
+				<div class="panel-campo panel_30 direita">
+					<p:outputLabel value="#{messages['unidade.codigo.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.codigo}"
+						 />
+				</div>
+
+				<div class="panel-campo panel_20 direita">
+					<p:outputLabel value="#{messages['unidade.dataCriacao.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.dataCriacao}">
+						<f:convertDateTime pattern="#{messages['data.pattern']}" />
+					</h:outputText>
+				</div>
+				<div class="clear"></div>
+				<div class="panel-campo panel_75 direita">
+					<p:outputLabel value="Telefone(s):" />
+					<ui:repeat var="telefone"
+						value="#{solicitacaoContaListBean.solicitacao.unidade.telefones.toArray()}">
+								#{telefone},
+							</ui:repeat>
+				</div>
+
+				<div class="clear"></div>
+				<h3>Endereço</h3>
+				<p:separator />
+				<div class="panel-campo panel_30 direita">
+					<p:outputLabel value="#{messages['endereco.municipio.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.municipio.nome}" />
+				</div>
+
+				<div class="panel-campo panel_40 direita">
+					<p:outputLabel value="#{messages['endereco.bairro.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.endereco.bairro.nome}" />
+				</div>
+				<div class="clear"></div>
+				<div class="panel-campo panel_30 direita">
+					<p:outputLabel value="#{messages['endereco.tipoLogradouro.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.endereco.logradouro.tipoLogradouro.descricao}" />
+				</div>
+
+				<div class="panel-campo panel_40 direita">
+					<p:outputLabel value="#{messages['endereco.logradouro.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.endereco.logradouro.descricao}" />
+
+				</div>
+
+				<div class="panel-campo panel_20 direita">
+					<p:outputLabel value="#{messages['endereco.cep.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.endereco.logradouro.cep}" />
+
+				</div>
+				<div class="panel-campo panel_30 direita">
+					<p:outputLabel value="#{messages['endereco.numero.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.endereco.numero}" />
+				</div>
+				<div class="panel-campo panel_40 direita">
+
+					<p:outputLabel value="#{messages['endereco.complemento.label']}" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.unidade.endereco.complemento}" />
+				</div>
+
+
+				<div class="clear"></div>
+			</div>
+
+
+		</p:tab>
+
+		<p:tab title="Dados do representante de unidade de saúde">
+			<div class="panel-snaa">
+
+				<div class="panel-campo panel_40 direita">
+					<p:outputLabel value="Nome" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.representante.nome}" />
+				</div>
+				<div class="panel-campo panel_25 direita">
+					<p:outputLabel value="Data de Nascimento" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.representante.dataNascimento}">
+						<f:convertDateTime pattern="#{messages['data.pattern']}" />
+					</h:outputText>
+				</div>
+				<div class="panel-campo panel_25 direita">
+					<p:outputLabel value="Sexo:" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.representante.sexo.sexo}" />
+				</div>
+
+				<div class="panel-campo panel_20 direita">
+					<p:outputLabel value="CPF:" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.representante.cpf}"
+						converter="cpf" />
+				</div>
+
+				<div class="panel-campo panel_20 direita">
+					<p:outputLabel value="RG:" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.representante.rg}" />
+				</div>
+				<div class="panel-campo panel_25 direita">
+					<p:outputLabel value="E-mail:" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.representante.email}" />
+				</div>
+				<div class="panel-campo panel_25 direita">
+					<p:outputLabel value="Telefone:" />
+					<h:outputText
+						value="#{solicitacaoContaListBean.solicitacao.representante.telefone}" />
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</p:tab>
+
+		<p:tab title="Documento com Foto Anexado:">
+
+			<div class="panel-snaa" style="text-align: center;">
+
+				<p:graphicImage width="500" height="300"
+					value="/imagem?context=documento&amp;id=#{solicitacaoContaListBean.solicitacao.id}" />
+			</div>
+
+		</p:tab>
+
+		<p:tab title="Avaliação do cadastro:">
+
+			<div class="panel-snaa">
+
+
+
+				<div style="text-align: center">
+					<label>Mensagem ao solicitante</label>
+					<p:editor value="#{solicitacaoContaListBean.solicitacao.mensagem}" />
+					<br />
+					<p:commandButton value="Aprovar solicitação"
+						icon="ui-icon-circle-check" onstart="PF('statusDialog').show()"
+						oncomplete="PF('statusDialog').hide()"
+						style="font-size:18px;margin: 10px;padding:5px"
+						actionListener="#{solicitacaoContaListBean.aprovar}"
+						update="@form" />
+
+
+					<p:commandButton value="Reprovar solicitação" icon="ui-icon-cancel"
+						onstart="PF('statusDialog').show()"
+						oncomplete="PF('statusDialog').hide()" update="@form"
+						style="font-size:18px;margin-top:10px;padding:5px"
+						actionListener="#{solicitacaoContaListBean.reprovar}" />
+				</div>
+
+			</div>
+
+		</p:tab>
+
+
+	</p:accordionPanel>
+
+	<p:dialog modal="true" widgetVar="statusDialog" header="Aguardando"
+		appendTo="@(body)" style="background: white;" draggable="false"
+		closable="false">
+		<p:graphicImage library="imagens" name="ajax-loader-save.gif" />
+	</p:dialog>
+	<div style="text-align: center">
+		<p:commandButton value="Fechar" type="button"
+			icon="ui-icon-circle-close"
+			style="font-size:18px;margin-top:10px;padding:5px" update="@form"
+			onclick="PF('avaliacaoDialog').hide()" />
+	</div>
+
+
+
+
+
+
+
+</p:dialog>
+
+
+</html>

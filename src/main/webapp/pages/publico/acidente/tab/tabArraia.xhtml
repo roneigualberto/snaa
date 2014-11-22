@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<style type="text/css">
+.ui-orderlist .ui-orderlist-list {
+	height: 430px;
+}
+</style>
+	<h:inputHidden value="#{acidenteNaoOficialBean.idImagemArraia}"
+		id="idImagemArraia" />
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['notificacao.arraia.vista']}</label>
+		<p:selectOneRadio id="arraiaFoiVista"
+			value="#{acidenteNaoOficialBean.bean.arraiaFoiVista}">
+			<f:selectItems value="#{respostaBean.list}" var="i"
+				itemLabel="#{i.descricao}" itemValue="#{i}" />
+
+
+		</p:selectOneRadio>
+
+	</div>
+
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['notificacao.arraia.escala']}</label>
+		<p:inputText id="escala" value="#{acidenteNaoOficialBean.bean.escalaCerteza}" 
+			 />
+		<p:slider for="escala"  />
+	</div>
+
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['notificacao.arraia.situacao']}</label>
+		<p:selectOneMenu id="situacaoAnimal" style="width:100%;"
+			value="#{acidenteNaoOficialBean.bean.situacaoAnimal}">
+			<f:selectItem itemLabel="#{messages['item.selecione']}" itemValue="" />
+			<f:selectItems var="s" value="#{situacaoAnimalBean.list}"
+				itemValue="#{s}" itemLabel="#{s.descricao}" />
+
+		</p:selectOneMenu>
+	</div>
+
+	<div class="clear"></div>
+	<div style="text-align: center; float: left;">
+
+
+
+
+
+		<p:orderList id="listArraia" styleClass="listArraia"
+			value="#{acidenteNaoOficialBean.listImagemArraia}" var="img"
+			controlsLocation="none" itemValue="#{img}" itemLabel="#{img.id}"
+			converter="entityConverter">
+			<f:facet name="caption">#{messages['notificacao.arraia.lista']}</f:facet>
+
+			<p:column style="width:25%">
+				<a href="#" onclick="changeImg(event,this,#{img.id});return false;">
+					<p:graphicImage style="border-radius: 5px"
+						value="/imagem?context=arraia&amp;id=#{img.id}" alt="sdfsdfsd"
+						height="100" width="150" title="#{imagem.arraia.nome}" />
+				</a>
+
+			</p:column>
+
+
+
+		</p:orderList>
+	</div>
+
+	<div style="float: left; padding: 30px; width: 20%">
+		<h:panelGroup id="imagemArraia">
+			<p:graphicImage
+				value="/imagem?context=arraia&amp;id=#{acidenteNaoOficialBean.idImagemArraia}"
+				style="border-radius: 5px;width:600px;height:430px;display:#{acidenteNaoOficialBean.idImagemArraia == null ? 'none':'block'};margin:auto" />
+		</h:panelGroup>
+		<h:panelGroup
+			rendered="#{acidenteNaoOficialBean.idImagemArraia == null}">
+			<div id="panel-img-empty"
+				style="border-radius: 5px; width: 600px; height: 430px; background: black; text-align: center;">
+
+
+				<h1 style="padding-top: 200px; color: white;">#{messages['notificacao.arraia.imagemvazia']}</h1>
+			</div>
+
+		</h:panelGroup>
+
+
+
+	</div>
+
+
+
+	<div class="clear"></div>
+
+	<script>
+
+	function changeImg(event,link,id) {
+		$("#acidenteForm\\:acidenteAccordion\\:idImagemArraia").val(id);
+		$("#panel\\-img\\-empty").hide();
+		var imgSrc = $(link).find('img').attr('src');
+
+		$("#acidenteForm\\:acidenteAccordion\\:imagemArraia").find('img').show();
+		$("#acidenteForm\\:acidenteAccordion\\:imagemArraia").find('img')
+		     .attr('src',imgSrc);
+
+
+	     event.preventDefault();
+
+	     return false;
+	}
+
+	    </script>
+</h:body>
+
+</html>

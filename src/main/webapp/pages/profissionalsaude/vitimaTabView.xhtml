@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.cpf.label']}</label>
+		<h:outputText value="#{atendimentoBean.acidente.vitima.cpf}"
+			converter="cpf" />
+	</div>
+
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.rg.label']}</label>
+		<h:outputText value="#{atendimentoBean.acidente.vitima.rg}" />
+
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.nome.label']}</label>
+		<h:outputText value="#{atendimentoBean.acidente.vitima.nome}" />
+	</div>
+
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.dataNascimento.label']}</label>
+		<h:outputText
+			value="#{atendimentoBean.acidente.vitima.dataNascimento}">
+			<f:convertDateTime pattern="#{messages['data.pattern']}" />
+		</h:outputText>
+
+	</div>
+
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.sexo.label']}</label>
+		<h:outputText value="#{atendimentoBean.acidente.vitima.sexo.sexo}" />
+
+	</div>
+
+
+	<div class="clear"></div>
+
+
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.escolaridade.label']}</label>
+		<h:outputText
+			value="#{atendimentoBean.acidente.dadoCircunstancial.escolaridade.descricao}" />
+
+	</div>
+
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.profissao.label']}</label>
+		<h:outputText
+			value="#{atendimentoBean.acidente.dadoCircunstancial.profissao.descricao}" />
+
+	</div>
+
+	<div class="clear"></div>
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.nacionalidade.label']}</label>
+		<h:outputText
+			value="#{atendimentoBean.acidente.dadoCircunstancial.vitima.paisOrigem.nome}" />
+
+	</div>
+	<div class="panel-campo panel_20 direita">
+		<label>#{messages['vitima.naturalidade.label']}</label>
+		<h:outputText
+			value="#{atendimentoBean.acidente.dadoCircunstancial.vitima.municipioOrigem.nome}" />
+
+	</div>
+
+	<div class="clear"></div>
+
+
+</h:body>
+
+</html>

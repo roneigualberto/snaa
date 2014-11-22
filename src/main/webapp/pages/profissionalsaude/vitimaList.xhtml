@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="ISO-8859-1"  ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-profissional-saude.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="form_arraia">
+				<p:messages />
+				<p:panel style="background:white;">
+					<p:toolbar>
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>PESQUISA DE PACIENTE</span>
+							</div>
+
+
+						</p:toolbarGroup>
+
+
+					</p:toolbar>
+					<p:separator style="width: 0px" />
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel for="cpf" value="#{messages['vitima.cpf.label']}" />
+						<p:inputMask id="cpf" converter="cpf"
+							mask="#{messages['cpf.mascara']}"
+							value="#{vitimaListBean.vitima.cpf}">
+						</p:inputMask>
+					</div>
+
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel for="rg" value="#{messages['vitima.rg.label']}" />
+						<p:inputText id="rg" value="#{vitimaListBean.vitima.rg}" />
+					</div>
+
+					<div class="clear"></div>
+
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="nome" styleClass="required"
+							value="#{messages['vitima.nome.label']}" />
+
+						<p:inputText id="nome" value="#{vitimaListBean.vitima.nome}" />
+					</div>
+
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel for="dataNascimento" styleClass="required"
+							value="#{messages['vitima.dataNascimento.label']}" />
+
+						<p:calendar styleClass="campo-data" id="dataNascimento"
+							pattern="#{messages['data.pattern']}"
+							locale="#{messages['locale']}" showOn="button"
+							value="#{vitimaListBean.vitima.dataNascimento}"
+							showButtonPanel="true" navigator="true" />
+
+						<p:message for="dataNascimento" />
+					</div>
+
+
+					<div class="panel-campo panel_20 direita">
+						<div>
+							<p:outputLabel for="sexo"
+								value="#{messages['vitima.sexo.label']}" />
+
+						</div>
+						<p:selectOneMenu id="sexo" style="width:100%;"
+							value="#{vitimaListBean.vitima.sexo}">
+							<f:selectItem itemLabel="#{messages['item.selecione']}"
+								itemValue="" />
+							<f:selectItems var="sexo" value="#{sexoBean.list}"
+								itemValue="#{sexo}" itemLabel="#{sexo.sexo}" />
+
+						</p:selectOneMenu>
+						<p:message for="sexo" />
+					</div>
+					<div class="clear"></div>
+					<div style="text-align: center; margin-bottom: 20px">
+						<p:commandButton value="Pesquisar" styleClass="btn-default"
+							icon="ui-icon-search" action="#{vitimaListBean.pesquisar}"
+							update="@form" id="btnPesquisar" process="@form" />
+
+						<p:button
+							outcome="/pages/profissionalsaude/acidente/acidenteForm.jsf"
+							value="Novo Acidente" styleClass="btn-default" onclick="PF('statusDialog').show()"
+							icon="ui-icon-document" />
+					</div>
+
+
+					<p:blockUI block="gridVitima" trigger="gridVitima btnPesquisar">
+						#{messages['snaa.carregando']}
+					</p:blockUI>
+
+					<p:dataTable value="#{vitimaListBean.vitimas}" var="bean"
+						paginator="true" lazy="true" id="gridVitima"
+						first="#{messages['page.first']}" rows="#{messages['page.rows']}"
+						pageLinks="#{messages['page.max.links']}"
+						emptyMessage="#{messages['grid.vazio']}" rowIndexVar="rowIndex"
+						rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'odd-row' : 'even-row'}">
+
+						<p:column headerText="#{messages['grid.label.id']}"
+							style="width: 5%;text-align:center">
+							<h:outputText value="#{bean.id}" />
+						</p:column>
+
+						<p:column headerText="Documento"
+							style="width:15%;text-align:center;">
+							<h:outputText value="#{bean.documento}"  />
+						</p:column>
+
+						<p:column headerText="RG" style="width:15%;">
+							<h:outputText value="#{bean.rg}" />
+						</p:column>
+
+						<p:column headerText="Nome">
+							<h:outputText value="#{bean.nome}" />
+						</p:column>
+
+						<p:column headerText="Data de Nascimento"
+							style="width:5%;text-align:center">
+							<h:outputText value="#{bean.dataNascimento}">
+								<f:convertDateTime pattern="#{messages['data.pattern']}" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Sexo" style="width:5%;text-align:center">
+							<h:outputText value="#{bean.sexo.sexo}" />
+						</p:column>
+
+						<p:column headerText="#{messages['grid.label.acao']}"
+							style="text-align:center;">
+
+							<h:link id="linkVisualizar" styleClass="link-acoes"
+								outcome="/pages/profissionalsaude/acidente/vitimaView.jsf">
+								<h:graphicImage library="imagens" name="Search-Find-32.png" />
+								<f:param name="id" value="#{bean.id}" />
+							</h:link>
+							<p:tooltip for="linkVisualizar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Search-Find-32.png" />
+									<label>Consultar Vítima</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+
+
+							<h:link id="linkEdit" styleClass="link-acoes"
+								outcome="/pages/profissionalsaude/acidente/acidenteForm.jsf"
+								rendered="#{!bean.ultimoAcidente.finalizado}">
+
+								<h:graphicImage library="imagens" name="Edit-32.png" />
+								<f:param name="id" value="#{bean.ultimoAcidente.id}" />
+
+							</h:link>
+
+							<p:tooltip for="linkEdit">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Edit-32.png" />
+									<label>Editar Acidente</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+							<h:commandLink id="linkReativar"
+								action="#{acidenteBean.reativar}"
+								rendered="#{bean.ultimoAcidente.finalizado}"
+								styleClass="link-acoes">
+								<f:param name="id" value="#{bean.ultimoAcidente.id}" />
+
+								<h:graphicImage library="imagens" name="Check-32.png" />
+
+							</h:commandLink>
+							<p:tooltip for="linkReativar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Check-32.png" />
+									<label>Reativar Acidente</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+
+
+
+
+
+						</p:column>
+					</p:dataTable>
+
+
+				</p:panel>
+
+				<p:dialog modal="true" widgetVar="statusDialog" header="Aguardando"
+					style="background: white;" draggable="false" closable="false">
+					<p:graphicImage library="imagens" name="ajax-loader-save.gif" />
+				</p:dialog>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

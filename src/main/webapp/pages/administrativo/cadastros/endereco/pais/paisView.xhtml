@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="form_arraia">
+
+
+
+				<p:panel style="background:white;">
+					<p:toolbar style="margin-bottom: 10px;">
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>CONSULTA  DE PAÍS</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:separator style="width: 0px" />
+					<p:messages globalOnly="true" />
+
+					<div
+						style="background: #D8F0D8; border-radius: 10px; margin-bottom: 20px; padding: 20px">
+						<h:panelGrid columns="2" cellspacing="10" style="font-size: 14px;">
+							<h:outputText value="Nome:" style="font-weight:bold" />
+							<h:outputText value="#{paisBean.bean.nome}" />
+							<h:outputText value="Nacionalidade:" style="font-weight:bold" />
+							<h:outputText value="#{paisBean.bean.nacionalidade}" />
+							<h:outputText value="Sigla:" style="font-weight:bold" />
+							<h:outputText value="#{paisBean.bean.sigla}" />
+							<h:outputText value="Status:" style="font-weight:bold" />
+							<h:outputText value="#{paisBean.bean.status}" />
+
+						</h:panelGrid>
+
+					</div>
+
+
+
+
+
+					<div style="text-align: center; margin-bottom: 20px">
+
+						<p:button id="linkEdit" value="Editar" icon="ui-icon-pencil"
+							styleClass="link-acoes btn-default"
+							outcome="#{paisListBean.nextView}"
+							rendered="#{paisBean.bean.ativo}">
+							<f:param value="#{paisBean.bean.id}" name="id" />
+						</p:button>
+
+
+						<p:commandButton id="linkReativar" icon="ui-icon-circle-check"
+							rendered="#{!paisBean.bean.ativo}" update="@form"
+							action="#{paisListBean.reativar}" value="Reativar"
+							styleClass="link-acoes btn-default">
+							<f:setPropertyActionListener value="#{paisBean.bean}"
+								target="#{paisListBean.paisAtivacao}" />
+						</p:commandButton>
+						<p:commandButton id="btnInativar"
+							rendered="#{paisBean.bean.ativo}" update="@form" icon="ui-icon-cancel"
+							action="#{paisListBean.inativar}" value="Inativar"
+							styleClass="link-acoes btn-default">
+							<f:setPropertyActionListener value="#{paisBean.bean}"
+								target="#{paisListBean.paisAtivacao}" />
+						</p:commandButton>
+						<p:button outcome="#{paisBean.previousView}" value="Voltar"
+							icon="ui-icon-arrowreturnthick-1-w" styleClass="btn-default" />
+					</div>
+
+
+
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

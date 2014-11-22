@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<h3>Dados da Vítima</h3>
+	<p:separator />
+	<div
+		style="background: #D8F0D8; border-radius: 10px; margin-bottom: 20px; padding: 20px">
+
+		<div class="clear"></div>
+
+		<h:panelGroup rendered="#{not acidenteBean.bean.vitima.estrangeiro}">
+			<div class="panel-campo panel_30 direita">
+				<label>CPF</label>
+				<h:outputText value="#{acidenteBean.bean.vitima.cpf}"
+					converter="cpf" />
+			</div>
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{acidenteBean.bean.vitima.estrangeiro}">
+			<div class="panel-campo panel_30 direita">
+				<label>Passaporte</label>
+				<h:outputText value="#{acidenteBean.bean.vitima.passaporte}"
+					 />
+			</div>
+		</h:panelGroup>
+
+
+		<div class="panel-campo panel_30 direita">
+			<label>RG:</label>
+			<h:outputText value="#{acidenteBean.bean.vitima.rg}" />
+
+		</div>
+
+		<div class="clear"></div>
+
+		<div class="panel-campo panel_30 direita">
+			<label>Nome da Vítima</label>
+			<h:outputText value="#{acidenteBean.bean.vitima.nome}" />
+
+		</div>
+
+		<div class="panel-campo panel_25 direita">
+			<label>Data de Nascimento</label>
+			<h:outputText value="#{acidenteBean.bean.vitima.dataNascimento}">
+				<f:convertDateTime pattern="#{messages['data.pattern']}" />
+			</h:outputText>
+
+		</div>
+
+
+		<div class="panel-campo panel_20 direita">
+			<label>Sexo</label>
+			<h:outputText value="#{acidenteBean.bean.vitima.sexo.sexo}" />
+		</div>
+		<div class="clear"></div>
+
+		<div class="panel-campo panel_30 direita">
+			<label>Escolaridade</label>
+			<h:outputText
+				value="#{acidenteBean.bean.dadoCircunstancial.escolaridade.descricao}" />
+		</div>
+
+		<div class="panel-campo panel_25 direita">
+			<label>Profissão</label>
+			<h:outputText
+				value="#{acidenteBean.bean.dadoCircunstancial.profissao.descricao}" />
+		</div>
+
+		<div class="clear"></div>
+
+		<div class="panel-campo panel_30 direita">
+			<label>Nacionalidade</label>
+			<h:outputText
+				value="#{acidenteBean.bean.vitima.paisOrigem.nome}" />
+		</div>
+
+		<div class="panel-campo panel_25 direita">
+			<label>Naturalidade</label>
+			<h:outputText
+				value="#{acidenteBean.bean.vitima.municipioOrigem.nome}" />
+		</div>
+
+
+		<div class="clear"></div>
+
+	</div>
+
+	<h3>Dados do Acidente</h3>
+	<p:separator />
+	<div
+		style="background: #D8F0D8; border-radius: 10px; margin-bottom: 20px; padding: 20px">
+
+		<div class="clear"></div>
+
+		<div class="panel-campo panel_25 direita">
+			<label>Data da Ocorrência</label>
+			<h:outputText value="#{acidenteBean.bean.dataOcorrencia}">
+				<f:convertDateTime pattern="#{messages['data.pattern']}" />
+			</h:outputText>
+		</div>
+
+		<div class="panel-campo panel_20 direita">
+			<label>Período do dia:</label>
+			<h:outputText value="#{acidenteBean.bean.periodo.descricao}" />
+		</div>
+
+		<div class="panel-campo panel_20 direita">
+			<label>Município</label>
+			<h:outputText value="#{acidenteBean.bean.municipio.nome}" />
+		</div>
+
+		<div class="panel-campo panel_20 direita">
+			<label>Localização:</label>
+			<h:outputText value="#{acidenteBean.bean.localizacao.descricao}" />
+		</div>
+
+
+		<div class="clear"></div>
+	</div>
+
+	<div style="text-align: center">
+		<p:commandButton value="Salvar" action="#{acidenteBean.insert}"
+			update="@form" icon="ui-icon-document" />
+	</div>
+</h:body>
+
+</html>

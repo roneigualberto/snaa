@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="arraiaForm" enctype="multipart/form-data">
+				<p:panel style="background:white;">
+					<p:toolbar style="margin-bottom: 10px;">
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>CONSULTA DE ARRAIA</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:separator style="width: 0px" />
+					<p:messages globalOnly="true" />
+
+					<div
+						style="background: #D8F0D8; border-radius: 10px; margin-bottom: 20px; padding: 20px">
+						<h:panelGrid columns="2" cellspacing="10" style="font-size: 14px;">
+							<h:outputText value="Nome:" style="font-weight:bold" />
+							<h:outputText value="#{arraiaBean.bean.nome}" />
+							<h:outputText value="Nome Cientifico:" style="font-weight:bold" />
+							<h:outputText value="#{arraiaBean.bean.nomeCientifico}" />
+							<h:outputText value="Status:" style="font-weight:bold" />
+							<h:outputText value="#{arraiaBean.bean.status}" />
+
+						</h:panelGrid>
+
+					</div>
+
+
+
+
+
+					<div style="text-align: center; margin-bottom: 20px">
+
+						<p:button id="linkEdit" value="Editar" icon="ui-icon-pencil"
+							styleClass="link-acoes btn-default"
+							outcome="#{arraiaListBean.nextView}"
+							rendered="#{arraiaBean.bean.ativo}">
+							<f:param value="#{arraiaBean.bean.id}" name="id" />
+						</p:button>
+
+						<p:commandButton value="Excluir"
+							styleClass="link-acoes btn-default" type="button"
+							onclick="PF('dialogExcluir').show();" />
+
+						<p:button outcome="#{arraiaBean.previousView}" value="Voltar"
+							icon="ui-icon-arrowreturnthick-1-w" styleClass="btn-default" />
+					</div>
+
+
+					<p:fileUpload fileUploadListener="#{arraiaBean.efetuarUpload}"
+						izeLimit="1048576" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+						uploadLabel="Enviar" cancelLabel="Cancelar" label="Adicionar" multiple="true"
+						update="@form" />
+
+
+
+
+					<p:dataTable value="#{arraiaBean.bean.imagens}" var="bean"
+						paginator="true" id="gridArraia" first="#{messages['page.first']}"
+						rows="4" pageLinks="#{messages['page.max.links']}"
+						emptyMessage="#{messages['grid.vazio']}" rowIndexVar="rowIndex"
+						rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'odd-row' : 'even-row'}">
+
+						<p:column headerText="#{messages['grid.label.id']}"
+							style="width: 5%;text-align:center">
+							<h:outputText value="#{bean.id}" />
+						</p:column>
+
+
+						<p:column headerText="Imagem" style="width: 50%;text-align:center">
+							<p:graphicImage style="border-radius: 5px"
+								value="/imagem?context=arraia&amp;id=#{bean.id}" 
+								height="150" width="150" />
+						</p:column>
+
+
+
+F
+
+						<p:column headerText="#{messages['grid.label.acao']}"
+							style="text-align:center;width:10%;">
+
+							<p:commandLink id="linkVisualizar" styleClass="link-acoes" process="@form" onclick="PF('dialogExcluirImagem').show()" >
+								<h:graphicImage library="imagens" name="Close-32.png" />
+								<f:setPropertyActionListener value="#{bean}" target="#{arraiaBean.imagemArraia}"/>
+
+							</p:commandLink>
+							<p:tooltip for="linkVisualizar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Close-32.png" />
+									<label>Remover Imagem</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+
+
+
+
+
+						</p:column>
+					</p:dataTable>
+
+
+					<p:confirmDialog header="Confirmação"
+						message="Deseja excluir essa arraia ? Nome: #{arraiaBean.bean.nome}"
+						widgetVar="dialogExcluir">
+
+						<div style="text-align: center;">
+
+							<p:commandButton value="Sim" action="#{arraiaBean.delete}"
+								styleClass="btn-default" update="@form"
+								oncomplete="PF('dialogExcluir').hide()" />
+							<p:commandButton value="Não" styleClass="btn-default"
+								onclick="PF('dialogExcluir').hide();" type="button" />
+
+						</div>
+					</p:confirmDialog>
+
+					<p:confirmDialog header="Confirmação"
+						message="Deseja excluir essa imagem ?"
+						widgetVar="dialogExcluirImagem">
+
+						<div style="text-align: center;">
+
+							<p:commandButton value="Sim" action="#{arraiaBean.excluirImagem}"
+								styleClass="btn-default" update="@form"
+								oncomplete="PF('dialogExcluirImagem').hide()" />
+							<p:commandButton value="Não" styleClass="btn-default"
+								onclick="PF('dialogExcluirImagem').hide();" type="button" />
+
+						</div>
+					</p:confirmDialog>
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/_template.xhtml">
+	<ui:define name="acoes">
+
+	</ui:define>
+
+	<ui:define name="corpo">
+		<div class="panel-index">
+			<h:form>
+				<div style="width: 60%; float: left;">
+					<div style="margin-bottom: 20px">
+						<h:graphicImage library="imagens" name="Bull-Horn-32.png" />
+						<h3 style="display: inline;">#{messages['login.notificacao.acidente.titulo']}</h3>
+						<hr />
+						#{messages['login.notificacao.acidente.descricao']}
+						<div class="panel-index-acoes">
+							<p:button value="Notificar Acidente"
+								outcome="/pages/publico/acidente/acidenteForm.jsf"
+								styleClass="panel-index-btn" />
+						</div>
+					</div>
+					<div style="margin-bottom: 20px">
+						<h:graphicImage library="imagens" name="Hospital-32.png" />
+						<h3 style="display: inline;">#{messages['login.unidadesaude.titulo']}</h3>
+						<hr />
+						<p>#{messages['login.unidadesaude.descricao']}</p>
+						<div class="panel-index-acoes">
+							<p:button value="Solicitar criação de conta"
+								outcome="/pages/publico/solicitacao/solicitacao.jsf"
+								styleClass="panel-index-btn" />
+						</div>
+					</div>
+					<div>
+						<h:graphicImage library="imagens" name="Diagram-32.png" />
+						<h3 style="display: inline;">#{messages['login.dadosestatisticos.titulo']}</h3>
+						<hr />
+						<p>#{messages['login.dadosestatistico.descricao']}</p>
+						<div class="panel-index-acoes">
+							<p:button value="Consultar Dados"
+								outcome="/pages/publico/dadosEstatisticos.jsf"
+								styleClass="panel-index-btn" />
+						</div>
+					</div>
+				</div>
+			</h:form>
+			<div class="panel-login">
+				<h:form id="loginForm">
+					<p:fieldset id="panelLogin" styleClass="panel-snaa">
+						<div class="panel-campo">
+							<p:messages globalOnly="true" />
+						</div>
+						<div class="panel-campo">
+							<p:outputLabel for="login" value="Login:" />
+							<p:inputMask id="login" mask="999.999.999-99"
+								value="#{loginBean.credenciais.login}" converter="cpf"
+								required="true"
+								requiredMessage="${messages['login.obrigatorio']}" />
+							<p:message for="login" />
+						</div>
+
+						<div class="panel-campo">
+							<p:outputLabel for="login" value="Senha:" />
+							<p:password id="senha" value="#{loginBean.credenciais.senha}"
+								required="true"
+								requiredMessage="${messages['senha.obrigatoria']}" />
+							<p:message for="senha" />
+						</div>
+
+						<div class="panel-campo"
+							style="text-align: center; margin-top: 10px;">
+							<p:commandButton id="btnEntrar"
+								style="width: 40%;padding: 4px;margin-top: 30px;"
+								action="#{loginBean.efetuarLogin}" value="Entrar" update="panelLogin" process="panelLogin"/>
+						</div>
+
+						<div class="panel-campo"
+							style="text-align: center; margin-top: 10px;">
+							<p:commandLink ignoreAutoUpdate="true"
+								onclick="PF('recuperarSenhaDialog').show()"
+								value="Esqueci minha senha" />
+						</div>
+					</p:fieldset>
+					<p:blockUI trigger="btnEntrar" block="panelLogin">
+							Validando...
+					</p:blockUI>
+
+
+					<p:dialog widgetVar="recuperarSenhaDialog"
+						id="recuperarSenhaDialog" header="Recuperar Senha" width="500"
+						modal="true">
+							<div style="text-align: center;">
+								<p:outputLabel for="cpf" value="CPF:" />
+								<p:inputMask id="cpf" mask="999.999.999-99"
+									value="#{usuarioBean.cpf}" converter="cpf" required="true"
+									requiredMessage="Obrigatório" />
+								<p:message for="cpf" />
+
+							</div>
+							<div class="clear"></div>
+							<br/>
+							<div style="text-align: center;">
+								<p:commandButton id="btnEnviar"
+									action="#{usuarioBean.recuperarSenha}"
+									process="recuperarSenhaDialog" value="Enviar"
+									update="recuperarSenhaDialog messages" />
+									
+								<p:commandButton id="btnCancelar" value="Cancelar"
+									onclick="PF('recuperarSenhaDialog').hide()"
+									 />
+							</div>
+					</p:dialog>
+					<p:growl globalOnly="true" id="messages"></p:growl>
+
+				</h:form>
+				<div class="clear"></div>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

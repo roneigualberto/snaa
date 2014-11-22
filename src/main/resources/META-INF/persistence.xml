@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="snaa-pu" transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>java:jboss/datasources/snaa-ds</non-jta-data-source>
+
+		
+		<!-- Módulo de Notificação Não-oficial -->
+		<class>br.edu.ifam.snaa.domain.notificacao.naooficial.AcidenteNaoOficial</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.naooficial.VitimaNaoOficial</class>
+
+
+		<!-- Módulo Administrativo -->
+		<class>br.edu.ifam.snaa.domain.administrativo.Administrador</class>
+		<class>br.edu.ifam.snaa.domain.administrativo.solicitacao.SolicitacaoConta</class>
+		<class>br.edu.ifam.snaa.domain.administrativo.solicitacao.DocumentoAnexo</class>
+		<!-- Módulo Endereço -->
+		<class>br.edu.ifam.snaa.domain.endereco.Bairro</class>
+		<class>br.edu.ifam.snaa.domain.endereco.Endereco</class>
+		<class>br.edu.ifam.snaa.domain.endereco.Estado</class>
+		<class>br.edu.ifam.snaa.domain.endereco.Localizacao</class>
+		<class>br.edu.ifam.snaa.domain.endereco.Logradouro</class>
+		<class>br.edu.ifam.snaa.domain.endereco.Municipio</class>
+		<class>br.edu.ifam.snaa.domain.endereco.Pais</class>
+		<class>br.edu.ifam.snaa.domain.endereco.TipoLocalizacao</class>
+
+		<!-- Módulo de Notificação -->
+		<class>br.edu.ifam.snaa.domain.notificacao.Arraia</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.Escolaridade</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.ImagemArraia</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.ArquivoImagemArraia</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.Profissao</class>
+
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.Acidente</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.Vitima</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.Atendimento</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.ProfissionalSaude</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.Prontuario</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.RepresentanteUnidadeSaude</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.Sintoma</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.Tratamento</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.UnidadeSaude</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.Doenca</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.Exame</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.oficial.QuadroSaida</class>
+		<class>br.edu.ifam.snaa.domain.notificacao.AtividadeVitima</class>
+
+
+
+
+
+		<!-- Módulo de Segurança -->
+
+		<class>br.edu.ifam.snaa.domain.seguranca.Usuario</class>
+
+		<!-- <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> -->
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.jdbc.batch_size" value="100" />
+			<!-- <property name="hibernate.cache.use_second_level_cache"  value="true"/> -->
+		</properties>
+	</persistence-unit>
+</persistence>

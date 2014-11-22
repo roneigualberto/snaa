@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+
+	<h:form id="formulario">
+		<p:growl globalOnly="true" />
+		<p:dialog id="basicDialog" header="Local Anatômico" widgetVar="dlg"
+			modal="true" resizable="false">
+			<ui:include src="/pages/profissionalsaude/localAnatomico.xhtml" />
+		</p:dialog>
+
+
+		<div class="panel-campo panel_30 direita">
+
+			<label>Local da picada: <span class="ui-outputlabel-rfi">*</span></label>
+
+			<p:commandButton id="btnLocal" value="Marcar local da picada"
+				onclick="selecionarLocal();" type="button" styleClass="btn-default" />
+
+			<p:message for="localAnatomico" />
+
+		</div>
+		<div class="panel-campo panel_50 direita">
+
+			<p:panelGrid columns="3"
+				rendered="#{prontuarioBean.acidente.localAnatomico != null}">
+				<f:facet name="header">
+       								Local Anatômico da Picada
+   								 </f:facet>
+
+
+				<h:outputText value="#{prontuarioBean.acidente.localAnatomico.nome}" />
+				<p:commandButton value="Desfazer" style="margin:0"
+					action="#{prontuarioBean.desfazerLocal}" update="@form" />
+
+
+			</p:panelGrid>
+
+
+
+		</div>
+		<div class="clear"></div>
+		<hr />
+		<p:fieldset legend="Sintomas" style="background: white;"
+			toggleable="true" toggleSpeed="500">
+			<p:fieldset legend="Sinais e Sintomas Sistêmicos"
+				styleClass="panel_50 direita"
+				style="background:white;margin-top: 15px;margin-right:2px"
+				toggleable="true" toggleSpeed="500">
+				<div class="panel-campo panel_75 direita">
+
+					<p:autoComplete id="sintomaSistemico"
+						value="#{prontuarioBean.sintomaSistemico}"
+						completeMethod="#{sintomaListBean.buscarSintomaSistemico}"
+						minQueryLength="3" var="s" itemValue="#{s}"
+						itemLabel="#{s.descricao}" converter="sintomaConverter"
+						styleClass="tfSintoma" />
+					<p:message for="sintomaSistemico" />
+					<p:watermark value="BUSQUE OU INFORME UM SINTOMA SISTEMICO"
+						for="sintomaSistemico" />
+
+				</div>
+				<div class="panel-campo panel_10 direita">
+					<p:commandLink action="#{prontuarioBean.addSintomaSistemico}"
+						update="@form">
+						<h:graphicImage library="imagens" name="Add-New-32.png" />
+					</p:commandLink>
+
+				</div>
+				<div class="clear"></div>
+				<p:dataTable value="#{prontuarioBean.sintomasSistemico}"
+					var="sintoma" emptyMessage="" rowIndexVar="rowIndex"
+					rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'even-row' : 'odd-row'}">
+
+					<p:column headerText="Sintomas" style="width: 75%;">
+						<h:outputText value="#{sintoma.descricao}" />
+					</p:column>
+					<p:column headerText="Ação" style="width:25%;text-align:center;">
+						<div style="text-align: center;">
+							<p:commandLink action="#{prontuarioBean.removeSintomaSistemico}"
+								styleClass="link-acoes" update="@form">
+								<h:graphicImage library="imagens" name="Close-24.png" />
+								<f:setPropertyActionListener value="#{sintoma}"
+									target="#{prontuarioBean.sintomaSistemico}" />
+
+							</p:commandLink>
+
+
+						</div>
+
+
+					</p:column>
+
+
+				</p:dataTable>
+
+			</p:fieldset>
+
+
+
+			<p:fieldset legend="Sinais e Sintomas Locais"
+				styleClass="panel_50 direita"
+				style="background: white;margin-top:15px;margin-right:2px;float:right"
+				toggleable="true" toggleSpeed="500">
+				<div class="panel-campo panel_75 direita">
+
+					<p:autoComplete id="sintomaLocal"
+						value="#{prontuarioBean.sintomaLocal}"
+						completeMethod="#{sintomaListBean.buscarSintomaLocal}"
+						minQueryLength="3" var="s" itemValue="#{s}"
+						itemLabel="#{s.descricao}" converter="sintomaConverter"
+						styleClass="tfSintoma" />
+					<p:message for="sintomaLocal" />
+					<p:watermark value="BUSQUE OU INFORME UM SINTOMA LOCAL"
+						for="sintomaLocal" />
+
+				</div>
+				<div class="panel-campo panel_10 direita">
+					<p:commandLink action="#{prontuarioBean.addSintomaLocal}"
+						update="@form">
+						<h:graphicImage library="imagens" name="Add-New-32.png" />
+					</p:commandLink>
+
+				</div>
+				<div class="clear"></div>
+				<p:dataTable value="#{prontuarioBean.prontuario.sintomasLocal}"
+					var="sintoma" emptyMessage="" rowIndexVar="rowIndex"
+					rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'even-row' : 'odd-row'}">
+
+					<p:column headerText="Sintomas" style="width:75%">
+						<h:outputText value="#{sintoma.descricao}" />
+					</p:column>
+					<p:column headerText="Ação" style="width:25%;text-align:center;">
+						<div style="text-align: center;">
+							<p:commandLink action="#{prontuarioBean.removeSintomaLocal}"
+								styleClass="link-acoes" update="@form">
+								<f:setPropertyActionListener value="#{sintoma}"
+									target="#{prontuarioBean.sintomaLocal}" />
+								<h:graphicImage library="imagens" name="Close-24.png" />
+
+							</p:commandLink>
+
+
+						</div>
+
+
+					</p:column>
+
+				</p:dataTable>
+
+
+			</p:fieldset>
+
+		</p:fieldset>
+
+
+		<div class="clear"></div>
+		<hr />
+		<p:fieldset legend="A Vitima possui:"
+			style="background: white;margin-top:15px;margin-bottom: 30px;"
+			toggleable="true" toggleSpeed="500">
+
+			<p:selectManyCheckbox id="grid"
+				value="#{prontuarioBean.doencasSelect}" layout="pageDirection">
+				<f:selectItems value="#{doencaListBean.doencas}" />
+			</p:selectManyCheckbox>
+		</p:fieldset>
+
+
+		<div class="clear"></div>
+
+
+
+		<div class="clear"></div>
+		<p:messages globalOnly="true" />
+		<div style="text-align: center">
+			<p:commandButton value="Salvar" action="#{prontuarioBean.update}"
+				icon="ui-icon-disk" styleClass="btn-default" update="@form"
+				process="@form" />
+			<div class="clear"></div>
+
+		</div>
+
+
+	</h:form>
+
+</h:body>
+
+</html>

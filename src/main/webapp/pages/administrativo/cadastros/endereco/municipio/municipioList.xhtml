@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="estadoForm">
+
+				<p:panel style="background:white;">
+					<p:toolbar>
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>PESQUISA DE ESTADOS</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+
+					<p:separator style="width: 0px" />
+					<p:messages />
+
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="pais" value="País:" />
+
+						<p:selectOneMenu value="#{estadoListBean.estado.pais}" id="pais"
+							converter="entityConverter" effect="fade" style="width: 100%;">
+							<f:selectItem itemLabel="#{messages['item.selecione']}"
+								itemValue="0" />
+							<f:selectItems value="#{paisListBean.resultList}" var="p"
+								itemLabel="#{p.nome}" itemValue="#{p}" />
+
+						</p:selectOneMenu>
+					</div>
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="nome" value="Nome:" />
+						<p:inputText id="nome" value="#{estadoListBean.estado.nome}" />
+					</div>
+
+					<div class="panel-campo panel_20 direita">
+						<p:outputLabel for="sigla" value="Sigla:" />
+						<p:inputText id="sigla" value="#{estadoListBean.estado.sigla}" />
+					</div>
+
+					<div class="clear"></div>
+
+					<div style="text-align: center; margin-bottom: 20px">
+						<p:commandButton value="Pesquisar" styleClass="btn-default"
+							icon="ui-icon-search" action="#{estadoListBean.pesquisar}"
+							update="@form" id="btnPesquisar" process="@form" />
+						<p:button value="Cadastrar" styleClass="btn-default"
+							icon="ui-icon-document" outcome="#{estadoListBean.nextView}"
+							id="btnCadastrar" />
+					</div>
+
+
+					<p:blockUI block="gridEstado" trigger="gridEstado btnPesquisar">
+						#{messages['snaa.carregando']}
+					</p:blockUI>
+
+					<p:dataTable value="#{estadoListBean.resultList}" var="bean"
+						paginator="true" id="gridEstado" first="#{messages['page.first']}"
+						rows="#{messages['page.rows']}"
+						pageLinks="#{messages['page.max.links']}"
+						emptyMessage="#{messages['grid.vazio']}" rowIndexVar="rowIndex"
+						rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'odd-row' : 'even-row'}">
+
+						<p:column headerText="#{messages['grid.label.id']}"
+							style="width: 5%;text-align:center">
+							<h:outputText value="#{bean.id}" />
+						</p:column>
+						<p:column headerText="Nome" style="width:30%;text-align:center;">
+							<h:outputText value="#{bean.nome}" />
+						</p:column>
+
+						<p:column headerText="Sigla" style="width:10%;text-align:center;">
+							<h:outputText value="#{bean.sigla}" />
+						</p:column>
+
+						<p:column headerText="País" style="width:35%;text-align:center;">
+							<h:outputText value="#{bean.pais.nome}" />
+						</p:column>
+
+						<p:column headerText="#{messages['grid.label.acao']}"
+							style="text-align:center;width:20%;">
+
+							<h:link id="linkVisualizar" styleClass="link-acoes"
+								outcome="/pages/administrativo/cadastros/endereco/estado/estadoView.jsf">
+								<h:graphicImage library="imagens" name="Search-Find-32.png" />
+								<f:param name="id" value="#{bean.id}" />
+
+							</h:link>
+							<p:tooltip for="linkVisualizar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Search-Find-32.png" />
+									<label>Consultar</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+						</p:column>
+					</p:dataTable>
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

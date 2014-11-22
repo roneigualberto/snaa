@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+
+		<f:metadata>
+			<f:viewParam name="id" value="#{arraiaEditBean.bean.id}" />
+		</f:metadata>
+
+		<h:form id="form_arraia" enctype="application/x-www-form-urlencoded">
+			<fieldset class="panel-filtro">
+				<h:inputHidden value="#{arraiaEditBean.bean.id}" />
+				<h2 class="titulo">
+					<h:outputText value="#{messages['arraia.titulo.consultar']}" />
+				</h2>
+				<div>
+					<p:messages />
+				</div>
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+
+
+
+					</p:toolbarGroup>
+				</p:toolbar>
+				<div class="panel-campo panel_50">
+					<h:outputText id="nome" value="#{arraiaEditBean.bean.nome}" />
+				</div>
+				<div class="panel-campo panel_50">
+					<h:outputText id="nomeCientifico"
+						value="#{arraiaEditBean.bean.nomeCientifico}" />
+				</div>
+
+
+			
+
+				<p:dataTable id="carousel" value="#{arraiaEditBean.bean.imagens}"
+					var="imagem" headerText="Imagens">
+
+					<p:column>
+
+						<p:graphicImage value="#{arraiaEditBean.carregarImagem(imagem)}">
+						</p:graphicImage>
+					</p:column>
+				</p:dataTable>
+
+
+
+			</fieldset>
+
+
+
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+
+</html>

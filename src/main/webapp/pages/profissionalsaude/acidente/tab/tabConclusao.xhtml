@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<h:form>
+		<p:messages globalOnly="true" />
+		<div class="panel-campo panel_40 direita">
+
+			<div>
+				<p:outputLabel for="quadroSaida" styleClass="required"
+					value="Quadro de Saída" />
+			</div>
+
+			<p:selectOneMenu id="quadroSaida" style="width: 100%;"
+				value="#{acidenteBean.bean.quadroSaida}" required="true"
+				requiredMessage="#{messages['campo.obrigatorio']}"
+				converter="entityConverter">
+				<f:selectItem itemLabel="#{messages['item.selecione']}"
+					itemValue="0" />
+				<f:selectItems var="quadroSaida"
+					value="#{quadroSaidaListBean.resultList}"
+					itemValue="#{quadroSaida}" itemLabel="#{quadroSaida.descricao}" />
+
+			</p:selectOneMenu>
+			<p:message for="quadroSaida" />
+		</div>
+		<div class="clear"></div>
+		<div class="panel-campo panel_75 direita">
+			<div>
+				<label>Comentário</label>
+			</div>
+			<p:inputTextarea cols="50" rows="10" style="width:100%"
+				value="#{acidenteBean.bean.ultimoAtendimento.comentario}" />
+		</div>
+		<div class="clear"></div>
+		<div style="text-align: center;">
+			<p:commandButton value="Concluir" action="#{acidenteBean.concluir}"
+				icon="ui-icon-disk" styleClass="btn-default" update="@form"
+				process="@form" onstart="PF('statusDialog').show()"  oncomplete="PF('statusDialog').hide()"/>
+			<div class="clear"></div>
+		</div>
+
+
+		<p:dialog modal="true" widgetVar="statusDialog" header="Concluindo..."
+			style="background: white;" draggable="false" closable="false">
+			<p:graphicImage library="imagens" name="ajax-loader-save.gif" />
+		</p:dialog>
+	</h:form>
+
+</h:body>
+
+</html>

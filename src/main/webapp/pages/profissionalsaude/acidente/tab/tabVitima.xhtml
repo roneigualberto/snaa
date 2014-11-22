@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:messages globalOnly="true" />
+
+  <h:panelGroup id="panelCheckEstrangeiro">
+	<div class="panel-campo panel_20 direita">
+		<p:outputLabel for="estrangeiro" styleClass="required"
+			value="Vítima é estrangeira?" />
+		<p:selectOneRadio id="estrangeiro" disabled="#{acidenteBean.bean.vitima.id != null}"
+			value="#{acidenteBean.bean.vitima.estrangeiro}">
+			<f:selectItem itemValue="true" itemLabel="Sim" />
+			<f:selectItem itemValue="false" itemLabel="Não" />
+			<p:ajax event="click" update="panelCheckEstrangeiro panelNacionalidade" process="@this" immediate="true" listener="#{acidenteBean.changePais}"/>
+
+		</p:selectOneRadio>
+
+	</div>
+	<div class="panel-campo panel_20 direita">
+	   <h:panelGroup id="panelNumeroDoc">
+	   
+		<h:panelGroup rendered="#{not acidenteBean.bean.vitima.estrangeiro}">
+			<p:outputLabel for="cpf" styleClass="required"
+				value="#{messages['vitima.cpf.label']}" />
+			<p:inputMask id="cpf" converter="cpf"
+				mask="#{messages['cpf.mascara']}"
+				value="#{acidenteBean.bean.vitima.cpf}" required="true"
+				requiredMessage="#{messages['campo.obrigatorio']}"
+				disabled="#{acidenteBean.bean.vitima.id != null}">
+				<f:attribute name="idVitima" value="#{acidenteBean.bean.vitima.id}" />
+
+				<f:validator validatorId="vitimaCpfExistente" />
+
+			</p:inputMask>
+			<p:message id="msgCpf" for="cpf" />
+
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{acidenteBean.bean.vitima.estrangeiro}" id="panelPassaporte">
+			<p:outputLabel for="passaporte" styleClass="required"
+				value="Passaporte" />
+			<p:inputText id="passaporte" 
+				value="#{acidenteBean.bean.vitima.passaporte}" required="true"
+				requiredMessage="#{messages['campo.obrigatorio']}"
+				disabled="#{acidenteBean.bean.vitima.id != null}">
+				<f:attribute name="idVitima" value="#{acidenteBean.bean.vitima.id}" />
+
+				<f:validator validatorId="vitimaPassaporteExistente" />
+
+			</p:inputText>
+			<p:message id="msgPassaporte" for="passaporte" />
+
+		</h:panelGroup>
+		</h:panelGroup>
+
+
+	</div>
+	</h:panelGroup>
+
+	<div class="panel-campo panel_20 direita">
+		<p:outputLabel styleClass="required" for="rg"
+			value="#{messages['vitima.rg.label']}" />
+		<p:inputText id="rg" value="#{acidenteBean.bean.vitima.rg}"
+			requiredMessage="#{messages['campo.obrigatorio']}" />
+		<p:message for="rg" />
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="panel-campo panel_40 direita">
+		<p:outputLabel for="nome" styleClass="required"
+			value="#{messages['vitima.nome.label']}" />
+
+		<p:inputText id="nome" value="#{acidenteBean.bean.vitima.nome}"
+			required="true" requiredMessage="#{messages['campo.obrigatorio']}" />
+		<p:message id="msgNome" for="nome" />
+	</div>
+
+	<div class="panel-campo panel_25 direita">
+		<p:outputLabel for="dataNascimento" styleClass="required"
+			value="#{messages['vitima.dataNascimento.label']}" />
+
+		<p:calendar styleClass="campo-data" id="dataNascimento"
+			pattern="#{messages['data.pattern']}" showOn="button"
+			showButtonPanel="true" navigator="true"
+			locale="#{messages['locale']}" maxdate="#{dateUtil.currentDate}"
+			value="#{acidenteBean.bean.vitima.dataNascimento}" required="true"
+			requiredMessage="#{messages['campo.obrigatorio']}"/>
+		<p:message id="msgDataNascimento" for="dataNascimento" />
+	</div>
+
+	<div class="panel-campo panel_20 direita">
+		<div>
+			<p:outputLabel for="sexo" value="#{messages['vitima.sexo.label']}" />
+
+		</div>
+		<p:selectOneMenu id="sexo" style="width:100%;"
+			value="#{acidenteBean.bean.vitima.sexo}" required="true"
+			requiredMessage="#{messages['campo.obrigatorio']}">
+			<f:selectItem itemLabel="#{messages['item.selecione']}" itemValue="" />
+			<f:selectItems var="sexo" value="#{sexoBean.list}"
+				itemValue="#{sexo}" itemLabel="#{sexo.sexo}" />
+			<p:ajax event="select" update="msgSexo" />
+
+		</p:selectOneMenu>
+		<p:message id="msgSexo" for="sexo" />
+	</div>
+	<div class="clear"></div>
+
+	<div class="panel-campo panel_40 direita">
+		<div>
+			<p:outputLabel for="escolaridade"
+				value="#{messages['vitima.escolaridade.label']}" />
+		</div>
+
+		<p:selectOneMenu id="escolaridade" style="width: 100%;"
+			value="#{acidenteBean.bean.dadoCircunstancial.escolaridade}"
+			filter="true" filterMatchMode="startsWith"
+			converter="entityConverter">
+			<f:selectItem itemLabel="#{messages['item.selecione']}" itemValue="0" />
+			<f:selectItems var="escolaridade"
+				value="#{escolaridadeListBean.resultList}"
+				itemValue="#{escolaridade}" itemLabel="#{escolaridade.descricao}" />
+
+		</p:selectOneMenu>
+	</div>
+
+	<div class="panel-campo panel_40 direita">
+		<p:outputLabel for="profissao"
+			value="#{messages['vitima.profissao.label']}" />
+		<p:autoComplete id="profissao"
+			value="#{acidenteBean.bean.dadoCircunstancial.profissao}"
+			completeMethod="#{profissaoListBean.buscar}" minQueryLength="3"
+			var="p" itemValue="#{p}" itemLabel="#{p.descricao}"
+			converter="optionalAutoComplete" />
+
+	</div>
+
+	<div class="clear"></div>
+		<h:panelGroup id="panelNacionalidade">
+	<div class="panel-campo panel_40 direita">
+		<p:outputLabel for="pais"
+			value="#{messages['vitima.nacionalidade.label']}" />
+
+		<p:selectOneMenu value="#{acidenteBean.bean.vitima.paisOrigem}" disabled="#{not acidenteBean.bean.vitima.estrangeiro}"
+			filter="true" filterMatchMode="startsWith" id="pais"
+			converter="entityConverter" effect="fade" style="width: 100%;">
+			<f:selectItem itemLabel="#{messages['item.selecione']}" itemValue="0" />
+			<f:selectItems value="#{paisListBean.resultList}" var="p"
+				itemLabel="#{p.nome}" itemValue="#{p}" />
+			<p:ajax update="naturalidade" event="change" process="@this pais" />
+			<p:ajax update="naturalidade" event="select" process="@this pais" />
+
+		</p:selectOneMenu>
+	</div>
+	<div class="clear"></div>
+	<h:panelGroup id="panel" rendered="#{!acidenteBean.estrangeiro}">
+		<div class="panel-campo panel_40 direita">
+			<p:outputLabel for="pais" value="Estado:" id="labelEstado" />
+
+			<p:selectOneMenu value="#{acidenteBean.estado}" id="estado"
+				filter="true" filterMatchMode="startsWith"
+				converter="entityConverter" effect="fade" style="width: 100%;"
+				rendered="#{not acidenteBean.estrangeiro}">
+				<f:selectItem itemLabel="#{messages['item.selecione']}"
+					itemValue="0" />
+				<f:selectItems value="#{acidenteBean.estados}" var="e"
+					itemLabel="#{e.nome}" itemValue="#{e}" />
+
+				<p:ajax update="naturalidade" event="change" process="@this estado"
+					immediate="true" />
+				<p:ajax update="naturalidade" event="select" process="@this estado"
+					immediate="true" />
+
+			</p:selectOneMenu>
+		</div>
+		
+
+		<p:blockUI block="naturalidade" trigger="estado" blocked="">
+
+		</p:blockUI>
+
+		<div class="panel-campo panel_40 direita">
+			<p:outputLabel for="naturalidade"
+				value="#{messages['notificacao.vitima.naturalidade']}" />
+
+			<p:selectOneMenu value="#{acidenteBean.bean.vitima.municipioOrigem}"
+				id="naturalidade" converter="entityConverter" effect="fade"
+				filter="true" filterMatchMode="startsWith"
+				rendered="#{not acidenteBean.estrangeiro}" style="width: 100%;">
+				<f:selectItem itemLabel="#{messages['item.selecione']}"
+					itemValue="0" />
+				<f:selectItems value="#{acidenteBean.municipios}" var="m"
+					itemLabel="#{m.nome}" itemValue="#{m}" />
+
+			</p:selectOneMenu>
+		</div>
+		</h:panelGroup>
+
+
+	</h:panelGroup>
+
+	<div class="clear"></div>
+
+</h:body>
+
+</html>

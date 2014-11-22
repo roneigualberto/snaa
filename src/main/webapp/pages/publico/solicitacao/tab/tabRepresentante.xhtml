@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<script type="text/javascript">
+							$(document).ready(function(){
+		  					 configMaskData();
+	    				});
+						</script>
+
+
+	<div style="margin-top: 20px;">
+
+		<div class="panel-campo panel_40 direita">
+			<p:outputLabel for="nomeRepresentante" styleClass="required"
+				value="Nome:" />
+
+			<p:inputText id="nomeRepresentante"
+				value="#{solicitacaoContaBean.representante.nome}" required="true"/>
+			<p:message id="msgNomeRepresentante" for="nomeRepresentante" />
+		</div>
+
+		<div class="panel-campo panel_25 direita">
+			<p:outputLabel for="dataNascimento" styleClass="required"
+				value="Data de Nascimento" />
+
+			<p:calendar styleClass="campo-data" id="dataNascimento"
+				pattern="#{messages['data.pattern']}" showOn="button"
+				showButtonPanel="true" navigator="true"
+				locale="#{messages['locale']}" maxdate="#{dateUtil.currentDate}"
+				value="#{solicitacaoContaBean.representante.dataNascimento}"
+				required="true"/>
+			<p:message id="msgDataNascimento" for="dataNascimento" />
+		</div>
+	
+		<div class="panel-campo panel_20 direita">
+			<div>
+				<p:outputLabel for="sexo" value="#{messages['vitima.sexo.label']}" />
+
+			</div>
+			<p:selectOneMenu id="sexo" style="width:100%;"
+				value="#{solicitacaoContaBean.representante.sexo}" required="true">
+				<f:selectItem itemLabel="#{messages['item.selecione']}" itemValue="" />
+				<f:selectItems var="sexo" value="#{sexoBean.list}"
+					itemValue="#{sexo}" itemLabel="#{sexo.sexo}" />
+
+			</p:selectOneMenu>
+			<p:message id="msgSexo" for="sexo" />
+		</div>
+		<div class="clear"></div>
+
+
+		<div class="panel-campo panel_20 direita">
+			<p:outputLabel for="cpfRepresentante" styleClass="required"
+				value="CPF:" />
+			<p:inputMask id="cpfRepresentante" converter="cpf"
+				mask="#{messages['cpf.mascara']}"
+				value="#{solicitacaoContaBean.representante.cpf}" required="true">
+				<p:ajax event="blur" update="msgCpfRepresentante" />
+				<f:validator validatorId="cpf" />
+				<f:validator validatorId="representanteCpfExistente" />
+			</p:inputMask>
+			<p:message id="msgCpfRepresentante" for="cpfRepresentante" />
+
+		</div>
+
+		<div class="panel-campo panel_20 direita">
+			<p:outputLabel styleClass="required" for="rgRepresentante"
+				value="RG:" />
+			<p:inputText id="rgRepresentante"
+				value="#{solicitacaoContaBean.representante.rg}" />
+			<p:message for="rgRepresentante" />
+		</div>
+		<div class="panel-campo panel_25 direita">
+			<p:outputLabel styleClass="required" for="emailRepresentante"
+				value="E-mail:" />
+			<p:inputText id="emailRepresentante" required="true"
+				value="#{solicitacaoContaBean.representante.email}" />
+			<p:message for="emailRepresentante" />
+		</div>
+		<div class="panel-campo panel_20 direita">
+			<p:outputLabel styleClass="required" for="telefoneRepresentante"
+				value="Telefone" />
+			<p:inputMask mask="(99) 9999-9999" required="true"
+				id="telefoneRepresentante"
+				value="#{solicitacaoContaBean.representante.telefone}" />
+			<p:message for="telefoneRepresentante" />
+		</div>
+		<div class="clear"></div>
+		<div class="panel-campo panel_60 direita">
+			<p:outputLabel styleClass="required" for="arquivo"
+				value="Anexar Documento com Foto:" />
+			<br />
+
+			<p:fileUpload id="arquivo" required="true"
+				value="#{solicitacaoContaBean.solicitacaoConta.arquivo}"
+				fileUploadListener="#{solicitacaoContaBean.handleFileUpload}"
+				mode="advanced" auto="true" fileLimit="5242880"
+				invalidSizeMessage="Tamanho do arquivo inválido"
+				invalidFileMessage="O formato do arquivo informado não é válido" update="panelArquivo"
+				allowTypes="/(\.|\/)(jpe?g|png)$/" />
+
+			<p:message id="msgArquivo" for="arquivo" />
+
+		</div>
+
+		<div class="panel-campo panel_35 direita">
+			<label>Documento Anexado:</label>
+			<p:panelGrid id="panelArquivo" >
+				<f:facet name="header">
+					<p:row>
+						<p:column>Nome do Arquivo</p:column>
+						<p:column>Ação</p:column>
+					</p:row>
+				</f:facet>
+
+				<p:row>
+					<p:column>
+						<h:outputText
+							value="#{solicitacaoContaBean.solicitacaoConta.arquivo.fileName}" />
+					</p:column>
+					<p:column>
+
+						<p:commandLink styleClass="link-acoes" immediate="true" 
+							update="tabRepresentante" action="#{solicitacaoContaBean.cancelarUpload}"
+							rendered="#{not empty solicitacaoContaBean.solicitacaoConta.arquivo.fileName}">
+							<h:graphicImage library="imagens" name="Close-24.png" />
+						</p:commandLink>
+
+
+					</p:column>
+
+				</p:row>
+
+
+
+
+			</p:panelGrid>
+
+		</div>
+
+		<div class="clear"></div>
+
+
+		<div class="panel-campo panel_25 direita">
+			<p:outputLabel styleClass="required" for="senhaRepresentante"
+				value="Senha de Acesso" />
+			<p:password id="senhaRepresentante" required="true" match="confirmRepresentante"
+			   
+			  feedback="true" strongLabel="#{messages['password.strongLabel']}" 
+			  goodLabel="#{messages['password.goodLabel']}"    weakLabel="#{messages['password.weakLabel']}" 
+			  promptLabel="#{messages['password.promptLabel']}" validatorMessage="Senha e Confirmação não coincidem"
+				value="#{solicitacaoContaBean.representante.senha}" />
+			<p:message for="senhaRepresentante" />
+		</div>
+
+
+		<div class="panel-campo panel_25 direita">
+			<p:outputLabel styleClass="required" for="confirmRepresentante"
+				value="Confirmação de Senha" />
+			<p:password id="confirmRepresentante" required="true"
+			   feedback="true"
+			strongLabel="#{messages['password.strongLabel']}" 
+			  goodLabel="#{messages['password.goodLabel']}"    weakLabel="#{messages['password.weakLabel']}" 
+			  promptLabel="#{messages['password.promptLabel']}"
+				value="#{solicitacaoContaBean.solicitacaoConta.confirmacaoSenha}" />
+			<p:message for="confirmRepresentante" />
+		</div>
+
+		<div class="clear"></div>
+
+	</div>
+</h:body>
+
+</html>

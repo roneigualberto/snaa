@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_acidentes_por_municipio_subreport1" pageWidth="230" pageHeight="597" whenNoDataType="NoDataSection" columnWidth="230" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="82efb43d-419a-4639-9bb5-258165151a15">
+	<property name="ireport.zoom" value="1.3995221406292004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idMunicipio" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoNotificacao" class="java.lang.String"/>
+	<parameter name="qtde" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	ret.sexo as sexo,
+	count(*) as qtde
+FROM (
+SELECT
+    sexo.descricao as sexo,
+    ac.municipio_id as idMunicipio
+FROM acidente ac
+     INNER JOIN vitima    v ON (v.id = ac.vitima_id)
+     LEFT JOIN (SELECT "M" descricao UNION ALL select "F" descricao)
+			    sexo ON sexo.descricao =  v.sexo
+	WHERE
+	 ac.situacao = 'CONCLUIDO' AND
+ ($P{tipoNotificacao} is null or  $P{tipoNotificacao} = 'POR_UNIDADE_SAUDE')
+AND  ( $P{dtInicio} is null or (ac.data_ocorrencia  BETWEEN $P{dtInicio} AND $P{dtFim} ) )
+UNION ALL
+SELECT
+	sexo.descricao as sexo,
+	ac.municipio_id as idMunicipio
+FROM acidente_nao_oficial ac
+     INNER JOIN vitima_nao_oficial   v ON (v.id = ac.vitima_id)
+     LEFT JOIN (SELECT "M" descricao UNION ALL select "F" descricao)
+			    sexo ON sexo.descricao =  v.sexo
+    WHERE
+	($P{tipoNotificacao} is null or  $P{tipoNotificacao} = 'NAO_OFICIAL')
+AND  ($P{dtInicio} is null or (ac.data_ocorrencia  BETWEEN $P{dtInicio} AND $P{dtFim}))
+) ret
+WHERE (ret.idMunicipio = $P{idMunicipio} or $P{idMunicipio} is null)
+GROUP BY ret.sexo
+ORDER BY ret.sexo desc]]>
+	</queryString>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtde" class="java.lang.Long"/>
+	<variable name="total" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtde}]]></variableExpression>
+	</variable>
+	<variable name="numberFormat" class="java.text.NumberFormat">
+		<variableExpression><![CDATA[NumberFormat.getInstance(new Locale("pt", "pt_br"))]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5a2e1e9a-bd53-4f18-aa8e-494448bcb7b9" x="0" y="20" width="66" height="30"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93307143-e395-4694-9ac5-a29159b58089" x="66" y="20" width="109" height="30"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Numero de Acidentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b8e60a58-a260-434b-896d-8247cf48860e" x="0" y="0" width="230" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Sexo da Vítima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="96de41aa-4052-4b6b-842a-12238be20087" x="175" y="20" width="55" height="30"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="6de2089c-67e5-4f1a-b9a1-58cbeb983002" x="0" y="0" width="66" height="20"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA["M".equals($F{sexo}) ? "Masculino" : "Feminino"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4ef333fc-407d-4242-a226-b1c074e5a387" x="66" y="0" width="109" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qtde}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="#,##0.00">
+				<reportElement uuid="c0799e8c-dd13-40a0-95c9-57dc1fbd6318" x="175" y="0" width="55" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[($F{qtde}*100.0)/$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="145" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement uuid="51dd0406-0a1f-4781-9172-66f72befbf96" x="0" y="0" width="230" height="145"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA["M".equals($F{sexo}) ? "Masculino" : "Feminino"]]></keyExpression>
+					<valueExpression><![CDATA[$F{qtde}]]></valueExpression>
+					<labelExpression><![CDATA[$F{qtde}.toString()]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="7e3c1e15-0408-4396-9c9a-228d1425f698" x="42" y="15" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Não possui acidentes!]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

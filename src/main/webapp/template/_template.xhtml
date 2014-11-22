@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title><ui:insert name="titulo">
+  		#{messages['snaa.titulo']}
+  </ui:insert></title>
+	<h:outputStylesheet library="css" name="style.css" />
+		<h:outputScript library="js" name="snaa.js" />
+
+
+</h:head>
+<h:body>
+
+	<div class="container">
+		<p:ajaxStatus
+			style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+			<f:facet name="start">
+				<p:graphicImage library="imagens" name="ajax-loader.gif" />
+			</f:facet>
+
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+		<div class="cabecalho ui-widget ui-widget-header ui-state-default">
+			<h2 class="ui-snaa-titulo">#{messages['snaa.titulo']}</h2>
+			<div style="float: right">
+				<ui:insert name="acoes">
+					<h:form>
+						<h:panelGrid columns="4" cellpadding="2"
+							rendered="#{usuarioSessao.logado}">
+							<h:outputText value="#{messages['smaa.usuario']}" />
+							<h:outputText value="#{usuarioSessao.usuario.nome}" />
+							<h:link outcome="/perfil.jsf">
+								<h:graphicImage library="imagens" name="Home-48.png" />
+
+							</h:link>
+							<p:commandLink action="#{usuarioSessao.logout}">
+								<h:graphicImage library="imagens" name="Media-Start-48.png" />
+							</p:commandLink>
+						</h:panelGrid>
+						<h:panelGrid columns="4" cellpadding="2"
+							rendered="#{!usuarioSessao.logado}">
+							<h:link outcome="/login/login.jsf" styleClass="btn-default"
+								value="Login" />
+						</h:panelGrid>
+
+					</h:form>
+
+				</ui:insert>
+
+			</div>
+		</div>
+
+
+		<div class="principal clearfix ">
+
+			<ui:insert name="corpo" />
+				<h:outputScript library="js" name="snaa.js" />
+		</div>
+		 <br/>
+		<div class="rodape ui-state-default" style="font-size: 14px;padding-top: 10px;">Sistema de Notificação de
+			Acidentes por Arraia - #{dateUtil.year}</div>
+	</div>
+
+</h:body>
+</html>

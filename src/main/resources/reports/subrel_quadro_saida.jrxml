@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_acidentes_por_municipio_subreport1" pageWidth="432" pageHeight="597" whenNoDataType="NoDataSection" columnWidth="432" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="52b97cee-cebc-4a55-af2a-88a7783d9399">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="61"/>
+	<parameter name="idMunicipio" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoNotificacao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+ ret.descricao as quadroSaida,
+ count(*) as qtde
+ FROM (
+SELECT
+qs.descricao
+FROM acidente ac
+	 INNER JOIN vitima v ON (v.id = ac.vitima_id)
+	 INNER JOIN atendimento  atend on atend.acidente_id = ac.id
+     INNER JOIN quadro_saida qs on qs.id = atend.quadro_saida_id
+WHERE
+	ac.situacao = 'CONCLUIDO'
+AND  ( ($P{dtInicio} is null) or (ac.data_ocorrencia  BETWEEN $P{dtInicio} AND $P{dtFim} ) )
+AND ($P{idMunicipio} is null or ac.municipio_id = $P{idMunicipio})
+) ret
+
+GROUP BY ret.descricao
+
+ORDER BY qtde desc,ret.descricao asc]]>
+	</queryString>
+	<field name="quadroSaida" class="java.lang.String"/>
+	<field name="qtde" class="java.lang.Long"/>
+	<variable name="total" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{qtde}]]></variableExpression>
+	</variable>
+	<group name="asdf">
+		<groupExpression><![CDATA[$F{quadroSaida}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4572be43-d64d-4b39-8d60-237d6b03ec91" x="0" y="20" width="226" height="20"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUADRO DA SAÍDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5d5ade6-f8c7-449a-a733-154cbf2ff756" x="226" y="20" width="159" height="20"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero de Acidentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0a6550c0-b35b-4701-935b-7ee4f3adb68a" x="0" y="0" width="432" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUADRO DE SAÍDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="54948e32-1f52-430b-afdc-4f2464b5b0c1" x="385" y="20" width="47" height="20"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="28062634-8f07-40b0-b21d-e1372570c5a3" x="0" y="0" width="226" height="20"/>
+				<box leftPadding="10">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{quadroSaida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b1420e72-df9c-4f6a-861f-38784bd37b32" x="226" y="0" width="159" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qtde}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="#,##0.00">
+				<reportElement uuid="57b0a823-444d-4c6f-ba1c-66b9e1cccf68" x="385" y="0" width="47" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[($F{qtde}*100.0)/$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="203" splitType="Stretch">
+			<barChart>
+				<chart isShowLegend="false">
+					<reportElement uuid="a6821be8-1bcd-4cbc-93c8-2c741c6a13a3" x="0" y="0" width="432" height="203"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{quadroSaida}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{quadroSaida}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{qtde}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot orientation="Horizontal"/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="a0c54e4c-5188-4b79-81a1-c68b7454b087" x="153" y="13" width="133" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Não possui acidentes!]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

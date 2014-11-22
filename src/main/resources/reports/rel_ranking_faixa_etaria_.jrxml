@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_ranking_municipio" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" uuid="6f0b46b5-48c5-455c-8967-d1ba01bcd4bb">
+	<property name="ireport.zoom" value="0.8264462809917362"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tipoNotificacao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idMunicipio" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\tcc2\\workspace-svn\\snaa\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mnMunicipio" class="java.lang.String"/>
+	<parameter name="dtInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtFim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 'valor';]]>
+	</queryString>
+	<field name="valor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="ranking">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="112" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="41673cba-ede2-4b00-a5f1-cf27d2d6335b" x="5" y="40" width="554" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RANKING DE ACIDENTES POR SEXO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="544bff5e-390b-4901-a46d-0b510be0c753" x="4" y="10" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SNAA - SISTEMA DE NOTIFICAÇÃO DE ACIDENTES POR ARRAIA
+]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="107" splitType="Stretch">
+			<rectangle radius="8">
+				<reportElement uuid="28942e74-bb65-46e0-83fb-2af3910f27f5" x="0" y="0" width="555" height="71" backcolor="#D8F0D8"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="7aebe797-4d75-45fc-b9f2-3273c48882ed" x="10" y="10" width="101" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Notificação:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="17e492de-c14b-4640-81d3-a847e73d09c1" x="111" y="10" width="134" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{tipoNotificacao} == null ? "TODAS" :
+$P{tipoNotificacao} == "POR_UNIDADE_SAUDE" ?
+"Por Unidade de Saúde" :"Não Oficial"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="18d3523c-c1f6-410e-88dc-a9d39fe36a68" x="288" y="10" width="52" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1b054585-9e72-4c61-b2d1-aaf077e12ac1" x="340" y="10" width="195" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($P{dtInicio} == null ? "Não Informado"  :
+  new SimpleDateFormat("dd/MM/yyyy").format($P{dtInicio})
+  +" - "+
+   new SimpleDateFormat("dd/MM/yyyy").format($P{dtFim})
+ )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="be8484e2-3abe-4670-82ce-24f0f5d0c0ac" x="11" y="30" width="58" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Município]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ad18516a-36d5-4639-9fcc-1a5a22ff9131" x="69" y="30" width="466" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{nmMunicipio} == null ? "TODOS" : $P{nmMunicipio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="68" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="9e23a3b6-ad44-4911-aadd-33df23d190f7" x="159" y="0" width="227" height="68"/>
+				<subreportParameter name="idMunicipio">
+					<subreportParameterExpression><![CDATA[$P{idMunicipio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipoNotificacao">
+					<subreportParameterExpression><![CDATA[$P{tipoNotificacao}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="qtde"/>
+				<subreportParameter name="dtInicio">
+					<subreportParameterExpression><![CDATA[$P{dtInicio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dtFim">
+					<subreportParameterExpression><![CDATA[$P{dtFim}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rel_acidentes_por_municipio_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement uuid="535893ed-5e81-497d-9817-5acd26ee5467" x="435" y="13" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="40930791-a2ad-4a09-b2e6-d0c98ad9ff0e" x="515" y="13" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

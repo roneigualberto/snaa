@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rel_acidentes_por_municipio" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f16717ea-0e57-4f7e-993a-ae00499299ad">
+	<property name="ireport.zoom" value="0.826446280991738"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="359"/>
+	<property name="ireport.callouts" value="##Sun Mar 30 13:18:03 CDT 2014"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\tcc2\\workspace-svn\\snaa\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoNotificacao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idMunicipio" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dtInicio" class="java.util.Date"/>
+	<parameter name="dtFim" class="java.util.Date"/>
+	<parameter name="idAcidente" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="arraiaFoiVista" class="br.edu.ifam.snaa.util.RespostaEnum">
+		<fieldDescription><![CDATA[arraiaFoiVista]]></fieldDescription>
+	</field>
+	<field name="atendimentos" class="java.util.List">
+		<fieldDescription><![CDATA[atendimentos]]></fieldDescription>
+	</field>
+	<field name="atividadeVitima" class="br.edu.ifam.snaa.domain.notificacao.AtividadeVitima">
+		<fieldDescription><![CDATA[atividadeVitima]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[codigo]]></fieldDescription>
+	</field>
+	<field name="dadoCircunstancial" class="br.edu.ifam.snaa.domain.notificacao.DadoCircunstancial">
+		<fieldDescription><![CDATA[dadoCircunstancial]]></fieldDescription>
+	</field>
+	<field name="dataOcorrencia" class="java.util.Date">
+		<fieldDescription><![CDATA[dataOcorrencia]]></fieldDescription>
+	</field>
+	<field name="escalaCerteza" class="java.lang.Integer">
+		<fieldDescription><![CDATA[escalaCerteza]]></fieldDescription>
+	</field>
+	<field name="finalizado" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[finalizado]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="imagem" class="br.edu.ifam.snaa.domain.notificacao.ImagemArraia">
+		<fieldDescription><![CDATA[imagem]]></fieldDescription>
+	</field>
+	<field name="localAnatomico" class="br.edu.ifam.snaa.domain.notificacao.LocalAnatomicoEnum">
+		<fieldDescription><![CDATA[localAnatomico]]></fieldDescription>
+	</field>
+	<field name="localizacao" class="br.edu.ifam.snaa.domain.endereco.Localizacao">
+		<fieldDescription><![CDATA[localizacao]]></fieldDescription>
+	</field>
+	<field name="municipio" class="br.edu.ifam.snaa.domain.endereco.Municipio">
+		<fieldDescription><![CDATA[municipio]]></fieldDescription>
+	</field>
+	<field name="periodo" class="br.edu.ifam.snaa.domain.notificacao.PeriodoEnum">
+		<fieldDescription><![CDATA[periodo]]></fieldDescription>
+	</field>
+	<field name="profissionalSaude" class="br.edu.ifam.snaa.domain.notificacao.oficial.ProfissionalSaude">
+		<fieldDescription><![CDATA[profissionalSaude]]></fieldDescription>
+	</field>
+	<field name="quadroSaida" class="br.edu.ifam.snaa.domain.notificacao.oficial.QuadroSaida">
+		<fieldDescription><![CDATA[quadroSaida]]></fieldDescription>
+	</field>
+	<field name="readOnlyVitima" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[readOnlyVitima]]></fieldDescription>
+	</field>
+	<field name="situacao" class="br.edu.ifam.snaa.domain.notificacao.SituacaoAcidenteEnum">
+		<fieldDescription><![CDATA[situacao]]></fieldDescription>
+	</field>
+	<field name="situacaoAnimal" class="br.edu.ifam.snaa.domain.notificacao.oficial.SituacaoAnimal">
+		<fieldDescription><![CDATA[situacaoAnimal]]></fieldDescription>
+	</field>
+	<field name="ultimoAtendimento" class="br.edu.ifam.snaa.domain.notificacao.oficial.Atendimento">
+		<fieldDescription><![CDATA[ultimoAtendimento]]></fieldDescription>
+	</field>
+	<field name="vitima" class="br.edu.ifam.snaa.domain.notificacao.oficial.Vitima">
+		<fieldDescription><![CDATA[vitima]]></fieldDescription>
+	</field>
+	<group name="municipio" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement uuid="fe0a4825-1c3d-4f81-b701-3d69c0f383f4" x="6" y="0" width="802" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SNAA - SISTEMA DE NOTIFICAÇÃO DE ACIDENTES POR ARRAIA
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6e287479-9815-44f6-9b52-6684a664c3af" x="0" y="30" width="802" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CONSULTA DE ACIDENTE
+]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="409" splitType="Stretch">
+			<rectangle radius="8">
+				<reportElement uuid="f3291bc1-3b1d-4a40-a95d-fe935d2debbd" x="6" y="55" width="796" height="137" backcolor="#D8F0D8"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="8cf6d732-9e41-4c30-a7cf-9a91c9f0f2cb" x="26" y="69" width="105" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Código do Acidente:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6a389f9b-346e-47e3-84c7-2d2faf1f0c7c" x="26" y="89" width="105" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="29c5d57a-8eae-4ea0-a99e-fef56352a3bd" x="331" y="89" width="117" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataOcorrencia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3bcae4ed-f88f-4a51-8cc7-13c29459c2f7" x="331" y="69" width="117" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Data da ocorrência:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5bd919c1-6ed6-41ea-91fa-b46f51d03291" x="550" y="69" width="150" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="05101457-cf9e-45c6-bc3c-28574dbba4b8" x="550" y="89" width="150" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{periodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1515709f-f6ea-4e79-bd2e-f4ba659d12dd" x="6" y="24" width="796" height="20"/>
+				<box>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Dados do Acidente]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="90ca99cb-9340-4a0e-91fe-c32da40be19b" x="26" y="152" width="109" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{municipio}.getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bf0962a1-32fc-4805-900f-030749b50112" x="26" y="132" width="105" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Município]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d6d4343f-f7ed-44a7-a0c5-8e0707085419" x="331" y="132" width="174" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Localização]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8dd291ff-3d04-4245-9500-66e5b9adae91" x="331" y="152" width="174" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{localizacao} != null ? $F{localizacao}.getTipoLocalizacao().getDescricao()
++" - "  +$F{localizacao}.getDescricao() : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3560c396-6dde-4e8f-8b65-7463c54038a8" x="149" y="307" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="a7ddc03a-1007-46ab-97c5-d0e5d0037d4e" x="635" y="307" width="150" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{periodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9eb45b7c-f76f-4d12-a637-ea8cdfd5d5b2" x="583" y="307" width="47" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<rectangle radius="8">
+				<reportElement uuid="0192bb63-b751-4ec9-89b2-a7e3c8641637" x="6" y="244" width="796" height="129" backcolor="#D8F0D8"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="6d5b6a92-2088-4ae6-9efa-96a7d2a9546e" x="331" y="257" width="70" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Documento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eb4e7e48-7a8a-4b6b-82d1-1e791301d12f" x="331" y="317" width="174" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Sexo:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0312382c-218d-4b19-9434-1fd00de0d07d" x="331" y="337" width="172" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{vitima}.getSexo().getSexo()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6e0ba76e-747b-4a5c-8e45-e279e60a52dc" x="26" y="257" width="247" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nome da Vítima]]></text>
+			</staticText>
+			<textField pattern="###.###.###-##" isBlankWhenNull="true">
+				<reportElement uuid="72c36f2d-bb17-45cd-9152-d59a64c3ac53" x="331" y="277" width="174" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{vitima}.getDocumento()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="727b40f4-8014-410a-a8b6-4832cc17e4b4" x="6" y="206" width="796" height="20"/>
+				<box>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Dados da Vítima]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5f113544-bc07-4bb4-8084-095764e7408a" x="26" y="277" width="247" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{vitima}.getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="05464634-7e7e-4b1e-85f4-d9b68040445f" x="26" y="317" width="247" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Data de Nascimento:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="0b215e54-5377-406a-91e1-4caa98016c41" x="26" y="337" width="247" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{vitima}.getDataNascimento()]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement uuid="8ce21d81-ccbf-4426-85dc-9bd6ecb6bedc" x="0" y="392" width="802" height="1"/>
+			</break>
+		</band>
+		<band height="488">
+			<rectangle radius="8">
+				<reportElement uuid="1dde8810-1893-41b5-81b8-6a06ac47b056" x="0" y="30" width="796" height="61" backcolor="#D8F0D8"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="61e3d5e1-8f98-453b-89d0-a8eed5d92bd6" x="0" y="0" width="796" height="20"/>
+				<box>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dados da Arraia]]></text>
+			</staticText>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement uuid="b21c4601-3cc5-4afb-97eb-c94fdf0564bb" x="149" y="101" width="502" height="340"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<imageExpression><![CDATA[new ByteArrayInputStream($F{imagem}.getArquivo().getImagem())]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="ac9f891b-70c3-4f6e-9c71-8e2d8c979341" x="554" y="34" width="150" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Situação do animal:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="3da5df28-066f-4771-b30e-d9a4929d6b8e" x="335" y="54" width="117" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{escalaCerteza}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a1b3c5aa-06c3-4c7f-8c88-e52a5b1e6f06" x="335" y="34" width="117" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Escala de certeza:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="28a2eb2a-a46c-4449-8b47-042829f01cb3" x="554" y="54" width="150" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{situacaoAnimal}.getDescricao()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1488d567-6b77-48ae-b48e-b6fdb2d36925" x="30" y="34" width="129" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Vítima viu  o  animal?]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d5a15361-df50-4192-910b-be29849c999a" x="30" y="54" width="105" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{arraiaFoiVista}.getDescricao()]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="101">
+			<subreport>
+				<reportElement uuid="785245d9-9d34-4ed0-aa25-e7cdf81684e8" x="0" y="35" width="796" height="49"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{atendimentos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rel_acidente_detalhado_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="d28d71aa-f05c-4ec0-8352-0bc396a43fce" x="0" y="0" width="796" height="20"/>
+				<box>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atendimentos]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement uuid="29c4ba84-8a67-4c54-88c2-f733f0b03e22" x="665" y="10" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="a4dbb1d9-6e31-430e-bbb7-c10b7bc1aa6b" x="745" y="10" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="dd70e65f-1d15-4606-8485-eb942d93ac9d" x="6" y="17" width="796" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nenhum acidente encontrado!]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

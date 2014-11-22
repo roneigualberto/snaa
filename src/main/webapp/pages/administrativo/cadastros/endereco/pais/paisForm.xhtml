@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="form_arraia">
+
+				<p:panel style="background:white;">
+					<p:toolbar style="margin-bottom: 10px;">
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>CADASTRO DE PAÍS</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+
+					<p:separator style="width: 0px" />
+					<p:messages globalOnly="true" />
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="nome" value="Nome" />
+						<p:inputText id="nome" value="#{paisBean.bean.nome}"
+							validator="#{paisBean.validateNome}" required="true">
+							<f:validateLength maximum="255" />
+
+						</p:inputText>
+						<p:message for="nome" />
+					</div>
+
+					<div class="clear"></div>
+
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="nacionalidade" value="Nacionalidade:" />
+						<p:inputText id="nacionalidade"
+							value="#{paisBean.bean.nacionalidade}" required="true">
+							<f:validateLength maximum="255" />
+						</p:inputText>
+						<p:message for="nacionalidade" />
+					</div>
+
+					<div class="clear"></div>
+					<div class="panel-campo panel_25 direita">
+						<p:outputLabel for="sigla" value="Sigla:" />
+						<p:inputText id="sigla" value="#{paisBean.bean.sigla}"
+							validator="#{paisBean.validateSigla}" required="true">
+							<f:validateLength maximum="5" />
+						</p:inputText>
+						<p:message for="sigla" />
+					</div>
+
+					<div class="clear"></div>
+
+
+					<div style="text-align: center; margin-bottom: 20px">
+						<p:commandButton value="Salvar" styleClass="btn-default"
+							rendered="#{!paisBean.updateMode}" action="#{paisBean.insert}"
+							update="@form" id="btnSalvar" icon="ui-icon-disk" />
+						<p:commandButton value="Alterar" styleClass="btn-default"
+							rendered="#{paisBean.updateMode}" action="#{paisBean.update}"
+							update="@form" id="btnAlterar" icon="ui-icon-disk" />
+						<p:button outcome="#{paisBean.previousView}" value="Voltar"
+							icon="ui-icon-arrowreturnthick-1-w" styleClass="btn-default" />
+
+					</div>
+
+
+
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

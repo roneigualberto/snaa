@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-profissional-saude.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="form_arraia">
+				<p:panel style="background:white;">
+
+					<p:toolbar>
+						<p:toolbarGroup align="left">
+							<div style="margin: 8px; text-align: center;">
+								<span>ATENDIMENTOS PENDENTES</span>
+							</div>
+
+
+						</p:toolbarGroup>
+
+						<p:toolbarGroup align="right">
+							<div>
+								<p:separator />
+								<h:link outcome="/pages/profissionalsaude/vitimaList.jsf">
+									<h:graphicImage library="imagens" name="Row-32.png" />
+								</h:link>
+
+								<p:separator />
+							</div>
+
+						</p:toolbarGroup>
+					</p:toolbar>
+					<div style="text-align: center;">
+						<h2>VOCÊ POSSUI 
+							ACIDENTES PENDENTES</h2>
+					</div>
+
+
+					<p:blockUI block="gridAcidente" trigger="gridAcidente">
+						#{messages['snaa.carregando']}
+					</p:blockUI>
+						<p:dataTable value="#{acidenteListBean.pendentes}" var="acidente"
+							paginator="true" rows="15" id="gridAcidente" lazy="true"
+							rowIndexVar="rowIndex"
+							rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'odd-row' : 'even-row'}"
+							emptyMessage="#{messages['grid.vazio']}" >
+
+							<p:column headerText="Código do Acidente">
+								<h:outputText value="#{acidente.id}" />
+							</p:column>
+
+							<p:column headerText="Código do Atendimento">
+								<h:outputText value="#{acidente.ultimoAtendimento.id}" />
+							</p:column>
+
+							<p:column headerText="Documento da Vítima">
+								<h:outputText value="#{acidente.vitima.documento}"  />
+							</p:column>
+
+							<p:column headerText="Nome da Vítima">
+								<h:outputText value="#{acidente.vitima.nome}" />
+							</p:column>
+
+							<p:column headerText="Sexo da Vítima">
+								<h:outputText value="#{acidente.vitima.sexo.sexo}" />
+							</p:column>
+
+							<p:column headerText="#{messages['grid.label.acao']}"
+								style="text-align:center;">
+								<div style="text-align: center;">
+									<h:link styleClass="link-acoes"
+										outcome="#{acidenteListBean.nextView}">
+										<h:graphicImage library="imagens" name="Edit-32.png" />
+										<f:param name="id" value="#{acidente.id}" />
+									</h:link>
+								</div>
+
+
+							</p:column>
+						</p:dataTable>
+				</p:panel>
+			</h:form>
+
+
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

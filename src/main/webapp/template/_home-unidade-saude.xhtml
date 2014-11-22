@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/template/_template.xhtml">
+
+	<ui:define name="corpo">
+		<h:graphicImage library="imagens" name="Doctor-32.png" />
+		
+		
+		<h2 style="display: inline;">Área do Representante de Unidade de
+			Saúde: #{usuarioSessao.unidadeSaude.nome}</h2>
+		<p:separator />
+		<h:form>
+
+			<div class="menu-usuario">
+				<p:panelMenu>
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Pesquisa de Profissional de Saúde"
+							url="/pages/unidadesaude/profissionalList.jsf" />
+						<p:menuitem value="Cadastrar Profissional de Saúde"
+							url="/pages/unidadesaude/profissionalForm.jsf" />
+
+					</p:submenu>
+					<p:submenu label="Representante de Unidade de Saúde">
+
+						<p:menuitem value="Alterar Senha"
+							url="/pages/unidadesaude/alterarSenha.jsf" />
+					</p:submenu>
+				</p:panelMenu>
+
+			</div>
+		</h:form>
+		<div class="panel-right">
+			<ui:insert name="conteudo" />
+		</div>
+	</ui:define>
+</ui:composition>

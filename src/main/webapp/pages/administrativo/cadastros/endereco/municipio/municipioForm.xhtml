@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="municipioForm">
+
+				<p:panel style="background:white;">
+					<p:toolbar style="margin-bottom: 10px;">
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>CADASTRO DE MUNICIPIO</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+
+					<p:separator style="width: 0px" />
+					<p:messages globalOnly="true" />
+
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="estado" value="Estado" />
+						<p:autoComplete id="estado" value="#{municipioBean.bean.estado}"
+							completeMethod="#{estadoBean.handleAutoComplete}"
+							minQueryLength="3" var="municipio" itemValue="#{municipio}"
+							itemLabel="#{estado.nome - estado.pais.nome}"
+							forceSelection="true">
+						</p:autoComplete>
+					</div>
+
+
+					<div class="clear"></div>
+					<div class="panel-campo panel_40 direita">
+						<p:outputLabel for="nome" value="Nome" />
+						<p:inputText id="nome" value="#{municipioBean.bean.nome}"
+							required="true">
+							<f:validateLength maximum="255" />
+
+						</p:inputText>
+						<p:message for="nome" />
+					</div>
+
+					<div class="clear"></div>
+
+
+
+				
+
+					<div style="text-align: center; margin-bottom: 20px">
+						<p:commandButton value="Salvar" styleClass="btn-default"
+							rendered="#{!municipioBean.updateMode}"
+							action="#{municipioBean.insert}" update="@form" id="btnSalvar"
+							icon="ui-icon-disk" />
+						<p:commandButton value="Alterar" styleClass="btn-default"
+							rendered="#{municipioBean.updateMode}" action="#{municipioBean.update}"
+							update="@form" id="btnAlterar" icon="ui-icon-disk" />
+						<p:button
+							outcome="/pages/administrativo/cadastros/endereco/municipio/municipioView"
+							value="Voltar" icon="ui-icon-arrowreturnthick-1-w"
+							styleClass="btn-default" rendered="#{municipioBean.updateMode}">
+							<f:param value="#{municipioBean.bean.id}" name="id" />
+						</p:button>
+						<p:button outcome="#{municipioBean.previousView}" value="Voltar"
+							icon="ui-icon-arrowreturnthick-1-w" styleClass="btn-default"
+							rendered="#{!municipioBean.updateMode}">
+							<f:param value="#{municipioBean.bean.id}" name="id" />
+						</p:button>
+
+
+					</div>
+
+
+
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

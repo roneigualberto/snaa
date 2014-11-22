@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/_home-profissional-saude.xhtml">
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<div style="margin: auto; max-width: 1500px">
+				<p:panel style="background:white;">
+
+					<p:toolbar>
+						<p:toolbarGroup align="left">
+							<div style="margin: 8px; text-align: center;">
+								<span>CONSULTA DE VÍTIMA</span>
+							</div>
+
+
+						</p:toolbarGroup>
+
+						<p:toolbarGroup align="right">
+							<div>
+								<p:separator />
+								<h:link outcome="/pages/profissionalsaude/vitimaList.jsf">
+									<h:graphicImage library="imagens" name="Row-32.png" />
+								</h:link>
+
+								<p:separator />
+							</div>
+
+						</p:toolbarGroup>
+
+					</p:toolbar>
+					<p:fieldset legend="Dados da Vítima"
+						style="background:#D8F0D8;margin-top: 15px;border:none;">
+						<div class="panel-campo panel_20 direita">
+							<label>Nome da Vítima</label>
+							<h:outputText value="#{vitimaBean.bean.nome}" />
+
+						</div>
+
+						<div class="panel-campo panel_20 direita">
+							<label>Documento</label>
+							<h:outputText value="#{vitimaBean.bean.cpf}" converter="cpf" />
+						</div>
+
+						<div class="panel-campo panel_15 direita">
+							<label>Sexo</label>
+							<h:outputText value="#{vitimaBean.bean.sexo.sexo}" />
+						</div>
+
+						<div class="panel-campo panel_20 direita">
+							<label>Data de Nascimento</label>
+							<h:outputText value="#{vitimaBean.bean.dataNascimento}">
+								<f:convertDateTime pattern="#{messages['data.pattern']}" />
+							</h:outputText>
+
+						</div>
+
+
+					</p:fieldset>
+
+					<p:fieldset legend="Último Acidente"
+						style="background:#D8F0D8;margin-top: 15px;border:none;">
+
+						<div class="clear"></div>
+
+						<div class="panel-campo panel_20 direita">
+							<label>Data da Ocorrência</label>
+							<h:outputText
+								value="#{vitimaBean.bean.ultimoAcidente.dataOcorrencia}">
+								<f:convertDateTime pattern="#{messages['data.pattern']}" />
+							</h:outputText>
+						</div>
+
+						<div class="panel-campo panel_20 direita">
+							<label>Período:</label>
+							<h:outputText value="#{vitimaBean.bean.ultimoAcidente.periodo.toString()}" />
+						</div>
+
+						<div class="panel-campo panel_20 direita">
+							<label>Município</label>
+							<h:outputText
+								value="#{vitimaBean.bean.ultimoAcidente.municipio.nome}" />
+						</div>
+
+						<div class="panel-campo panel_20 direita">
+							<label>Localização:</label>
+							<h:outputText
+								value="#{vitimaBean.bean.ultimoAcidente.localizacao.descricao}" />
+						</div>
+
+						<div class="panel-campo panel_20 direita">
+							<label>Situação do acidente:</label>
+							<h:outputText
+								value="#{vitimaBean.bean.ultimoAcidente.situacao.situacao}" />
+						</div>
+
+						<div style="text-align: center;">
+							<p:commandButton value="Reativar" styleClass="btn-default" 
+								action="#{acidenteBean.reativar}"
+								
+								rendered="#{vitimaBean.bean.ultimoAcidente.finalizado}" >
+								<f:param name="id" value="#{vitimaBean.bean.ultimoAcidente.id}" />
+							</p:commandButton>
+
+							<p:button outcome="/pages/profissionalsaude/acidente/acidenteForm.jsf"
+								value="Novo Acidente" styleClass="btn-default"
+								rendered="#{vitimaBean.bean.ultimoAcidente.finalizado}">
+								 <f:param name="idVitima" value="#{vitimaBean.bean.id}" />
+							</p:button>
+							<p:button value="Editar"
+								outcome="/pages/profissionalsaude/acidente/acidenteForm.jsf"
+								rendered="#{!vitimaBean.bean.ultimoAcidente.finalizado}">
+								<f:param name="id" value="#{vitimaBean.bean.ultimoAcidente.id}" />
+
+							</p:button>
+
+
+						</div>
+
+					</p:fieldset>
+
+					<p:fieldset legend="Histórico"
+						style="margin-top: 15px;background:white;">
+						<p:dataTable value="#{vitimaBean.bean.acidentes}" var="bean"
+							id="grid-arraias" emptyMessage="#{messages['grid.vazio']}"
+							rowIndexVar="rowIndex"
+							rowStyleClass="#{empty rowIndex or rowIndex mod 2 eq 0 ? 'odd-row' : 'even-row'}">
+
+							<p:column headerText="#{messages['grid.label.id']}"
+								style="width: 5%;text-align:center">
+								<h:outputText value="#{bean.id}" />
+							</p:column>
+
+							<p:column headerText="Data da Ocorrência"
+								style="width:5%;text-align:center">
+								<h:outputText value="#{bean.dataOcorrencia}">
+									<f:convertDateTime pattern="#{messages['data.pattern']}" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Horário"
+								style="width:20%;text-align:center">
+								<h:outputText value="#{bean.periodo.descricao}" />
+							</p:column>
+
+							<p:column headerText="Município" style="width:30%;">
+								<h:outputText value="#{bean.municipio.nome}" />
+							</p:column>
+
+							<p:column headerText="Localidade" style="width:30%;">
+								<h:outputText value="#{bean.localizacao.descricao}" />
+							</p:column>
+							
+							<p:column headerText="#{messages['grid.label.acao']}"
+							style="text-align:center;width:20%;">
+
+							<h:link id="linkVisualizar" styleClass="link-acoes" target="_blank"
+								outcome="/pages/profissionalsaude/acidenteDetalhado.jsf">
+								<h:graphicImage library="imagens" name="Search-Find-32.png" />
+								<f:param name="idAcidente" value="#{bean.id}" />
+							</h:link>
+							<p:tooltip for="linkVisualizar">
+								<h:panelGrid columns="2">
+									<h:graphicImage library="imagens" name="Search-Find-32.png" />
+									<label>Consultar</label>
+								</h:panelGrid>
+
+							</p:tooltip>
+
+						</p:column>
+							
+
+
+
+						</p:dataTable>
+					</p:fieldset>
+				</p:panel>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

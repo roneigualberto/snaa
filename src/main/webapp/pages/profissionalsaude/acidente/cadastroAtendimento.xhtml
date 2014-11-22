@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<div style="width: 90%; margin: auto;">
+		
+		<p:panel style="background:white;">
+
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<div style="margin: 8px; text-align: center;">
+						<span>NOTIFICACÃO DE ACIDENTE</span>
+					</div>
+
+
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<div>
+						<p:separator />
+						<h:link outcome="/pages/profissionalsaude/vitimaList.jsf">
+							<h:graphicImage library="imagens" name="Row-32.png" />
+						</h:link>
+
+						<p:separator />
+					</div>
+
+				</p:toolbarGroup>
+
+			</p:toolbar>
+			<h:panelGroup rendered="#{acidenteBean.bean.finalizado}">
+				<div
+					style="text-align: center; font-size: 14px; font-weight: bold; margin: 30px; background: rgba(255, 214, 51, 0.67); border-radius: 10px">
+					<h:graphicImage library="imagens" name="Message-Warning-48.png" />
+					<span style="position: relative; bottom: 15px; right: 10px">
+						NOTIFICAÇÃO FOI FINALIZADA</span>
+				</div>
+			</h:panelGroup>
+			<p:fieldset legend="Dados Gerais"
+				style="background:#D8F0D8;margin-top: 15px;border:none"
+				toggleable="true">
+				<ui:include
+					src="/pages/profissionalsaude/acidente/dadosGeraisAcidente.xhtml" />
+			</p:fieldset>
+
+			<h:panelGroup rendered="#{!acidenteBean.bean.finalizado}">
+				<p:tabView id="tabView" style="background:white;">
+
+					<p:tab id="tabVitima" title="Vítima">
+						<h:form id="formVitima">
+							<h:panelGroup
+								rendered="#{atendimentoBean.acidente.readOnlyVitima}">
+								<ui:include
+									src="/pages/profissionalsaude/acidente/tab/tabVitimaView.xhtml" />
+							</h:panelGroup>
+
+							<h:panelGroup
+								rendered="#{!atendimentoBean.acidente.readOnlyVitima}">
+								<ui:include
+									src="/pages/profissionalsaude/acidente/tab/tabVitima.xhtml" />
+								<div style="text-align: center">
+									<p:commandButton value="Salvar" icon="ui-icon-disk"
+										styleClass="btn-default" action="#{acidenteBean.updateVitima}"
+										update="@form" process="@form" />
+
+									<div class="clear"></div>
+
+								</div>
+							</h:panelGroup>
+						</h:form>
+
+					</p:tab>
+
+					<p:tab id="tabAcidente" title="Acidente">
+						<h:form>
+							<h:panelGroup
+								rendered="#{!atendimentoBean.acidente.readOnlyVitima}">
+								<ui:include
+									src="/pages/profissionalsaude/acidente/tab/tabAcidente.xhtml" />
+
+								<div style="text-align: center">
+									<p:commandButton value="Salvar" action="#{acidenteBean.update}"
+										icon="ui-icon-disk" styleClass="btn-default" update="@form"
+										process="@form" />
+
+									<div class="clear"></div>
+
+								</div>
+							</h:panelGroup>
+
+						</h:form>
+
+					</p:tab>
+
+					<p:tab id="tabArraia" title="Arraia">
+						<ui:include
+							src="/pages/profissionalsaude/acidente/tab/tabArraia.xhtml" />
+					</p:tab>
+
+
+					<p:tab id="tabProntuario" title="Prontuário">
+
+						<ui:include
+							src="/pages/profissionalsaude/acidente/tab/tabProntuario.xhtml" />
+					</p:tab>
+
+					<p:tab id="tabTratamento" title="Tratamento">
+						<ui:include
+							src="/pages/profissionalsaude/acidente/tab/tabTratamento.xhtml" />
+					</p:tab>
+
+					<p:tab id="tabConclusao" title="Conclusão">
+						<ui:include
+							src="/pages/profissionalsaude/acidente/tab/tabConclusao.xhtml" />
+					</p:tab>
+
+				</p:tabView>
+			</h:panelGroup>
+		</p:panel>
+
+
+	</div>
+</h:body>
+</html>

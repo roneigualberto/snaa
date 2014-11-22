@@ -1,0 +1,60 @@
+
+<ui:composition 
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+
+
+		<h:form id="form_arraia">
+			<p:messages globalOnly="true" />
+			<fieldset class="panel-filtro">
+
+				<h2 class="titulo">
+					<h:outputText value="#{messages['arraia.titulo.cadastrar']}"
+						rendered="#{!arraiaEditBean.updateMode}" />
+					<h:outputText value="#{messages['arraia.titulo.editar']}"
+						rendered="#{arraiaEditBean.updateMode}" />
+				</h2>
+
+
+
+
+				<div class="panel-campo panel_50">
+					<p:outputLabel for="nome" value="#{messages['arraia.nome.label']}" />
+					<p:inputText id="nome" value="#{arraiaEditBean.bean.nome}" />
+				</div>
+				<div class="panel-campo panel_50">
+					<p:outputLabel for="nomeCientifico"
+						value="#{messages['arraia.nomeCientifico.label']}" />
+					<p:inputText id="nomeCientifico"
+						value="#{arraiaEditBean.bean.nomeCientifico}" />
+				</div>
+				<div class="panel-acoes">
+					<p:commandButton value="#{messages['botao.salvar']}"
+						styleClass="btn-acao" id="salvarBtn"
+						action="#{arraiaEditBean.insert}" update="@form"
+						rendered="#{!arraiaEditBean.updateMode}" />
+
+					<p:commandButton value="#{messages['botao.alterar']}"
+						styleClass="btn-acao" id="alterarBtn"
+						action="#{arraiaEditBean.update}" update="@form"
+						rendered="#{arraiaEditBean.updateMode}" />
+
+				<!-- 	<p:button outcome="#{arraiaEditBean.previousView}"
+						value="#{messages['botao.voltar']}" />
+ -->
+
+				</div>
+			</fieldset>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<script type="text/javascript">
+							$(document).ready(function(){
+		  					 configMaskData();
+	    				});
+						</script>
+
+	<div>
+		<div class="panel-campo panel_30 direita">
+			<p:outputLabel for="dataOcorrencia"
+				value="#{messages['notificacao.acidente.dataOcorrencia']}" />
+
+			<p:calendar styleClass="campo-data" id="dataOcorrencia"
+				pattern="#{messages['data.pattern']}" required="true"
+				locale="#{messages['locale']}" showOn="button"
+				value="#{acidenteNaoOficialBean.bean.dataOcorrencia}"
+				showButtonPanel="true" navigator="true">
+				<f:convertDateTime pattern="#{messages['data.pattern']}" />
+
+			</p:calendar>
+			<p:message id="msgDataOcorrencia" for="dataOcorrencia" />
+		</div>
+	</div>
+
+	<div class="panel-campo panel_30 direita">
+		<div>
+			<p:outputLabel for="periodo"
+				value="#{messages['notificacao.acidente.horario']}"
+				styleClass="required" />
+		</div>
+
+		<p:selectOneMenu id="periodo" style="width: 100%;"
+			value="#{acidenteNaoOficialBean.bean.periodo}" required="true">
+			<f:selectItem itemLabel="#{messages['item.selecione']}" itemValue="" />
+			<f:selectItems var="periodo" value="#{periodoBean.list}"
+				itemValue="#{periodo}" itemLabel="#{periodo}" />
+		</p:selectOneMenu>
+		<p:message for="periodo" />
+
+	</div>
+	<div class="clear"></div>
+
+	<div class="panel-campo panel_30 direita">
+		<div>
+			<p:outputLabel for="municipio"
+				value="#{messages['notificacao.acidente.municipio']}"
+				styleClass="required" />
+		</div>
+		<p:selectOneMenu id="municipio" style="width:100%;"
+			value="#{acidenteNaoOficialBean.bean.municipio}" filter="true"
+			filterMatchMode="startsWith" converter="entityConverter"
+			required="true">
+			<f:selectItem itemLabel="#{messages['item.selecione']}" itemvalue="0" />
+			<f:selectItems var="municipio"
+				value="#{municipioListBean.municipiosDoAmazonas}"
+				itemValue="#{municipio}" itemLabel="#{municipio.nome}" />
+			<p:ajax event="change"
+				listener="#{acidenteNaoOficialBean.handleChangeMunicipio}"
+				update="localizacao" />
+		</p:selectOneMenu>
+		<p:message for="municipio" />
+
+
+	</div>
+
+
+	<div class="panel-campo panel_30 direita">
+		<div>
+			<p:outputLabel for="tipoLocalizacao"
+				value="#{messages['notificacao.acidente.tipolocal']}"
+				styleClass="required" />
+		</div>
+
+		<p:selectOneMenu id="tipoLocalizacao" style="width:100%;"
+			value="#{acidenteNaoOficialBean.tipoLocalizacao}"
+			converter="entityConverter" filter="true"
+			filterMatchMode="startsWith">
+			<f:selectItem itemLabel="#{messages['item.selecione']}" itemValue="0" />
+			<f:selectItems var="tipoLocalizacao"
+				value="#{tipoLocalizacaoListBean.resultList}"
+				itemValue="#{tipoLocalizacao}"
+				itemLabel="#{tipoLocalizacao.descricao}" />
+			<p:ajax event="change"
+				listener="#{acidenteNaoOficialBean.handleChangeTipoLocalizacao}"
+				update="localizacao" process="municipio localizacao" />
+		</p:selectOneMenu>
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="panel-campo panel_40 direita">
+		<p:outputLabel for="localizacao"
+			value="#{messages['notificacao.acidente.localizacao']}" />
+		<p:autoComplete id="localizacao" maxlength="255"
+			value="#{acidenteNaoOficialBean.bean.localizacao}"
+			completeMethod="#{acidenteNaoOficialBean.handleAutoCompleteLocalizacao}"
+			minQueryLength="3" var="localizacao" itemValue="#{localizacao}"
+			itemLabel="#{localizacao.descricao}" converter="localizacaoConverter">
+
+			<p:ajax event="itemSelect"
+				listener="#{acidenteNaoOficialBean.handleSelectLocalizacao}"
+				update="municipio tipoLocalizacao" />
+		</p:autoComplete>
+	</div>
+	<div class="clear"></div>
+	<div class="panel-campo panel_40 direita">
+		<p:outputLabel for="atividadeVitima"
+			value="O que a vitima estava fazendo?" />
+		<p:autoComplete id="atividadeVitima" maxlength="255"
+			value="#{acidenteNaoOficialBean.bean.atividadeVitima}"
+			completeMethod="#{atividadeVitimaListBean.buscar}" minQueryLength="3"
+			var="a" itemValue="#{a}" itemLabel="#{a.descricao}"
+			converter="optionalAutoComplete" />
+	</div>
+	<div class="clear"></div>
+
+</h:body>
+
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-admin.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 80%;margin: auto;">
+		<h:form id="form_arraia">
+
+			
+			<fieldset class="panel-filtro">
+			  <f:validateBean disabled="true">
+				<h2 class="titulo"><h:outputText value="#{messages['arraia.titulo.pesquisar']}" /></h2>	
+
+				<div class="panel-campo panel_50">
+					<p:outputLabel for="nome"
+						value="#{messages['arraia.nome.label']}" />
+					<p:inputText id="nome" value="#{arraiaListBean.arraia.nome}" />
+				</div>
+				<div class="panel-campo panel_50">
+					<p:outputLabel for="nomeCientifico"
+						value="#{messages['arraia.nomeCientifico.label']}" />
+					<p:inputText id="nomeCientifico" value="#{arraiaListBean.arraia.nomeCientifico}" />
+				</div>
+
+				<div class="panel-acoes">
+					<p:commandButton value="#{messages['botao.pesquisar']}" styleClass="btn-acao"
+						id="pesquisarBtn" action="#{arraiaListBean.pesquisar}"
+						update="@form" />
+					
+					<p:button outcome="pretty:arraiaForm" value="Cadastrar" />
+					
+				</div>
+			 </f:validateBean>
+			</fieldset>
+
+			<h:panelGroup>
+				<p:dataTable value="#{arraiaListBean.resultList}" var="bean"
+					paginator="true" rows="15" id="grid-arraias" 
+					rowClasses="impar, par" emptyMessage="#{messages['grid.vazio']}"  >
+
+					<p:column headerText="#{messages['arraia.grid.codigo']}">
+						<h:outputText value="#{bean.id}" />
+					</p:column>
+
+					<p:column headerText="#{messages['arraia.grid.nome']}">
+						<h:outputText value="#{bean.nome}" />
+					</p:column>
+
+					<p:column headerText="#{messages['profissao.grid.acoes']}" style="text-align:center;">
+						<div style="text-align: center;">
+						<h:link styleClass="link-acoes" outcome="#{arraiaListBean.nextView}" >
+							<h:outputText styleClass="ui-icon ui-icon-search" />
+							<f:param name="id" value="#{bean.id}" />
+						</h:link>
+						</div>
+						
+						
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>

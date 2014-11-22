@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+
+<ui:composition template="/template/_home-unidade-saude.xhtml">
+
+	<ui:define name="conteudo">
+		<div style="width: 90%; margin: auto;">
+
+			<h:form id="form_arraia">
+
+
+
+				<p:panel style="background:white;">
+					<p:toolbar style="margin-bottom: 10px;">
+						<p:toolbarGroup align="center">
+							<div style="margin: 8px; text-align: center;">
+								<span>CONSULTA DE PROFISSIONAL DE SAUDE</span>
+							</div>
+						</p:toolbarGroup>
+					</p:toolbar>
+
+					<p:separator style="width: 0px" />
+					<p:messages globalOnly="true" />
+
+					<div
+						style="background: #D8F0D8; border-radius: 10px; margin-bottom: 20px; padding: 20px">
+						<h:panelGrid columns="2" cellspacing="10" style="font-size: 14px;">
+							<h:outputText value="CPF:" style="font-weight:bold" />
+							<h:outputText value="#{profissionalSaudeBean.bean.usuario.cpf}" />
+							<h:outputText value="RG:" style="font-weight:bold" />
+							<h:outputText value="#{profissionalSaudeBean.bean.usuario.rg}" />
+							<h:outputText value="Doc. de registro da profissão" style="font-weight:bold" />
+							<h:outputText value="#{profissionalSaudeBean.bean.crm}" />
+							<h:outputText value="Nome:" style="font-weight:bold" />
+							<h:outputText value="#{profissionalSaudeBean.bean.usuario.nome}" />
+							<h:outputText value="Data de Nascimento:" style="font-weight:bold" />
+							<h:outputText
+								value="#{profissionalSaudeBean.bean.usuario.dataNascimento}">
+								<f:convertDateTime pattern="#{messages['data.pattern']}" />
+							</h:outputText>
+							<h:outputText value="Sexo:" style="font-weight:bold" />
+							<h:outputText value="#{profissionalSaudeBean.bean.usuario.sexo.sexo}" />
+							<h:outputText value="E-mail:" style="font-weight:bold" />
+							<h:outputText value="#{profissionalSaudeBean.bean.usuario.email}" />
+							<h:outputText value="Telefone:" style="font-weight:bold" />
+							<h:outputText value="#{profissionalSaudeBean.bean.usuario.telefone}" />
+							
+							<h:outputText value="Status:" style="font-weight:bold" />
+							<h:outputText value="#{profissionalSaudeBean.bean.status}" />
+
+						</h:panelGrid>
+
+					</div>
+
+
+
+
+
+					<div style="text-align: center; margin-bottom: 20px">
+
+						<p:button id="linkEdit" value="Editar" icon="ui-icon-pencil"
+							styleClass="link-acoes btn-default"
+							outcome="#{profissionalSaudeListBean.nextView}"
+							rendered="#{profissionalSaudeBean.bean.ativo}">
+							<f:param value="#{profissionalSaudeBean.bean.id}" name="id" />
+						</p:button>
+
+
+						<p:commandButton id="linkReativar" icon="ui-icon-circle-check"
+							rendered="#{!profissionalSaudeBean.bean.ativo}" update="@form"
+							action="#{profissionalSaudeListBean.reativar}" value="Reativar"
+							styleClass="link-acoes btn-default">
+							<f:setPropertyActionListener value="#{profissionalSaudeBean.bean}"
+								target="#{profissionalSaudeListBean.profissionalAtivacao}" />
+						</p:commandButton>
+						<p:commandButton id="btnInativar"
+							rendered="#{profissionalSaudeBean.bean.ativo}" update="@form"
+							icon="ui-icon-cancel" action="#{profissionalSaudeListBean.inativar}"
+							value="Inativar" styleClass="link-acoes btn-default">
+							<f:setPropertyActionListener value="#{profissionalSaudeBean.bean}"
+								target="#{profissionalSaudeListBean.profissionalAtivacao}" />
+						</p:commandButton>
+						<p:button outcome="#{profissionalSaudeBean.previousView}" value="Voltar"
+							icon="ui-icon-arrowreturnthick-1-w" styleClass="btn-default" />
+					</div>
+
+
+
+
+
+				</p:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+</html>
