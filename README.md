@@ -6,10 +6,10 @@ Um projeto desenvolvido com a finalidade de permitir a comunidade em geral e aos
 O projeto foi desenvolvido no Instituto Federal de Educação, Ciência e Tecnologia do Amazonas (IFAM) como projeto final do curso de Análise e Desenvolvimento de Sistemas.
 
 Responsáveis:
-Ronei Macedo Gualberto
+Ronei Macedo Gualberto (IFAM)
 
 Orientadores:
-Andréa Pereira Mendonça; Maria Cristina dos Santos
+Profa. Dra. Andréa Pereira Mendonça (IFAM); Profa. Dra. Maria Cristina dos Santos(UFAM)
 
 Link do TCC: 
 <a href="https://drive.google.com/file/d/0B0-RUQw7trLEZlFCRGpvcGN3SFU/view?usp=sharing">TCC</a>
